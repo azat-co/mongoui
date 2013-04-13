@@ -14,12 +14,13 @@ app.get('/',function(req,res){
 app.get('/collections',function(req,res){
   db.driver.collectionNames(function(e,names){
     res.json(names);
-  })
+  });
 });
 app.get('/collections/:name',function(req,res){
   var collection = db.get(req.params.name);
   collection.find({},{limit:20},function(e,docs){
     res.json(docs);
-  })
+  });
 });
-app.listen(3000)
+
+app.listen(3000);
