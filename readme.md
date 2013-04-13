@@ -4,7 +4,7 @@ MongoUI (mongoui) is an web browser admin interface for MongoDB.
 
 ## Why
 
-Tired of typing db.users.findOne and show collections. Can't find Node.js implementaton.
+Tired of typing `db.users.findOne({_id:ObjectId(...)})` and show collections. Can't find Node.js implementaton.
 
 # Use
 
