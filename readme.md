@@ -1,10 +1,12 @@
 # MongoUI
 
-MongoUI (mongoui) is an web browser admin interface for MongoDB.
+MongoUI (mongoui) is an web browser admin interface for MongoDB. Standalon tool (run as an app locally or on your server), middleware later.
+
 
 ## Why
 
-Tired of typing `db.users.findOne({_id:ObjectId(...)})` and show collections. Can't find Node.js implementaton.
+Tired of typing `db.users.findOne({_id:ObjectId(...)})` just to look up data structure. Even more typing to modify the data. Can't find Node.js implementaton (not true any more, there is [exprss-mongo](https://github.com/andzdroid/mongo-express)).
+
 
 # Use
 
@@ -35,3 +37,7 @@ Download and install [JSONView Chrome extension](https://chrome.google.com/webst
 * Data (row) View updatable 
 * Connection to remote database (copy/paste connetion string or password+username+host+port)
 
+# Non-node.js alternatives
+
+* Mac OS X app: [MongoHub](http://mongohub.todayclose.com/)
+*.NET based app: MongoVUE](http://www.mongovue.com/)
