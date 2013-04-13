@@ -40,4 +40,4 @@ Download and install [JSONView Chrome extension](https://chrome.google.com/webst
 # Non-node.js alternatives
 
 * Mac OS X app: [MongoHub](http://mongohub.todayclose.com/)
-*.NET based app: MongoVUE](http://www.mongovue.com/)
+* .NET based app: MongoVUE](http://www.mongovue.com/)
