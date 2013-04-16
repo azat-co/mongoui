@@ -2,6 +2,11 @@
 
 MongoUI (mongoui) is an web browser admin interface for MongoDB. Standalon tool (run as an app locally or on your server), middleware later.
 
+## Branches
+
+* Master — major releases, main branch
+* Develop — current development branch (make your pull requests here)
+
 
 ## Why
 
