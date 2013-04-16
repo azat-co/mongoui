@@ -1,0 +1,37 @@
+<Doctype:>
+<Header:>
+<Title:>
+  mongoui
+
+<Body:>
+  <span>
+    List of databases
+  </span>
+  <select name="dbs" x-bind="change: changeDatabase">
+    {{#each dbs.databases}}
+    <option value="{name}" selected="{equal(name, dbName)}">
+      {{name}}
+    </option>
+    {{/}}
+  </select>
+  <!-- <pre><code>{{dbs}}</code></pre> -->
+
+  <div>Collections: 
+    {{#each collections}}
+    <div>
+      <a href="/api/collections/{name}.json" target="_blank">
+        {{.name}}
+      </a>
+    </div>
+    {{/}}    
+  </div>
+
+  <div>Database:
+    <input value="{dbName}"/>
+    <p>{dbName}</p>
+  </div>
+
+Raw collections:
+<pre><code>{{collections}}</code></pre>
+
+<Footer:>
