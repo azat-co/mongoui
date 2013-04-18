@@ -1,5 +1,5 @@
 var http = require('http');
-var mongo = require('mongodb');
+//var mongo = require('mongodb');
 var express = require('express');
 var monk = require('monk');
 var config = require('./config.json')
@@ -12,14 +12,14 @@ var derby = require('derby');
 
 var app = new express();
 // console.log(config.database.default.host+':'+config.database.default.port+'/' + config.database.default.name);
-var server = http.createServer(app)
+var server = http.createServer(app);
 // console.log(derby.logPlugin)
-derby.use(derby.logPlugin)
+derby.use(derby.logPlugin);
 var store = derby.createStore({
   listen: server
 });
 store.afterDb("set", "dbName", function(txn, doc, prevDoc, done) {
-  console.log(txn, txn.length, txn[3][1])
+  console.log(txn, txn.length, txn[3][1]);
   if (txn && (txn.length > 2) && txn[3][1]) {
     console.log(txn[3][1]);
     //filter dbName based on existing list
@@ -30,7 +30,7 @@ store.afterDb("set", "dbName", function(txn, doc, prevDoc, done) {
     // db.driver.admin.listDatabases(function(e,dbs){
     // model.set('dbs',dbs);
     db.driver.collectionNames(function(e, names) {
-      console.log(names)
+      console.log(names);
       model.set('collections', names);
       model.subscribe('collections', function() {
         done();
@@ -57,13 +57,14 @@ var model = store.createModel();
 
 app.use(store.modelMiddleware());
 
+//todo: tame this callback hell!!
 var derbyApp = require('./main');
 derbyApp.get('/main', function(page, model, params, next) {
   model.set('dbName', config.database.default.name);
   db.driver.admin.listDatabases(function(e, dbs) {
     model.set('dbs', dbs);
     db.driver.collectionNames(function(e, names) {
-      console.log(names)
+      console.log(names);
       model.set('collections', names);
       model.subscribe('dbs', function() {
         model.subscribe('collections', function() {
@@ -76,7 +77,6 @@ derbyApp.get('/main', function(page, model, params, next) {
       });
     });
   });
-
 });
 
 // derbyApp.on('changeDatabase',function(obj,obj){
@@ -106,9 +106,10 @@ app.get('/api/collections/:db.:name.json', function(req, res) {
   collection.find({}, {
     limit: 20
   }, function(e, docs) {
-    console.log('boo',docs)
+    console.log('boo',docs);
     res.json(docs);
   });
 });
 
+console.log('listening on port 3000');
 server.listen(3000);
