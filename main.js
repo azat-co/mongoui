@@ -14,17 +14,16 @@ app.ready(function(model) {
     // app.page.render('main',{dbName:'object'});
   });
   model.on('set','collections',function(path,object){
-    console.log('!',model.get('collections'))
+    console.log('!',model.get('collections'));
     app.page.render();
-  })
+  });
   app.changeDatabase = function(e, element, next) {
     app.model.set('dbName', element.value);
     // element.select();
     console.log(app.model.get('dbName'));
     next();
   };
-
-})
+});
 
 // app.get('/main', function(page, model,params,next) {
 //   model.subscribe('dbs', function() {
