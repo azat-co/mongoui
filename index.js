@@ -61,24 +61,43 @@ app.use(store.modelMiddleware());
 //todo: tame this callback hell!!
 var derbyApp = require('./main');
 derbyApp.get('/main', function(page, model, params, next) {
-  model.set('dbName', config.database.default.name);
-  db.driver.admin.listDatabases(function(e, dbs) {
-    model.set('dbs', dbs);
-    db.driver.collectionNames(function(e, names) {
+//asyc is used to tame the stream of callbacks
+//see: https://github.com/caolan/async
+  async.waterfall([
+    function(callback) {
+      model.set('dbName', config.database.default.name);
+      db.driver.admin.listDatabases(function(e, dbs) {
+        callback(null, e, dbs);
+      });
+    }, function(dbs, callback) {
+      model.set('dbs', dbs);
+      //iterate trhough collection names
+      db.driver.collectionNames(function(e, names) {
+        callback(null, e, names);
+      });
+    }, function(e, names, callback){
       console.log(names);
       model.set('collections', names);
+      //iterate through database names
       model.subscribe('dbs', function() {
-        model.subscribe('collections', function() {
-          model.subscribe('dbName', function(e, dbName) {
-            // page.render({dbName:'test'});
-            page.render();
-            // return next();
-          });
-        });
+        callback(null);
       });
-    });
-  });
+    }, function(callback) {
+      //iterate through collections
+      model.subscribe('collections', function() {
+        callback(null);
+      });
+    }, function(callback) {
+      //for each database, render to page;
+      model.subscribe('dbName', function(e, dbName) {
+        page.render();
+      });
+    }
+  ]);
 });
+
+
+
 
 // derbyApp.on('changeDatabase',function(obj,obj){
 // console.log('HAHAHA')
