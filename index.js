@@ -58,7 +58,6 @@ var model = store.createModel();
 
 app.use(store.modelMiddleware());
 
-//todo: tame this callback hell!!
 var derbyApp = require('./main');
 derbyApp.get('/main', function(page, model, params, next) {
 //asyc is used to tame the stream of callbacks
