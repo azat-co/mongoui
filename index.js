@@ -1,8 +1,9 @@
 var http = require('http');
+var async = require('async');
 //var mongo = require('mongodb');
 var express = require('express');
 var monk = require('monk');
-var config = require('./config.json')
+var config = require('./config.json');
 var db = monk(config.database.
 default.host + ':' + config.database.
 default.port + '/' + config.database.
