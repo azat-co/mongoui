@@ -59,16 +59,18 @@ var model = store.createModel();
 app.use(store.modelMiddleware());
 
 var derbyApp = require('./main');
+
 derbyApp.get('/main', function(page, model, params, next) {
   //asyc is used to tame the stream of callbacks
   //see: https://github.com/caolan/async
+
   async.waterfall([
     function(callback) {
       model.set('dbName', config.database.default.name);
       db.driver.admin.listDatabases(function(e, dbs) {
         callback(null, e, dbs);
       });
-    }, function(dbs, callback) {
+    }, function(e, dbs, callback) {
       model.set('dbs', dbs);
       //iterate trhough collection names
       db.driver.collectionNames(function(e, names) {
@@ -94,9 +96,6 @@ derbyApp.get('/main', function(page, model, params, next) {
     }
   ]);
 });
-
-
-
 
 // derbyApp.on('changeDatabase',function(obj,obj){
 // console.log('HAHAHA')
