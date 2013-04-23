@@ -1,11 +1,13 @@
 <Doctype:>
 <Header:>
+  <link rel="stylesheet" href="stylesheets/bootstrap.css" type="text/css" media="screen" charset="utf-8"/>
+
 <Title:>
   mongoui
 
 <Body:>
   <span>
-    List of databases
+    List of databases:
   </span>
   <select name="dbs" x-bind="change: changeDatabase">
     {{#each dbs.databases}}
@@ -16,14 +18,14 @@
   </select>
   <!-- <pre><code>{{dbs}}</code></pre> -->
 
-  <div>Collections: 
+  <div>Collections:
     {{#each collections}}
     <div>
       <a href="/api/collections/{name}.json" target="_blank">
         {{.name}}
       </a>
     </div>
-    {{/}}    
+    {{/}}
   </div>
 
   <div>Database:
@@ -35,3 +37,7 @@ Raw collections:
 <pre><code>{{collections}}</code></pre>
 
 <Footer:>
+
+<Scripts:>
+  <script src="/js/jquery-2.0.0.js" type="text/javascript" charset="utf-8"></script>
+  <script src="/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
