@@ -12,6 +12,7 @@ var db = monk(config.database.default.host +
 
 // var db= monk('localhost:27017/test')
 var derby = require('derby');
+// derby.use(require('derby-ui-boot'));
 
 var app = new express();
 

@@ -1,4 +1,6 @@
-var app = require('derby').createApp(module);
+var derby = require('derby');
+derby.use(require('./ui'));
+var app = derby.createApp(module);
 
 app.ready(function(model) {
   model.on('set','dbName',function(path,object){
