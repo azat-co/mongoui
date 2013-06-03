@@ -34,11 +34,11 @@ Download and install [JSONView Chrome extension](https://chrome.google.com/webst
 - [ ] blabla
 - [x] boumboum
 - [ ] nothing
-* [x ] Hook up Derby
-* [x ] Expand docs
-* [x ] Main View (list of databases, list of collections, links, raw link to JSON REST API)
-* [  ] Collection View
-* [  ] Data (row) View ready-only
+* [x] Hook up Derby
+* [ ] Expand docs
+* [ ] Main View (list of databases, list of collections, links, raw link to JSON REST API)
+* [ ] Collection View
+* [ ] Data (row) View ready-only
 
 ## v0.1.1:
 
