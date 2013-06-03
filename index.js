@@ -49,10 +49,18 @@ store.afterDb("set", "collectionBoxName", function(txn, doc, prevDoc, done) {
     var collectionName = txn[3][1];
     db.get(collectionName).find({}, {
       limit: 20
+      //,
+      // skip: 20,
+      // sort:{_id: 1}
     }, function(e, items) {
       if (e) console.error(e)
       // db.get(txn[3][1]).find({},{$limit:20}, function (e, items){
-      model.set('collectionBox', JSON.stringify(items,0,2));
+      if (items.length === 0) {
+        model.set('collectionBox', "Collection is empty");  
+      } else {
+        model.set('collectionBox', JSON.stringify(items,0,2));  
+      }
+      
       done()
     })
   }
@@ -134,7 +142,7 @@ app.get('/api/collections.json', function(req, res) {
     res.json(names);
   });
 });
-app.get('/api/collections/:db.:name.json', function(req, res) {
+app.get('/api/dbs/:db/collections/:name.json', function(req, res) {
   // console.log('!',db)
   var collection = db.get(req.params.name);
   collection.find({}, {
