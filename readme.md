@@ -31,6 +31,9 @@ Download and install [JSONView Chrome extension](https://chrome.google.com/webst
 
 ## v0.1:
 
+- [ ] blabla
+- [x] boumboum
+- [ ] nothing
 * [x ] Hook up Derby
 * [x ] Expand docs
 * [x ] Main View (list of databases, list of collections, links, raw link to JSON REST API)
