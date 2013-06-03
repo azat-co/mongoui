@@ -1,13 +1,14 @@
 {
   "name": "mongoui",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "engines": {
     "node": ">= v0.6"
   },
   "dependencies": {
-    "mongodb":"1.2.14",
+    "mongodb": "1.2.14",
     "monk": "0.7.1",
     "express": "3.1.0",
-    "jade": "0.28.2"
+    "derby": "0.3.15",
+    "async": "*"
   }
 }

@@ -1,0 +1,11 @@
+{
+  "database": {
+    "default": {
+      "host": "localhost",
+      "port": 27017,
+      "name": "storify_localhost",
+      "username": "",
+      "password": ""
+    }
+  }
+}
