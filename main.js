@@ -15,7 +15,7 @@ app.ready(function(model) {
 
   app.changeDatabase = function(e, element, next) {
     // console.log('!', element, typeof element); //.find('a').attr('data-value'));
-    app.model.set('dbName', $(element).find('a').attr('data-value'));
+    app.model.set('dbName', $(element).find('a').attr('data-value')); //TODO: e.target.dataset.value
     console.log(app.model.get('dbName'));
     next();
   };
