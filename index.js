@@ -71,10 +71,10 @@ store.afterDb("set", "collectionBoxName", function(txn, doc, prevDoc, done) {
 app.use(store.modelMiddleware());
 
 var derbyApp = require('./main');
-derbyApp.get('/', function(page, model, params, next) {
-  page.redirect('/main')
-});
 derbyApp.get('/main', function(page, model, params, next) {
+  page.redirect('/')
+});
+derbyApp.get('/', function(page, model, params, next) {
   //asyc is used to tame the stream of callbacks
   //see: https://github.com/caolan/async
 
@@ -109,15 +109,24 @@ derbyApp.get('/main', function(page, model, params, next) {
   }, function(callback) {
     //for each database, render to page;
     model.subscribe('dbName', function(e, dbName) {
-            model.subscribe('collectionBox', function() {
+      model.subscribe('collectionBox', function() {
         page.render();
         // done();
-      });
-      
+      });      
     });
   }]);
 });
 
+derbyApp.get('/dbs/:db_name/collections/:collection_name', function(page, model, params, next){
+  page.render('edit',{dbName: params.db_name, collectionName: params.collection_name});
+   // var collection = db.get(req.params.name);
+  // collection.find({}, {
+    // limit: 20
+  // }, function(e, docs) {
+    // console.log('boo', docs);
+    // res.json(docs);
+  // });
+});
 // derbyApp.get('/main/collections', function(page, model, params, next){
 //   console.log('boom!')
 // })
