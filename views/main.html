@@ -31,6 +31,17 @@
         <div class="nav-collapse">
           <ul class="nav">
             <li class="active"><a href="/main">Main View</a></li>            
+            <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown">Databases: {{dbName}}
+                <b class="caret"></b>
+              </a>
+              <ul class="dropdown-menu" name="dbs" >
+                {{#each dbs.databases}}
+                  <li x-bind="click: changeDatabase" ><a href="#" data-value="{name}"> {{name}} — {{sizeOnDisk}}</a></li>
+                {{/}}
+              </ul>
+            </li>
+            <li></li>
           </ul>
           <ul class="nav pull-right">
             <li><a href="https://github.com/azat-co/mongoui">GitHub</a></li>
@@ -46,13 +57,7 @@
         <span>
           List of databases:
         </span>
-        <select name="dbs" x-bind="change: changeDatabase">
-          {{#each dbs.databases}}
-          <option value="{name}" selected="{equal(name, dbName)}">
-            {{name}} — {{sizeOnDisk}}
-          </option>
-          {{/}}
-        </select>
+
 
         <div>Database URL:
           <input value="{dbName}" placeholder="//localhost:27017/"/>
