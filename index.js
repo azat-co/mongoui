@@ -71,10 +71,10 @@ store.afterDb("set", "collectionBoxName", function(txn, doc, prevDoc, done) {
 app.use(store.modelMiddleware());
 
 var derbyApp = require('./main');
-derbyApp.get('/main', function(page, model, params, next) {
-  page.redirect('/')
-});
 derbyApp.get('/', function(page, model, params, next) {
+  page.redirect('/main')
+});
+derbyApp.get('/main', function(page, model, params, next) {
   //asyc is used to tame the stream of callbacks
   //see: https://github.com/caolan/async
 
