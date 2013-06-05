@@ -34,8 +34,10 @@ store.afterDb("set", "dbName", function(txn, doc, prevDoc, done) {
         el.name=el.name.split('.')[1];
       })
       model.set('collections', names);
+      if (names.length>0) model.set('collectionName', names[0].name)      
       // model.subscribe('collections', function() {
-        done();
+      console.log(model.get('collections'))
+      done();
       // });
     });
   }
@@ -59,8 +61,7 @@ store.afterDb("set", "collectionName", function(txn, doc, prevDoc, done) {
         model.set('collectionBox', {msg:"Collection is empty"});  
       } else {
         model.set('collectionBox', JSON.stringify(items,0,2));  
-      }
-      
+      }      
       done()
     })
   }
@@ -71,77 +72,94 @@ store.afterDb("set", "collectionName", function(txn, doc, prevDoc, done) {
 app.use(store.modelMiddleware());
 
 var derbyApp = require('./main');
+
 derbyApp.get('/', function(page, model, params, next) {
   page.redirect('/main')
 });
+
+if (config.database.default.name) {
+  model.set('dbName', config.database.default.name);  
+}    
+
+var localDbs = {};
+
+async.waterfall([
+
+function(callback) {
+  db.driver.admin.listDatabases(function(e, dbs) {
+    callback(null, e, dbs);
+  });
+}, function(e, dbs, callback) {
+  localDbs = dbs;
+
+    callback(null);
+
+}, function(callback) {
+  model.subscribe('dbName', function(e, dbName) {
+    model.subscribe('collectionBox', function() {
+      model.subscribe('collectionName', function(){
+        callback();
+      })
+    });      
+  });
+}]);
+
 derbyApp.get('/main', function(page, model, params, next) {
-  //asyc is used to tame the stream of callbacks
-  //see: https://github.com/caolan/async
-
-  async.waterfall([
-
-  function(callback) {
-    model.set('dbName', config.database.default.name);
-    db.driver.admin.listDatabases(function(e, dbs) {
-      callback(null, e, dbs);
-    });
-  }, function(e, dbs, callback) {
-    model.set('dbs', dbs);
-    //iterate trhough collection names
-    db.driver.collectionNames(function(e, names) {      
-      callback(null, e, names);
-    });
-  }, function(e, names, callback) {
-    // console.log(names);
-    names.forEach(function(el,i,list){
-      el.name=el.name.split('.')[1];
-    })
-    model.set('collections', names);
-    if (names.length>0) model.set('collectionName', names[0].name)
-    //iterate through database names
-    model.subscribe('dbs', function() {
-      callback(null);
-    });
-  }, function(callback) {
-    //iterate through collections
-    model.subscribe('collections', function() {
-      callback(null);
-    });
-  }, function(callback) {
-    //for each database, render to page;
-    model.subscribe('dbName', function(e, dbName) {
-      model.subscribe('collectionBox', function() {
-        page.render();
-        // done();
-      });      
-    });
-  }]);
+  model.set('dbs',localDbs);
+  page.render();
 });
 
-derbyApp.get('/dbs/:db_name/collections/:collection_name', function(page, model, params, next){
-  page.render('edit',{dbName: params.db_name, collectionName: params.collection_name});
-   // var collection = db.get(req.params.name);
-  // collection.find({}, {
-    // limit: 20
-  // }, function(e, docs) {
-    // console.log('boo', docs);
-    // res.json(docs);
-  // });
-});
-// derbyApp.get('/main/collections', function(page, model, params, next){
-//   console.log('boom!')
-// })
-// derbyApp.on('changeDatabase',function(obj,obj){
-// console.log('HAHAHA')
-// })
+derbyApp.get('/host/:host_name/dbs/:db_name', function(page, model, params, next){
+  model.subscribe('collections', function() {
+    console.log('YO')
+  });  
+  model.subscribe('dbs', function() {
+    console.log('YO')
+  });      
+    model.subscribe('collectionBox', function() {
+    console.log('YO')
+  });  
+  model.set('collectionName', '');
+  model.set('dbs', localDbs)
+  if (params.db_name!== model.get('dbName') ) {
+    model.set('dbName', params.db_name);    
+    console.log("!!!CHANGEDB!!!",params.db_name);
+  }
+  page.render();
+})
+
+derbyApp.get('/host/:host_name/dbs/:db_name/collections/:collection_name', function(page, model, params, next){
+  model.set('dbs', localDbs)
+  model.subscribe('collections', function() {
+    console.log('YO')
+  });  
+  model.subscribe('dbs', function() {
+    console.log('YO')
+  });      
+    model.subscribe('collectionBox', function() {
+    console.log('YO')
+  });  
+      model.subscribe('dbName', function() {
+    console.log('YO')
+  });  
+  model.subscribe('collectionName', function() {
+    console.log('YO')
+  });      
+
+  if (params.db_name !== model.get('dbName') ) {
+    console.log("!!!CHANGE!!!",params.db_name);
+    model.set('dbName', params.db_name);    
+  }
+  model.set('collectionName', params.collection_name);
+  page.render();
+  // next();
+})
+
 app.use(derbyApp.router());
 
 app.use(express.static(__dirname + '/public'));
-// console.log(Object.keys(model.async))
-// console.log(model)
-app.get('/main', function(req, res) {
-  // console.log(req.getModel().get('dbName'));
-});
+
+
 app.get('/api.json', function(req, res) {
   db.driver.admin.listDatabases(function(e, dbs) {
     res.json(dbs);
