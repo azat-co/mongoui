@@ -68,13 +68,42 @@
         <span class="badge badge-info">(raw)
         </span>
       </a>
-      <a href="/dbs/{{dbName}}/collections/{collecionName}" target="_blank" class="raw">
+<!--       <a href="/dbs/{{dbName}}/collections/{collecionName}" target="_blank" class="raw">
         <span class="badge badge-warning">
           (edit)
         </span>
-      </a>   
+      </a>    -->
       {/if}
     </h3>
+  </div>
+  <div class="row-fluid">
+    <form class="form-horizontal well">
+      <legend>Filter</legend>
+
+<!--         <select class="input-small">
+          <option value="find">find</option>
+          <option value="remove">remove</option>
+        </select>
+ -->
+      <div class="control-group">
+        <label class="control-label" for="query-key">Key: Value</label>
+        <div class="controls key-value-row">
+          "<input class="text input-xlarge query-key" placeholder="_id"/>":&nbsp;
+          "<input class="text input-xlarge query-value" placeholder="5061da1e63e785cc44017668"/>"          
+        </div>
+      </div>
+<!--       <div class="control-group">
+        <label class="control-label" for="query-key">Key: Value</label>
+        <div class="controls">
+          "<input class="text" class="input-xlarge" id="query-key" placeholder="_id"/>":            "<input class="text" class="input-xlarge" id="query-value" placeholder="5061da1e63e785cc44017668"/>"
+        </div>
+      </div>
+ -->
+      <div class="form-actions">
+        <button type="button" class="btn btn-primary" x-bind="click: applyFilter">Apply</button>&nbsp;&nbsp;
+        <button type="button" class="btn btn-success" x-bind="click: addKeyValueForm">One more key-value pair</button>
+      </div>      
+    </form>
   </div>
     <div class="row-fluid">
 <!--       <div class="span4">        

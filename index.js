@@ -111,47 +111,79 @@ derbyApp.get('/main', function(page, model, params, next) {
 
 derbyApp.get('/host/:host_name/dbs/:db_name', function(page, model, params, next){
   model.subscribe('collections', function() {
-    console.log('YO')
+    // console.log('YO')
   });  
   model.subscribe('dbs', function() {
-    console.log('YO')
+    // console.log('YO')
   });      
     model.subscribe('collectionBox', function() {
-    console.log('YO')
+    // console.log('YO')
   });  
   model.set('collectionName', '');
   model.set('dbs', localDbs)
   if (params.db_name!== model.get('dbName') ) {
     model.set('dbName', params.db_name);    
-    console.log("!!!CHANGEDB!!!",params.db_name);
+    // console.log("!!!CHANGEDB!!!",params.db_name);
   }
   page.render();
 })
 
 derbyApp.get('/host/:host_name/dbs/:db_name/collections/:collection_name', function(page, model, params, next){
+
   model.set('dbs', localDbs)
   model.subscribe('collections', function() {
-    console.log('YO')
+    // console.log('YO')
   });  
   model.subscribe('dbs', function() {
-    console.log('YO')
+    // console.log('YO')
   });      
     model.subscribe('collectionBox', function() {
-    console.log('YO')
+    // console.log('YO')
   });  
       model.subscribe('dbName', function() {
-    console.log('YO')
+    // console.log('YO')
   });  
   model.subscribe('collectionName', function() {
-    console.log('YO')
+    // console.log('YO')
   });      
 
   if (params.db_name !== model.get('dbName') ) {
-    console.log("!!!CHANGE!!!",params.db_name);
+    // console.log("!!!CHANGE!!!",params.db_name);
     model.set('dbName', params.db_name);    
   }
-  model.set('collectionName', params.collection_name);
-  page.render();
+  
+  if (params.query && params.collection_name) {
+    // console.log(params.query);
+    // console.log(params.query.query)
+    var query = decodeURI(params.query.query);
+    // console.log(typeof query);
+    try {
+      query = JSON.parse(query);
+    } catch(e) {
+      next(e);
+    }
+    //TODO cast types properly if 1 -> use number, not string 
+   // db.get(params.collection_name).find({_access:1}, {
+   db.get(params.collection_name).find(query, {
+      limit: 20
+      //,
+      // skip: 20,
+      // sort:{_id: 1}
+    }, function(e, items) {
+      if (e) console.error(e)      
+      if (items.length === 0) {
+        model.set('collectionBox', {msg:"No matches"});  
+      } else {
+        model.set('collectionBox', JSON.stringify(items,0,2));  
+      }      
+      page.render(params);
+    })    
+  } else {
+    model.set('collectionName', params.collection_name);
+    page.render(params);
+  }
+  // model.set('query', decodeURI(params.query));
+
   // next();
 })
 

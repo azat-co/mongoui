@@ -29,5 +29,21 @@ app.ready(function(model) {
     app.model.set('collectionName',e.target.dataset.value);
     next();
   }
+
+
+
+  app.addKeyValueForm = function(e, element, next){
+
+  };
+  app.applyFilter = function(e, element, next){  
+    var query = {};
+    $('.key-value-row').each(function(index,keyValueRow){
+      console.log(keyValueRow)
+      query[$(keyValueRow).find('.query-key').val()] = $(keyValueRow).find('.query-value').val();
+    })
+    console.log(query)
+    app.page.redirect(window.location.href.substr(0,window.location.href.indexOf('?')) + '?query=' + encodeURI(JSON.stringify(query)));
+  };  
+
 });
 
