@@ -11,6 +11,7 @@
     mongoui
 
 <Head:>
+  <link rel="stylesheet" href="/css/sunburst.css"/>
   <!-- <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" media="screen" charset="utf-8"/> -->
   <!-- <link rel="stylesheet" href="css/bootstrap-responsive.min.css" type="text/css" media="screen" charset="utf-8"/> -->
 <Header:>
@@ -85,7 +86,7 @@
           <option value="remove">remove</option>
         </select>
  -->
-      <div class="control-group">
+      <div class="control-group key-value-group">
         <label class="control-label" for="query-key">Key: Value</label>
         <div class="controls key-value-row">
           "<input class="text input-xlarge query-key" placeholder="_id"/>":&nbsp;
@@ -135,7 +136,9 @@
       {#if collectionName}
       <div class="span12">
         <div class="collection-box">
-          <pre><code>{collectionBox}</code></pre>
+          <pre><code>
+          {{unescaped collectionBox}}
+        </code></pre>
         </div>
 
       </div>

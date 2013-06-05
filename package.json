@@ -9,6 +9,7 @@
     "monk": "0.7.1",
     "express": "3.1.0",
     "derby": "0.3.15",
-    "async": "*"
+    "async": "*",
+    "highlight": "0.2.3"
   }
 }

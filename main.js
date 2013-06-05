@@ -33,7 +33,7 @@ app.ready(function(model) {
 
 
   app.addKeyValueForm = function(e, element, next){
-
+    $('.key-value-group :last').after($('.key-value-group :last').clone(true, true));
   };
   app.applyFilter = function(e, element, next){  
     var query = {};

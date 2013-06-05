@@ -12,6 +12,8 @@ var db = monk(config.database.default.host +
 
 // var db= monk('localhost:27017/test')
 var derby = require('derby');
+
+var highlight = require('highlight').Highlight;
 // derby.use(require('derby-ui-boot'));
 
 var app = new express();
@@ -174,7 +176,8 @@ derbyApp.get('/host/:host_name/dbs/:db_name/collections/:collection_name', funct
       if (items.length === 0) {
         model.set('collectionBox', {msg:"No matches"});  
       } else {
-        model.set('collectionBox', JSON.stringify(items,0,2));  
+        var html = highlight ( JSON.stringify(items,0,2));
+        model.set('collectionBox',html);  
       }      
       page.render(params);
     })    
