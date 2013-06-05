@@ -43,7 +43,7 @@ store.afterDb("set", "dbName", function(txn, doc, prevDoc, done) {
 
 
 
-store.afterDb("set", "collectionBoxName", function(txn, doc, prevDoc, done) {
+store.afterDb("set", "collectionName", function(txn, doc, prevDoc, done) {
   if (txn && (txn.length > 2) && txn[3][1]) {
     console.log(txn[3][1]);
     var collectionName = txn[3][1];
@@ -56,7 +56,7 @@ store.afterDb("set", "collectionBoxName", function(txn, doc, prevDoc, done) {
       if (e) console.error(e)
       // db.get(txn[3][1]).find({},{$limit:20}, function (e, items){
       if (items.length === 0) {
-        model.set('collectionBox', "Collection is empty");  
+        model.set('collectionBox', {msg:"Collection is empty"});  
       } else {
         model.set('collectionBox', JSON.stringify(items,0,2));  
       }
@@ -88,7 +88,7 @@ derbyApp.get('/main', function(page, model, params, next) {
   }, function(e, dbs, callback) {
     model.set('dbs', dbs);
     //iterate trhough collection names
-    db.driver.collectionNames(function(e, names) {
+    db.driver.collectionNames(function(e, names) {      
       callback(null, e, names);
     });
   }, function(e, names, callback) {
@@ -97,6 +97,7 @@ derbyApp.get('/main', function(page, model, params, next) {
       el.name=el.name.split('.')[1];
     })
     model.set('collections', names);
+    if (names.length>0) model.set('collectionName', names[0].name)
     //iterate through database names
     model.subscribe('dbs', function() {
       callback(null);

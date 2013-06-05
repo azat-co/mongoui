@@ -42,11 +42,11 @@
             </li>
 
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Collections: {{collectionBoxName}}&nbsp;<b class="caret"></b>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Collections: {{collectionName}}&nbsp;<b class="caret"></b>
               </a>
               <ul class="dropdown-menu" name="dbs">
                 {{#each collections}}
-                  <li x-bind="click: toggleCollection" ><a href="#" data-value="{name}"> {{name}}</a></li>
+                  <li ><a  x-bind="click: changeCollection" href="#" data-value="{{.name}}"> {{.name}}</a></li>
                 {{/each}}
               </ul>
             </li>
@@ -61,9 +61,22 @@
       </div>
     </div><!-- /navbar-inner -->
   </div>
-
+  <div class="row-fluid">
+    <h3>
+      {{dbName}}.{{collectionName}}
+      <a href="/api/dbs/{{dbName}}/collections/{collectionName}.json" target="_blank" class="raw ">
+        <span class="badge badge-info">(raw)
+        </span>
+      </a>
+      <a href="/dbs/{{dbName}}/collections/{collecionName}" target="_blank" class="raw">
+        <span class="badge badge-warning">
+          (edit)
+        </span>
+      </a>   
+    </h3>
+  </div>
     <div class="row-fluid">
-      <div class="span4">        
+<!--       <div class="span4">        
         <span>
           List of databases:
         </span>
@@ -76,15 +89,10 @@
         <div>Collections of <span><strong>{dbName}</strong></span>:
           {{#each collections}}
           <div>
-            <a class="collection" x-bind="click: toggleCollection" data-value="{{.name}}">
+            <a class="collection" x-bind="click: changeCollection" data-value="{{.name}}">
               {{.name}}
             </a>&nbsp;
-            <a href="/api/dbs/{{dbName}}/collections/{name}.json" target="_blank" class="raw badge badge-info">
-               (raw)
-            </a>
-            <a href="/dbs/{{dbName}}/collections/{name}" target="_blank" class="raw badge badge-danger">
-               (edit)
-            </a>            
+         
           </div>
           {{/}}
         </div>
@@ -93,10 +101,10 @@
         Raw collections:
         <pre><code>{{collections}}</code></pre>
 
-      </div>
-      <div class="span8">
+      </div> -->
+      <div class="span12">
 
-        <div style="float:right" class="collection-box">
+        <div style0="float:right" class="collection-box">
           {{collectionBoxName}}
           <pre><code>{{collectionBox}}</code></pre>
         </div>
