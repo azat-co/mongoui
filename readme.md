@@ -31,16 +31,19 @@ Download and install [JSONView Chrome extension](https://chrome.google.com/webst
 
 ## v0.1:
 
-* Hook up Derby
-* Expand docs
-* Main View (list of databases, list of collections, links, raw link to JSON REST API)
-* Collection View
-* Data (row) View ready-only
+- [ ] blabla
+- [x] boumboum
+- [ ] nothing
+* [x] Hook up Derby
+* [ ] Expand docs
+* [ ] Main View (list of databases, list of collections, links, raw link to JSON REST API)
+* [ ] Collection View
+* [ ] Data (row) View ready-only
 
 ## v0.1.1:
 
-* Data (row) View updatable 
-* Connection to remote database (copy/paste connetion string or password+username+host+port)
+* [ ] Data (row) View updatable 
+* [ ] Connection to remote database (copy/paste connetion string or password+username+host+port)
 
 # Non-node.js alternatives
 
