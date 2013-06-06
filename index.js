@@ -153,8 +153,8 @@ derbyApp.get('/host/:host_name/dbs/:db_name/collections/:collection_name', funct
     // console.log("!!!CHANGE!!!",params.db_name);
     model.set('dbName', params.db_name);    
   }
-  
-  if (params.query && params.collection_name) {
+  console.log(typeof params.query)
+  if (params.query.query && params.collection_name) {
     // console.log(params.query);
     // console.log(params.query.query)
     var query = decodeURI(params.query.query);
@@ -178,6 +178,16 @@ derbyApp.get('/host/:host_name/dbs/:db_name/collections/:collection_name', funct
       } else {
         var html = highlight ( JSON.stringify(items,0,2));
         model.set('collectionBox',html);  
+        //edit if one match
+        if (items.length === 1) {
+          model.set('item',items[0]);
+          var itemConverted = editMode(items[0]);
+          model.set('itemConverted', itemConverted);
+          model.subscribe('itemConverted',function(){
+            console.log('editing mode item subscribed')
+          });
+
+        }
       }      
       page.render(params);
     })    
@@ -218,3 +228,31 @@ app.get('/api/dbs/:db/collections/:name.json', function(req, res) {
 
 console.log('listening on port 3000');
 server.listen(3000);
+
+function editMode(item) {
+    var rowList = [];
+  // var level = 0;
+  var iterate = function(object, list, level) {
+    // console.log(typeof object)
+    for (var key in object) {
+      console.log(key)
+    // Object.keys(object).forEach(function(key){
+      if (typeof object[key] === 'object' ) {
+        iterate(object[key],list,level+1);
+      } if (typeof object[key] === 'function' ) {
+          //do nothing
+      } else {
+        list.push({
+          key: key,
+          value: object[key],
+          level: level,
+          type: typeof object[key]
+        });        
+      };
+    }; 
+    // }); 
+    return list;   
+  }
+  return iterate(item, rowList, 0);
+  return rowList;
+}

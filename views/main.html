@@ -90,7 +90,19 @@
         <label class="control-label" for="query-key">Key: Value</label>
         <div class="controls key-value-row">
           "<input class="text input-xlarge query-key" placeholder="_id"/>":&nbsp;
-          "<input class="text input-xlarge query-value" placeholder="5061da1e63e785cc44017668"/>"          
+          "<input class="text input-xlarge query-value" placeholder="5061da1e63e785cc44017668"/>"
+          <label class="radio inline">
+            <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+              String
+          </label>          
+          <label class="radio inline">
+            <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" >
+              Number
+          </label>  
+          <label class="radio inline">
+            <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" >
+              ID
+          </label>  
         </div>
       </div>
 <!--       <div class="control-group">
@@ -133,6 +145,38 @@
         <pre><code>{{collections}}</code></pre>
 
       </div> -->
+      {#if item}
+      <div class="span12">
+        <b class="badge badge-info">edit: {{item._id}}</b>
+        <div>
+          {{#each itemConverted}}
+            <div class="edit-row" style="padding-left:{{level}}0px;" data-type="{{type}}" x-bind="click: showInput">
+              <span class="text">{{.key}}:{.value}</span>
+              <div class="input hidden">
+                <input value="{.value}" type="text" x-bind="blur: cancelInput"/>
+                <a  class="btn btn-primary" x-bind="click: saveInput">save</a>
+                <a class="bth btn-warining" x-bind="click: cancelInput">x</a>
+              </div>
+            </div>
+            
+          {{/each}}
+        </div>
+<!--         <div>
+          {{#each editView(item)}}
+            <div class="edit-row" style="padding-left:{{level}}0px;" data-type="{{type}}" x-bind="click: showInput">
+              <span class="text">{{key}}:{{value}}</span>
+              <div class="input hidden">
+                <input value="{{value}}" type="text" x-bind="blur: cancelInput"/>
+                <a  class="btn btn-primary" x-bind="click: saveInput">save</a>
+                <a class="bth btn-warining" x-bind="click: cancelInput">x</a>
+              </div>
+            </div>
+            
+          {{/each}}
+        </div>
+ -->      </div>
+      {/if}
+
       {#if collectionName}
       <div class="span12">
         <div class="collection-box">
@@ -144,7 +188,7 @@
       </div>
     </div>
     {else}
-    Please select a collection
+      Please select a collection
     {/if}
   </div>
 
