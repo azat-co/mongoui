@@ -8,7 +8,7 @@
   <meta charset="utf-8">
 
 <Title:>
-    mongoui
+    mongoui beta
 
 <Head:>
   <link rel="stylesheet" href="/css/sunburst.css"/>
@@ -28,10 +28,10 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </a>
-        <a class="brand" href="/">mongoui</a>
+        <a class="brand" href="/">mongoui <b class="badge badge-success">beta</b></a>
         <div class="nav-collapse">
           <ul class="nav">
-            <li class="active"><a href="/main">Host: Localhost</a></li>            
+            <li class="active"><a href="/">Host: {{dbHostName}}</a></li>            
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Databases: {dbName}&nbsp;<b class="caret"></b>
               </a>
@@ -79,7 +79,7 @@
   </div>
   <div class="row-fluid">
     <form class="form-horizontal well">
-      <legend>Filter</legend>
+      <legend class="inline">Filter</legend>
 
 <!--         <select class="input-small">
           <option value="find">find</option>
@@ -150,11 +150,11 @@
         <b class="badge badge-info">edit: {{item._id}}</b>
         <div>
           {{#each itemConverted}}
-            <div class="edit-row" style="padding-left:{{level}}0px;" data-type="{{type}}" x-bind="click: showInput">
-              <span class="text">{{.key}}:{.value}</span>
-              <div class="input hidden">
-                <input value="{.value}" type="text" x-bind="blur: cancelInput"/>
-                <a  class="btn btn-primary" x-bind="click: saveInput">save</a>
+            <div style="padding-left:{level}0px;" data-type="{type}" x-bind="click: showInput">
+              <span class="edit-row text">{key}:{value}</span>
+              <div class="input hidden">{value}
+                <input value="{.value}" type="text" x-bind="blur: cancelInput" data-path="{{path}}"/>
+                <!-- <a  class="btn btn-primary" x-bind="click: saveInput">save</a> -->
                 <a class="bth btn-warining" x-bind="click: cancelInput">x</a>
               </div>
             </div>
@@ -177,11 +177,12 @@
  -->      </div>
       {/if}
 
-      {#if collectionName}
+      {#if queryResultHTML}
+      Filter result: 
       <div class="span12">
         <div class="collection-box">
           <pre><code>
-          {{unescaped collectionBox}}
+          {{{unescaped queryResultHTML}}}
         </code></pre>
         </div>
 

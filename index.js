@@ -4,11 +4,20 @@ var async = require('async');
 var express = require('express');
 var monk = require('monk');
 var config = require('./config.json');
-var db = monk(config.database.default.host + 
-  ':' + 
-  config.database.default.port + 
-  '/' +
-  config.database.default.name);
+
+var dbHostName, dbPortNumber, dbName;
+if (config && config.database) {
+  dbHostName = config.database.default.host;
+  dbPortNumber = config.database.default.port;
+  dbName = config.database.default.name;
+} else {
+  dbHostName = 'localhost';
+  dbPortNumber = 27017;
+  dbName = 'storify-localhost';
+}
+var db = monk(dbHostName + ':' + 
+  dbPortNumber + '/' +
+  dbName);
 
 // var db= monk('localhost:27017/test')
 var derby = require('derby');
@@ -38,7 +47,7 @@ store.afterDb("set", "dbName", function(txn, doc, prevDoc, done) {
       model.set('collections', names);
       if (names.length>0) model.set('collectionName', names[0].name)      
       // model.subscribe('collections', function() {
-      console.log(model.get('collections'))
+      // console.log(model.get('collections'))
       done();
       // });
     });
@@ -46,10 +55,36 @@ store.afterDb("set", "dbName", function(txn, doc, prevDoc, done) {
 });
 
 
+store.afterDb("set", "itemConverted.*.value",function(txn, doc, prevDoc, done) {
+  console.log('***',txn, doc, prevDoc)
+  done();
+  if (txn && (txn.length > 2) && txn[3][1]) {
+    
+    var newValue = txn[3][1];
+    var path = doc.path.split('.');
+    var id = path[1].substr(1);
+    var collection = path[0];
+    var pathStr = path[2];
+
+    // db.get(path[0]).update({
+    //   _id: path[1].substr(1)
+    // }, {
+    //   $set: { path[2]: newValue }
+    // }, function (e, results) {
+    var setObj = {};
+    setObj[pathStr] = newValue;
+
+    db.get(collection).updateById(id, {  $set: setObj}, function(e,results){
+       console.log(e, results);
+      // model.set(txn[3][0], newValue);
+    })
+  }  
+});
+
 
 store.afterDb("set", "collectionName", function(txn, doc, prevDoc, done) {
   if (txn && (txn.length > 2) && txn[3][1]) {
-    console.log(txn[3][1]);
+    // console.log(txn[3][1]);
     var collectionName = txn[3][1];
     db.get(collectionName).find({}, {
       limit: 20
@@ -75,9 +110,7 @@ app.use(store.modelMiddleware());
 
 var derbyApp = require('./main');
 
-derbyApp.get('/', function(page, model, params, next) {
-  page.redirect('/main')
-});
+
 
 if (config.database.default.name) {
   model.set('dbName', config.database.default.name);  
@@ -106,9 +139,9 @@ function(callback) {
   });
 }]);
 
-derbyApp.get('/main', function(page, model, params, next) {
+derbyApp.get('/', function(page, model, params, next) {
   model.set('dbs',localDbs);
-  page.render();
+  page.render({dbHostName:dbHostName});
 });
 
 derbyApp.get('/host/:host_name/dbs/:db_name', function(page, model, params, next){
@@ -127,7 +160,7 @@ derbyApp.get('/host/:host_name/dbs/:db_name', function(page, model, params, next
     model.set('dbName', params.db_name);    
     // console.log("!!!CHANGEDB!!!",params.db_name);
   }
-  page.render();
+  page.render({dbHostName: dbHostName});
 })
 
 derbyApp.get('/host/:host_name/dbs/:db_name/collections/:collection_name', function(page, model, params, next){
@@ -153,20 +186,25 @@ derbyApp.get('/host/:host_name/dbs/:db_name/collections/:collection_name', funct
     // console.log("!!!CHANGE!!!",params.db_name);
     model.set('dbName', params.db_name);    
   }
-  console.log(typeof params.query)
-  if (params.query.query && params.collection_name) {
+  // console.log(typeof params.query)
+  if (params.collection_name) {
     // console.log(params.query);
     // console.log(params.query.query)
-    var query = decodeURI(params.query.query);
-    // console.log(typeof query);
-    try {
-      query = JSON.parse(query);
-    } catch(e) {
-      next(e);
+    if (params.query.query) {
+      var query = decodeURI(params.query.query);
+      // console.log(typeof query);
+      try {
+        query = JSON.parse(query);
+      } catch(e) {
+        next(e);
+      }      
+    } else {
+      var query = {};
     }
+
     //TODO cast types properly if 1 -> use number, not string 
-   // db.get(params.collection_name).find({_access:1}, {
-   db.get(params.collection_name).find(query, {
+    // db.get(params.collection_name).find({_access:1}, {
+    db.get(params.collection_name).find(query, {
       limit: 20
       //,
       // skip: 20,
@@ -174,26 +212,35 @@ derbyApp.get('/host/:host_name/dbs/:db_name/collections/:collection_name', funct
     }, function(e, items) {
       if (e) console.error(e)      
       if (items.length === 0) {
-        model.set('collectionBox', {msg:"No matches"});  
+           page.render({dbHostName: dbHostName, queryResultHTML: "No matches"});  
+        // model.set('collectionBox', {msg:"No matches"});  
       } else {
-        var html = highlight ( JSON.stringify(items,0,2));
-        model.set('collectionBox',html);  
+        var html = highlight ( JSON.stringify(items,0,2));        
+        console.log(html)
+        // model.set('collectionBox',html);  
         //edit if one match
         if (items.length === 1) {
           model.set('item',items[0]);
-          var itemConverted = editMode(items[0]);
+          var itemConverted = editMode(items[0], params.collection_name);
           model.set('itemConverted', itemConverted);
           model.subscribe('itemConverted',function(){
-            console.log('editing mode item subscribed')
+            // console.log('editing mode item subscribed')
+            console.log('***')
+            
+            page.render({dbHostName: dbHostName, queryResultHTML: html});
           });
-
+        } else {
+          console.log('@@@')
+          page.render({dbHostName: dbHostName, queryResultHTML: html});
         }
       }      
-      page.render(params);
+      // page.render(params);
+      
     })    
   } else {
     model.set('collectionName', params.collection_name);
-    page.render(params);
+    // page.render(params);
+    page.render({dbHostName: dbHostName});
   }
   // model.set('query', decodeURI(params.query));
 
@@ -229,30 +276,32 @@ app.get('/api/dbs/:db/collections/:name.json', function(req, res) {
 console.log('listening on port 3000');
 server.listen(3000);
 
-function editMode(item) {
+function editMode(item, collectionName) {
     var rowList = [];
   // var level = 0;
-  var iterate = function(object, list, level) {
+  var iterate = function(object, list, level, path) {
     // console.log(typeof object)
     for (var key in object) {
-      console.log(key)
+      // console.log(key)
     // Object.keys(object).forEach(function(key){
       if (typeof object[key] === 'object' ) {
-        iterate(object[key],list,level+1);
+        if (object[key] && !object[key]["_bsontype"]) {
+          iterate(object[key],list,level+1);          
+        }
       } if (typeof object[key] === 'function' ) {
           //do nothing
       } else {
         list.push({
           key: key,
           value: object[key],
-          level: level,
-          type: typeof object[key]
+          level: level*2,
+          type: typeof object[key],
+          path: [path, key].join('.')
         });        
       };
     }; 
     // }); 
     return list;   
   }
-  return iterate(item, rowList, 0);
-  return rowList;
+  return iterate(item, rowList, 0, collectionName +'._'+item._id);
 }
