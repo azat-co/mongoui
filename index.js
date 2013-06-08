@@ -216,7 +216,7 @@ derbyApp.get('/host/:host_name/dbs/:db_name/collections/:collection_name', funct
         // model.set('collectionBox', {msg:"No matches"});  
       } else {
         var html = highlight ( JSON.stringify(items,0,2));        
-        console.log(html)
+        // console.log(html)
         // model.set('collectionBox',html);  
         //edit if one match
         if (items.length === 1) {
@@ -251,6 +251,7 @@ app.use(derbyApp.router());
 
 app.use(express.static(__dirname + '/public'));
 
+app.use(express.basicAuth('StorifyDev', 'St0rify!mongoui'));
 
 app.get('/api.json', function(req, res) {
   db.driver.admin.listDatabases(function(e, dbs) {
@@ -272,6 +273,8 @@ app.get('/api/dbs/:db/collections/:name.json', function(req, res) {
     res.json(docs);
   });
 });
+
+
 
 console.log('listening on port 3000');
 server.listen(3000);

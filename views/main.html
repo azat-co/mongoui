@@ -146,10 +146,29 @@
         <pre><code>{{collections}}</code></pre>
 
       </div> -->
-      {#if item}
+      
       <div class="span12">
+      <h3>Filter result</h3>
+        <boot:tabs current="view">
+            <boot:tab title="View" name="view">
+              {#if queryResultHTML}
 
-        <b class="badge badge-info">edit: {{item._id}}</b>
+              <div class="span12">
+                <div class="collection-box">
+                  <pre><code>
+                  {{{unescaped queryResultHTML}}}
+                </code></pre>
+                </div>
+
+              </div>
+            </div>
+            {else}
+              Please select a collection
+            {/if}
+
+            </boot:tab>
+      {#if item}
+            <boot:tab title="Edit: {{item._id}}" name="edit">
         <div>
           {#each itemConverted}
 <!--                           <input value={boo}></input>
@@ -165,6 +184,11 @@
             
           {/each}
         </div>
+
+            </boot:tab>
+            {/if}
+          </boot:tabs>
+        <!-- <b class="badge badge-info">edit: {{item._id}}</b> -->
 <!--         <div>
           {{#each editView(item)}}
             <div class="edit-row" style="padding-left:{{level}}0px;" data-type="{{type}}" x-bind="click: showInput">
@@ -179,22 +203,8 @@
           {{/each}}
         </div>
  -->      </div>
-      {/if}
+      
 
-      {#if queryResultHTML}
-      Filter result: 
-      <div class="span12">
-        <div class="collection-box">
-          <pre><code>
-          {{{unescaped queryResultHTML}}}
-        </code></pre>
-        </div>
-
-      </div>
-    </div>
-    {else}
-      Please select a collection
-    {/if}
   </div>
 
 

@@ -1,5 +1,6 @@
 var derby = require('derby');
 derby.use(require('./ui'));
+derby.use(require('derby-ui-boot'));
 var app = derby.createApp(module);
 
 
