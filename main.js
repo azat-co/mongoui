@@ -47,26 +47,27 @@ app.ready(function(model) {
 
 
   app.showInput = function (e, element, next){
-    e.preventDefault();
+    // e.preventDefault();
     $(element).find('div.input').removeClass('hidden').find('input').focus();
     $(element).find('span.text').addClass('hidden');
   };
   app.saveInput = function (e, element, next){    
-    e.preventDefault();
+    // e.preventDefault();
     console.log($(element).parent().find('input').val());//, e.target.dataset.path);
     $(element).parent().parent().find('div.input').addClass('hidden');
     $(element).parent().parent().find('span.text').removeClass('hidden');
   };
   app.cancelInputOnBlur = function (e, element, next){
-    e.preventDefault();
+    // e.preventDefault();
     $(element).find('div.input').addClass('hidden');
     $(element).find('span.text').removeClass('hidden');
   };  
   app.cancelInput = function (e, element, next){
-    e.preventDefault();
+    // e.preventDefault();
     $(element).parent().parent().find('div.input').addClass('hidden');
     $(element).parent().parent().find('span.text').removeClass('hidden');
-    app.page.redirect(window.location.href);
+    // app.page.render();
+    // app.page.redirect(window.location.href);
     // next();
     // app.view.history.refresh();
   };  

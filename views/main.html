@@ -104,6 +104,7 @@
               ID
           </label>  
         </div>
+
       </div>
 <!--       <div class="control-group">
         <label class="control-label" for="query-key">Key: Value</label>
@@ -147,19 +148,22 @@
       </div> -->
       {#if item}
       <div class="span12">
+
         <b class="badge badge-info">edit: {{item._id}}</b>
         <div>
-          {{#each itemConverted}}
-            <div style="padding-left:{level}0px;" data-type="{type}" x-bind="click: showInput">
-              <span class="edit-row text">{key}:{value}</span>
-              <div class="input hidden">{value}
+          {#each itemConverted}
+<!--                           <input value={boo}></input>
+        <span>{boo}</span>
+ -->            <div style="padding-left:{level}0px;" data-type="{type}" x-bind="click: showInput">
+              <span class="edit-row text">{key}:{.value}</span>
+              <div class="input hidden">
                 <input value="{.value}" type="text" x-bind="blur: cancelInput" data-path="{{path}}"/>
                 <!-- <a  class="btn btn-primary" x-bind="click: saveInput">save</a> -->
                 <a class="bth btn-warining" x-bind="click: cancelInput">x</a>
               </div>
             </div>
             
-          {{/each}}
+          {/each}
         </div>
 <!--         <div>
           {{#each editView(item)}}
