@@ -13,19 +13,31 @@ MongoUI (mongoui) is an web browser admin interface for MongoDB. Standalon tool 
 Tired of typing `db.users.findOne({_id:ObjectId(...)})` just to look up data structure. Even more typing to modify the data. Can't find Node.js implementaton (not true any more, there is [exprss-mongo](https://github.com/andzdroid/mongo-express)).
 
 
-## Use
+## How to Use
 
-To start the server run:
+### Installation
+
+`git clone git@github.com:azat-co/mongoui`
+
+or
+
+`npm install mongoui`
+
+### Running the app
+
+Assuming that MongoDB is running, to start the server run:
 
   $ node .
 
 or:
 
   $ node index.js
+  
+### Using
 
-## Chrome extension
+Open <http://localhost:3000/> in your favorite browser. If you use Chrome, there is a nice extension for viewing raw json: Chrome extension.
 
-Download and install [JSONView Chrome extension](https://chrome.google.com/webstore/detail/jsonview/chklaanhfefbnpoihckbnefhakgolnmc) to view JSON in a human readable format.
+Optional: Download and install [JSONView Chrome extension](https://chrome.google.com/webstore/detail/jsonview/chklaanhfefbnpoihckbnefhakgolnmc) to view JSON in a human readable format.
 
 ## Contributors
 
