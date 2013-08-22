@@ -199,6 +199,13 @@ derbyApp.get('/host/:host_name/dbs/:db_name/collections/:collection_name', funct
       // console.log(typeof query);
       try {
         query = JSON.parse(query);
+        for (var key in query) { //monk has casting but let's do this anyways
+          if (query[key].indexOf('ObjectId')>-1) {
+            var idValue = query[key].substr(10,24); //let's hope this never causes bugs
+            query[key] = db.id(idValue)
+            // console.log(query)
+          }
+        }
       } catch(e) {
         next(e);
       }      
@@ -230,8 +237,18 @@ derbyApp.get('/host/:host_name/dbs/:db_name/collections/:collection_name', funct
           model.subscribe('itemConverted',function(){
             // console.log('editing mode item subscribed')
             console.log('***')
-            
-            page.render({dbHostName: dbHostName, queryResultHTML: html});
+            var queryArr = [];
+            for (var k in query) {
+              queryArr.push({
+                'key': k,
+                'value': query[k],
+                'type': typeof query[k],
+                'string': (typeof query[k]==='string' || typeof query[k] === 'object'),
+                'isNumber': typeof query[k]==='number'
+              });
+            }
+            console.log(queryArr)
+            page.render({dbHostName: dbHostName, queryResultHTML: html, query: queryArr});
           });
         } else {
           console.log('@@@')
@@ -255,7 +272,7 @@ app.use(derbyApp.router());
 
 app.use(express.static(__dirname + '/public'));
 
-app.use(express.basicAuth('StorifyDev', 'St0rify!mongoui'));
+// app.use(express.basicAuth('StorifyDev', 'St0rify!mongoui'));
 
 app.get('/api.json', function(req, res) {
   db.driver.admin.listDatabases(function(e, dbs) {
