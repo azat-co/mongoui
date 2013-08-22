@@ -4,6 +4,10 @@
   "engines": {
     "node": ">= v0.6"
   },
+  "scripts": {
+    "start": "node index.js",
+    "test": "mocha test"
+  },
   "dependencies": {
     "mongodb": "1.2.14",
     "monk": "0.7.1",

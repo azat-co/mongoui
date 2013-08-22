@@ -13,7 +13,7 @@ if (config && config.database) {
 } else {
   dbHostName = 'localhost';
   dbPortNumber = 27017;
-  dbName = 'storify-localhost';
+  dbName = 'mongoui';
 }
 var db = monk(dbHostName + ':' + 
   dbPortNumber + '/' +
@@ -42,10 +42,14 @@ store.afterDb("set", "dbName", function(txn, doc, prevDoc, done) {
     db.driver.collectionNames(function(e, names) {
       //TODO: abstract it
       names.forEach(function(el,i,list){
-        el.name=el.name.split('.')[1];
+        // console.log(el.name)
+        el.name = el.name.split('.')[1];  
+        if (el.name === 'system' ) { //let's not show system.indexes collections
+          delete list[i];
+        }
       })
       model.set('collections', names);
-      if (names.length>0) model.set('collectionName', names[0].name)      
+      if (names.length>0 && names[0]) model.set('collectionName', names[0].name)      
       // model.subscribe('collections', function() {
       // console.log(model.get('collections'))
       done();
@@ -276,8 +280,11 @@ app.get('/api/dbs/:db/collections/:name.json', function(req, res) {
 
 
 
-console.log('listening on port 3000');
-server.listen(3000);
+
+server.listen(3000, function(){
+  console.log('mongoui is listening on: %s:%s', server.address().address, server.address().port);  
+});
+
 
 function editMode(item, collectionName) {
     var rowList = [];
