@@ -177,24 +177,26 @@
       
       <div class="span12">
       <h3>Filter result</h3>
-        <boot:tabs current="view">
+        <boot:tabs current="edit">
           <boot:tab title="View" name="view">
             {#if queryResultHTML}
               <div class="span12">
                 <div class="collection-box">
-                  <pre><code>
-                  {{{unescaped queryResultHTML}}}
-                </code></pre>
+                  <pre>
+                    <code>
+                      {{{unescaped queryResultHTML}}}
+                    </code>
+                  </pre>
                 </div>
               </div>
-            </div>
             {else}
               Please select a collection
             {/if}
           </boot:tab>
+        
           {#if item}
             <boot:tab title="Edit: {{item._id}}" name="edit">
-              <div>
+              <div >
                 <!-- {{itemConverted}} -->
                 {#each itemConverted}
                   <div style="padding-left:{level}0px;" data-type="{type}" x-bind="click: showInput">

@@ -28,7 +28,8 @@ var highlight = require('highlight').Highlight;
 var app = new express();
 
 var server = http.createServer(app);
-derby.use(require('derby-ui-boot'));
+// derby.use(require('derby-ui-boot'));
+
 derby.use(derby.logPlugin);
 var store = derby.createStore({
   listen: server
