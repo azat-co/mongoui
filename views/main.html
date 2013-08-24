@@ -1,6 +1,5 @@
 <import: src="edit">
 
-
 <Doctype:>
   <!DOCTYPE html>
 <Root:>
@@ -78,7 +77,7 @@
     </h3>
   </div>
   <div class="row-fluid">
-    <form class="form-horizontal well">
+    <form class="form-horizontal well" x-bind="submit: applyFilter">
       
 
 <!--         <select class="input-small">
@@ -93,19 +92,19 @@
         <div class="controls key-value-row">
           "<input class="text input-xlarge query-key" placeholder="name" value="{{key}}" />":&nbsp;
           <span class="query-value-wrapper-left">"</span>
-          <input class="text input-xlarge query-value" data-type="{{type}}" placeholder="azat" value="{{value}}" />
+          <input class="text input-xlarge query-value" data-type="{{type}}" placeholder="azat" value="{{value}}" x-bind="keyup: formEnter"/>
           <span class="query-value-wrapper-right">"</span>
-
-          <label class="radio inline" x-bind="change: updateFilterType">
-            <input type="radio"  x-bind="change: updateFilterType" name="optionsRadios" id="optionsRadios1" 
-              value="string" {#if string} checked{/if} >
-              String 
+          <label class="radio inline" x-bind="change: updateFilterType" >
+            <input type="radio"  x-bind="change: updateFilterType" name="optionsRadios_{{key}}" id="optionsRadios_string_{{key}}" value="string" checked={{isString}}>
+              String
           </label>         
           <label class="radio inline">
-            <input type="radio"  x-bind="change: updateFilterType" name="optionsRadios" id="optionsRadios2" value="number" 
-            {{#if isNumber}}checked{{/if}}>
+            <input type="radio"  x-bind="change: updateFilterType" name="optionsRadios_{{key}}" id="optionsRadios2" value="number" 
+            checked={{isNumber}}>
               Number
-          </label>  
+          </label> 
+          &nbsp;&nbsp; 
+          <a class="btn btn-danger" x-bind="click: removeFilterRow">remove</a>
 <!--           <label class="radio inline">
             <input type="radio" x-bind="change: updateFilterType"  name="optionsRadios" id="optionsRadios3" value="ID" >
               ID
@@ -179,59 +178,38 @@
       <div class="span12">
       <h3>Filter result</h3>
         <boot:tabs current="view">
-            <boot:tab title="View" name="view">
-              {#if queryResultHTML}
-
+          <boot:tab title="View" name="view">
+            {#if queryResultHTML}
               <div class="span12">
                 <div class="collection-box">
                   <pre><code>
                   {{{unescaped queryResultHTML}}}
                 </code></pre>
                 </div>
-
               </div>
             </div>
             {else}
               Please select a collection
             {/if}
-
-            </boot:tab>
-      {#if item}
+          </boot:tab>
+          {#if item}
             <boot:tab title="Edit: {{item._id}}" name="edit">
-        <div>
-          {#each itemConverted}
-<!--                           <input value={boo}></input>
-        <span>{boo}</span>
- -->            <div style="padding-left:{level}0px;" data-type="{type}" x-bind="click: showInput">
-              <span class="edit-row text">{key}:{.value}</span>
-              <div class="input hidden">
-                <input value="{.value}" type="text" x-bind="blur: cancelInput" data-path="{{path}}"/>
-                <!-- <a  class="btn btn-primary" x-bind="click: saveInput">save</a> -->
-                <a class="bth btn-warining" x-bind="click: cancelInput">x</a>
+              <div>
+                <!-- {{itemConverted}} -->
+                {#each itemConverted}
+                  <div style="padding-left:{level}0px;" data-type="{type}" x-bind="click: showInput">
+                    <span class="edit-row text">{key}:{.value}</span>
+                    <div class="input hidden">
+                      <input value="{.value}" type="text" x-bind="blur: cancelInput" data-path="{{path}}"/>
+                      <a class="bth btn-warining" x-bind="click: cancelInput">x</a>
+                    </div>
+                  </div>            
+                {/each}
               </div>
-            </div>
-            
-          {/each}
-        </div>
-
             </boot:tab>
-            {/if}
-          </boot:tabs>
-        <!-- <b class="badge badge-info">edit: {{item._id}}</b> -->
-<!--         <div>
-          {{#each editView(item)}}
-            <div class="edit-row" style="padding-left:{{level}}0px;" data-type="{{type}}" x-bind="click: showInput">
-              <span class="text">{{key}}:{{value}}</span>
-              <div class="input hidden">
-                <input value="{{value}}" type="text" x-bind="blur: cancelInput"/>
-                <a  class="btn btn-primary" x-bind="click: saveInput">save</a>
-                <a class="bth btn-warining" x-bind="click: cancelInput">x</a>
-              </div>
-            </div>
-            
-          {{/each}}
-        </div>
- -->      </div>
+          {/if}
+        </boot:tabs>
+     </div>
       
 
   </div>

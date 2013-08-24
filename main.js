@@ -29,10 +29,13 @@ app.ready(function(model) {
     //app.model === model YAY!
     app.model.set('collectionName',e.target.dataset.value);
     next();
-  }
+  };
 
 
-
+  app.removeFilterRow = function(e, element, next) {
+    $(e.target).parent().parent().remove();
+    app.applyFilter();
+  };
   app.addKeyValueForm = function(e, element, next){
     $('.key-value-group :last').after($('.key-value-group :last').clone(true, true));
   };
@@ -40,10 +43,15 @@ app.ready(function(model) {
     var query = {};
     $('.key-value-row').each(function(index,keyValueRow){
       console.log(keyValueRow)
+      if (!$(keyValueRow).find('.query-key').val() || !$(keyValueRow).find('.query-value').val()) return ;
       if ($(keyValueRow).find('.query-value').attr('data-type') === 'ID') {
         query[$(keyValueRow).find('.query-key').val()] = "ObjectId('" + $(keyValueRow).find('.query-value').val() + "')";
       } else if ($(keyValueRow).find('.query-value').attr('data-type') === 'number') {
-        query[$(keyValueRow).find('.query-key').val()] = parseInt($(keyValueRow).find('.query-value').val());
+        try {
+          query[$(keyValueRow).find('.query-key').val()] = parseInt($(keyValueRow).find('.query-value').val());  
+        } catch (e) {
+          console.log(e, 'not a number')
+        }        
       } else {
         query[$(keyValueRow).find('.query-key').val()] = $(keyValueRow).find('.query-value').val();
       }
@@ -124,10 +132,15 @@ app.ready(function(model) {
     next();
   };
 
+  app.formEnter = function(e, element, next) {
+    console.log(e)
+    if (e.keyCode === 13) 
+      app.applyFilter();
+  };
 
   app.clearFilter = function(e, element, next){
     window.location.href = window.location.origin + window.location.pathname;
-  }
+  };
 
 });
 

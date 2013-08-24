@@ -23,12 +23,12 @@ var db = monk(dbHostName + ':' +
 var derby = require('derby');
 
 var highlight = require('highlight').Highlight;
-// derby.use(require('derby-ui-boot'));
+
 
 var app = new express();
 
 var server = http.createServer(app);
-
+derby.use(require('derby-ui-boot'));
 derby.use(derby.logPlugin);
 var store = derby.createStore({
   listen: server
@@ -40,6 +40,10 @@ store.afterDb("set", "dbName", function(txn, doc, prevDoc, done) {
     //filter dbName based on existing list
     db = monk(config.database.default.host + ':' + config.database.default.port + '/' + txn[3][1]);
     db.driver.collectionNames(function(e, names) {
+      if (e) {
+        console.error(e);
+        process.exit(1);
+      }
       //TODO: abstract it
       names.forEach(function(el,i,list){
         // console.log(el.name)
@@ -168,7 +172,7 @@ derbyApp.get('/host/:host_name/dbs/:db_name', function(page, model, params, next
 })
 
 derbyApp.get('/host/:host_name/dbs/:db_name/collections/:collection_name', function(page, model, params, next){
-
+  var url = '/host/' + params.host_name + '/dbs/' + params.db_name + '/collections/' + params.collection_name;
   model.set('dbs', localDbs)
   model.subscribe('collections', function() {
     // console.log('YO')
@@ -200,7 +204,7 @@ derbyApp.get('/host/:host_name/dbs/:db_name/collections/:collection_name', funct
       try {
         query = JSON.parse(query);
         for (var key in query) { //monk has casting but let's do this anyways
-          if (query[key].indexOf('ObjectId')>-1) {
+          if (typeof query[key] === 'string' && query[key].indexOf('ObjectId')>-1) {
             var idValue = query[key].substr(10,24); //let's hope this never causes bugs
             query[key] = db.id(idValue)
             // console.log(query)
@@ -222,8 +226,19 @@ derbyApp.get('/host/:host_name/dbs/:db_name/collections/:collection_name', funct
       // sort:{_id: 1}
     }, function(e, items) {
       if (e) console.error(e)      
+      var queryArr = [];
+      for (var k in query) {
+        queryArr.push({
+          'key': k,
+          'value': query[k],
+          'type': typeof query[k],
+          'isString': (typeof query[k]==='string' || typeof query[k] === 'object'),
+          'isNumber': typeof query[k]==='number'
+        });
+      }
+      console.log(queryArr)        
       if (items.length === 0) {
-           page.render({dbHostName: dbHostName, queryResultHTML: "No matches"});  
+           page.render({dbHostName: dbHostName, queryResultHTML: "No matches", query: queryArr, url: url});  
         // model.set('collectionBox', {msg:"No matches"});  
       } else {
         var html = highlight ( JSON.stringify(items,0,2));        
@@ -237,18 +252,8 @@ derbyApp.get('/host/:host_name/dbs/:db_name/collections/:collection_name', funct
           model.subscribe('itemConverted',function(){
             // console.log('editing mode item subscribed')
             console.log('***')
-            var queryArr = [];
-            for (var k in query) {
-              queryArr.push({
-                'key': k,
-                'value': query[k],
-                'type': typeof query[k],
-                'string': (typeof query[k]==='string' || typeof query[k] === 'object'),
-                'isNumber': typeof query[k]==='number'
-              });
-            }
-            console.log(queryArr)
-            page.render({dbHostName: dbHostName, queryResultHTML: html, query: queryArr});
+
+            page.render({dbHostName: dbHostName, queryResultHTML: html, query: queryArr, url: url});
           });
         } else {
           console.log('@@@')
@@ -320,6 +325,7 @@ function editMode(item, collectionName) {
       } else {
         list.push({
           key: key,
+          isId: key === '_id',
           value: object[key],
           level: level*2,
           type: typeof object[key],
@@ -327,6 +333,7 @@ function editMode(item, collectionName) {
         });        
       };
     }; 
+    console.log(list);
     // }); 
     return list;   
   }
