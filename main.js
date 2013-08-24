@@ -1,13 +1,19 @@
 var derby = require('derby');
 derby.use(require('./ui'));
-derby.use(require('derby-ui-boot'));
+var derbyUiBoot = require('derby-ui-boot');
+derbyUiBoot._clickTab = function(e, el) {
+  $(el).addClass('active')
+  this.select(this.model.at(el).get('name'))
+}
+// derby.use(require('derby-ui-boot'));
+derby.use(derbyUiBoot);
 var app = derby.createApp(module);
 
 
 
 app.ready(function(model) {
 
-  console.log(app.page)
+  // console.log(app.page)
   // model.on('set','dbName',function(path,object){
   // });
   // model.on('set','collectionBox', function(path,obj){
@@ -42,7 +48,7 @@ app.ready(function(model) {
   app.applyFilter = function(e, element, next){  
     var query = {};
     $('.key-value-row').each(function(index,keyValueRow){
-      console.log(keyValueRow)
+      // console.log(keyValueRow)
       if (!$(keyValueRow).find('.query-key').val() || !$(keyValueRow).find('.query-value').val()) return ;
       if ($(keyValueRow).find('.query-value').attr('data-type') === 'ID') {
         query[$(keyValueRow).find('.query-key').val()] = "ObjectId('" + $(keyValueRow).find('.query-value').val() + "')";
@@ -133,7 +139,7 @@ app.ready(function(model) {
   };
 
   app.formEnter = function(e, element, next) {
-    console.log(e)
+    // console.log(e)
     if (e.keyCode === 13) 
       app.applyFilter();
   };
@@ -141,6 +147,7 @@ app.ready(function(model) {
   app.clearFilter = function(e, element, next){
     window.location.href = window.location.origin + window.location.pathname;
   };
+
 
 });
 

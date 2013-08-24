@@ -65,7 +65,7 @@ store.afterDb("set", "dbName", function(txn, doc, prevDoc, done) {
 
 
 store.afterDb("set", "itemConverted.*.value",function(txn, doc, prevDoc, done) {
-  console.log('***',txn, doc, prevDoc)
+  // console.log('***',txn, doc, prevDoc)
   done();
   if (txn && (txn.length > 2) && txn[3][1]) {
     
@@ -84,7 +84,7 @@ store.afterDb("set", "itemConverted.*.value",function(txn, doc, prevDoc, done) {
     setObj[pathStr] = newValue;
 
     db.get(collection).updateById(id, {  $set: setObj}, function(e,results){
-       console.log(e, results);
+       // console.log(e, results);
       // model.set(txn[3][0], newValue);
     })
   }  
@@ -237,7 +237,7 @@ derbyApp.get('/host/:host_name/dbs/:db_name/collections/:collection_name', funct
           'isNumber': typeof query[k]==='number'
         });
       }
-      console.log(queryArr)        
+      // console.log(queryArr)        
       if (items.length === 0) {
            page.render({dbHostName: dbHostName, queryResultHTML: "No matches", query: queryArr, url: url});  
         // model.set('collectionBox', {msg:"No matches"});  
@@ -252,12 +252,12 @@ derbyApp.get('/host/:host_name/dbs/:db_name/collections/:collection_name', funct
           model.set('itemConverted', itemConverted);
           model.subscribe('itemConverted',function(){
             // console.log('editing mode item subscribed')
-            console.log('***')
+            // console.log('***')
 
             page.render({dbHostName: dbHostName, queryResultHTML: html, query: queryArr, url: url});
           });
         } else {
-          console.log('@@@')
+          // console.log('@@@')
           page.render({dbHostName: dbHostName, queryResultHTML: html});
         }
       }      
@@ -334,7 +334,7 @@ function editMode(item, collectionName) {
         });        
       };
     }; 
-    console.log(list);
+    // console.log(list);
     // }); 
     return list;   
   }
