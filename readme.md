@@ -32,6 +32,14 @@ Assuming that MongoDB is running, to start the server run:
 or:
 
   $ node index.js
+
+### Configs
+
+Copy `config_default.json` file as `config.json`:
+
+	$ cp config_default.json config.json
+
+Modify as needed (remote databases should work just fine!).
   
 ### Using
 
@@ -43,7 +51,7 @@ Optional: Download and install [JSONView Chrome extension](https://chrome.google
 
 Via `git shortlog -s -n`:
 
-    23  Azat Mardanov
+    48  Azat Mardanov
     14  cultofmetatron
 
 
