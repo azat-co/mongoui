@@ -16,7 +16,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * ========================================================== */
-
+console.log('!!!')
 
 !function ($) {
 
@@ -1791,38 +1791,40 @@
  /* TAB PLUGIN DEFINITION
   * ===================== */
 
-  var old = $.fn.tab
+  // var old = $.fn.tab
 
-  $.fn.tab = function ( option ) {
-    return this.each(function () {
-      var $this = $(this)
-        , data = $this.data('tab')
-      if (!data) $this.data('tab', (data = new Tab(this)))
-      if (typeof option == 'string') data[option]()
-    })
-  }
+  // $.fn.tab = function ( option ) {
+  //   return this.each(function () {
+  //     var $this = $(this)
+  //       , data = $this.data('tab')
+  //     if (!data) $this.data('tab', (data = new Tab(this)))
+  //     if (typeof option == 'string') data[option]()
+  //   })
+  // }
 
-  $.fn.tab.Constructor = Tab
+  // $.fn.tab.Constructor = Tab
 
 
  /* TAB NO CONFLICT
   * =============== */
 
-  $.fn.tab.noConflict = function () {
-    $.fn.tab = old
-    return this
-  }
+  // $.fn.tab.noConflict = function () {
+  //   $.fn.tab = old
+  //   return this
+  // }
 
 
  /* TAB DATA-API
   * ============ */
 
-  $(document).on('click.tab.data-api', '[data-toggle="tab"], [data-toggle="pill"]', function (e) {
-    e.preventDefault()
-    $(this).tab('show')
-  })
+  // $(document).on('click.tab.data-api', '[data-toggle="tab"], [data-toggle="pill"]', function (e) {
+  //   e.preventDefault()
+  //   $(this).tab('show')
+  // })
 
-}(window.jQuery);/* =============================================================
+}(window.jQuery);
+
+/* =============================================================
  * bootstrap-typeahead.js v2.3.1
  * http://twitter.github.com/bootstrap/javascript.html#typeahead
  * =============================================================

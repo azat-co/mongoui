@@ -1,14 +1,20 @@
 {
   "name": "mongoui",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "engines": {
     "node": ">= v0.6"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "test": "mocha test"
   },
   "dependencies": {
     "mongodb": "1.2.14",
     "monk": "0.7.1",
     "express": "3.1.0",
     "derby": "0.3.15",
-    "async": "*"
+    "async": "*",
+    "highlight": "0.2.3",
+    "derby-ui-boot": "0.0.7"
   }
 }
