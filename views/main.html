@@ -117,7 +117,7 @@
         <label class="control-label" for="query-key">Key: Value</label>
         <div class="controls key-value-row">
           "<input class="text input-xlarge query-key" placeholder="name"/>":&nbsp;
-          <span class="query-value-wrapper-left">"</span><input class="text input-xlarge query-value" data-type="string" placeholder="azat"/><span class="query-value-wrapper-right">"</span>
+          <span class="query-value-wrapper-left">"</span><input class="text input-xlarge query-value" data-type="string" placeholder="azat"  x-bind="keyup: formEnter"/><span class="query-value-wrapper-right">"</span>
           <label class="radio inline" x-bind="change: updateFilterType">
             <input type="radio"  x-bind="change: updateFilterType" name="optionsRadios" id="optionsRadios1" value="string" checked>
               String
@@ -177,7 +177,7 @@
       
       <div class="span12">
       <h3>Filter result</h3>
-        <boot:tabs current="edit">
+        <boot:tabs current="view">
           <boot:tab title="View" name="view">
             {#if queryResultHTML}
               <div class="span12">
@@ -203,7 +203,7 @@
                     <span class="edit-row text">{key}:{.value}</span>
                     <div class="input hidden">
                       <input value="{.value}" type="text" x-bind="blur: cancelInput" data-path="{{path}}"/>
-                      <a class="bth btn-warining" x-bind="click: cancelInput">x</a>
+                      <!-- <a class="bth btn-warining" x-bind="click: cancelInput">x</a> -->
                     </div>
                   </div>            
                 {/each}
