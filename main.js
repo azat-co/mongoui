@@ -1,12 +1,8 @@
 var derby = require('derby');
 derby.use(require('./ui'));
-var derbyUiBoot = require('derby-ui-boot');
-derbyUiBoot._clickTab = function(e, el) {
-  $(el).addClass('active')
-  this.select(this.model.at(el).get('name'))
-}
-// derby.use(require('derby-ui-boot'));
-derby.use(derbyUiBoot);
+derby.use(require('derby-ui-boot'));
+
+
 var app = derby.createApp(module);
 
 
