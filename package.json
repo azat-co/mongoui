@@ -1,12 +1,12 @@
 {
   "name": "mongoui",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "engines": {
     "node": ">= v0.6"
   },
-  "repository" : { 
-    "type" : "git",
-    "url" : "http://github.com/azat-co/mongoui.git"
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/azat-co/mongoui.git"
   },
   "scripts": {
     "start": "node index.js",
