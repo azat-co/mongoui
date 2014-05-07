@@ -73,8 +73,9 @@ Optional: Download and install [JSONView Chrome extension](https://chrome.google
 
 Via `git shortlog -s -n`:
 
-    48  Azat Mardanov
+    61  Azat Mardanov
     14  cultofmetatron
+     1  Jan Carlo Viray
 
 
 
