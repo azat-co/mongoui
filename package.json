@@ -1,6 +1,6 @@
 {
   "name": "mongoui",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "engines": {
     "node": ">= v0.6"
   },
