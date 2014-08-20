@@ -14,6 +14,12 @@ Tired of typing `db.users.findOne({_id:ObjectId(...)})` just to look up data str
 
 ## Screenshots
 
+
+Here's a one and a half minute video that shows filtering, editing, and switching collections:
+
+<iframe width="480" height="360" src="//www.youtube.com/embed/l8Rfpow0f9A" frameborder="0" allowfullscreen></iframe>
+
+
 Select a database from the local server (can be remote server):
 
 ![](https://raw.githubusercontent.com/azat-co/mongoui/master/docs/database-select.png)
@@ -65,6 +71,8 @@ or
 
 ```
 wget https://github.com/azat-co/mongoui/archive/master.zip
+unzip master.zip
+cd mongoui-master
 ```
 
 or
@@ -75,9 +83,18 @@ npm install mongoui
 cd node_modules/mongoui
 ```
 
+### Configs
+
+Copy `config_default.json` file as `config.json`:
+
+  $ cp config_default.json config.json
+
+Modify as needed (remote databases should work just fine!).
+
+
 ### Running the app
 
-Assuming that MongoDB is running, to start the server run:
+Assuming that MongoDB is running (`$ mongod`), to start the server run:
 
   $ node .
 
@@ -91,13 +108,6 @@ or
 $ node index
 ```
 
-### Configs
-
-Copy `config_default.json` file as `config.json`:
-
-	$ cp config_default.json config.json
-
-Modify as needed (remote databases should work just fine!).
 
 ### Using
 
