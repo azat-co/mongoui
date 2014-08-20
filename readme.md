@@ -15,7 +15,7 @@ Tired of typing `db.users.findOne({_id:ObjectId(...)})` just to look up data str
 ## Screenshots
 
 
-Here's a one and a half minute video that shows filtering, editing, and switching collections:
+Here's a one and a half minute **video** that shows filtering, editing, and switching collections:
 
 [![mongoui rocks!](http://img.youtube.com/vi/l8Rfpow0f9A/0.jpg)](http://www.youtube.com/watch?v=l8Rfpow0f9A)
 
