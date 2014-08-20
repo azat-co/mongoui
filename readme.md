@@ -15,35 +15,65 @@ Tired of typing `db.users.findOne({_id:ObjectId(...)})` just to look up data str
 ## Screenshots
 
 Select a database from the local server (can be remote server):
-![](docs/database-select.png)
+
+![](https://raw.githubusercontent.com/azat-co/mongoui/master/docs/database-select.png)
 
 Select a collection from the dropdown menu:
-![](docs/collection-select.png)
+![](https://raw.githubusercontent.com/azat-co/mongoui/master/docs/collection-select.png)
 
 Collection view with a single element (if there's only one element, it can be edited):
-![](docs/collection-view.png)
+
+![](https://raw.githubusercontent.com/azat-co/mongoui/master/docs/collection-view.png)
 
 Edit an item (if there's only one element, it can be edited):
-![](docs/collection-edit.png)
+
+![](https://raw.githubusercontent.com/azat-co/mongoui/master/docs/collection-edit.png)
 
 Editing text property (if there's only one element, it can be edited):
-![](docs/text-edit.png)
+
+![](https://raw.githubusercontent.com/azat-co/mongoui/master/docs/text-edit.png)
 
 Server logs (real-time updates as you type):
-![](docs/text-edit-server.png)
+
+![](https://raw.githubusercontent.com/azat-co/mongoui/master/docs/text-edit-server.png)
 
 Filter/find based on property(ies):
-![](docs/filter.png)
+
+![](https://raw.githubusercontent.com/azat-co/mongoui/master/docs/filter.png)
 
 ## How to Use
 
 ### Installation
 
-`git clone git@github.com:azat-co/mongoui`
+```bash
+git clone git@github.com:azat-co/mongoui
+```
 
 or
 
-`npm install mongoui`
+```bash
+git clone https://github.com/azat-co/mongoui.git
+```
+
+or
+
+```
+curl -O https://github.com/azat-co/mongoui/archive/master.zip
+```
+
+or
+
+```
+wget https://github.com/azat-co/mongoui/archive/master.zip
+```
+
+or
+
+```bash
+mkdir node_modules
+npm install mongoui
+cd node_modules/mongoui
+```
 
 ### Running the app
 
@@ -54,6 +84,12 @@ Assuming that MongoDB is running, to start the server run:
 or:
 
   $ node index.js
+
+or
+
+```bash
+$ node index
+```
 
 ### Configs
 
