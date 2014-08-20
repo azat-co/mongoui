@@ -17,7 +17,7 @@ Tired of typing `db.users.findOne({_id:ObjectId(...)})` just to look up data str
 
 Here's a one and a half minute video that shows filtering, editing, and switching collections:
 
-<iframe width="480" height="360" src="//www.youtube.com/embed/l8Rfpow0f9A" frameborder="0" allowfullscreen></iframe>
+[![mongoui rocks!](http://img.youtube.com/vi/l8Rfpow0f9A/0.jpg)](http://www.youtube.com/watch?v=l8Rfpow0f9A)
 
 
 Select a database from the local server (can be remote server):
