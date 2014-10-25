@@ -12,40 +12,6 @@ MongoUI (mongoui) is a web browser admin interface for MongoDB. Currently a stan
 
 Tired of typing `db.users.findOne({_id:ObjectId(...)})` just to look up data structure. Even more typing to modify the data. Can't find Node.js implementaton (not true any more, there is [exprss-mongo](https://github.com/andzdroid/mongo-express)).
 
-## Screenshots
-
-
-Here's a one and a half minute **video** that shows filtering, editing, and switching collections:
-
-[![mongoui rocks!](http://img.youtube.com/vi/l8Rfpow0f9A/0.jpg)](http://www.youtube.com/watch?v=l8Rfpow0f9A)
-
-
-Select a database from the local server (can be remote server):
-
-![](https://raw.githubusercontent.com/azat-co/mongoui/master/docs/database-select.png)
-
-Select a collection from the dropdown menu:
-![](https://raw.githubusercontent.com/azat-co/mongoui/master/docs/collection-select.png)
-
-Collection view with a single element (if there's only one element, it can be edited):
-
-![](https://raw.githubusercontent.com/azat-co/mongoui/master/docs/collection-view.png)
-
-Edit an item (if there's only one element, it can be edited):
-
-![](https://raw.githubusercontent.com/azat-co/mongoui/master/docs/collection-edit.png)
-
-Editing text property (if there's only one element, it can be edited):
-
-![](https://raw.githubusercontent.com/azat-co/mongoui/master/docs/text-edit.png)
-
-Server logs (real-time updates as you type):
-
-![](https://raw.githubusercontent.com/azat-co/mongoui/master/docs/text-edit-server.png)
-
-Filter/find based on property(ies):
-
-![](https://raw.githubusercontent.com/azat-co/mongoui/master/docs/filter.png)
 
 ## How to Use
 
@@ -111,7 +77,7 @@ $ node index
 
 ### Using
 
-Open <http://localhost:3000/> in your favorite browser. If you use Chrome, there is a nice extension for viewing raw json: Chrome extension.
+Open <http://localhost:1313/> in your favorite browser. If you use Chrome, there is a nice extension for viewing raw json: Chrome extension.
 
 Optional: Download and install [JSONView Chrome extension](https://chrome.google.com/webstore/detail/jsonview/chklaanhfefbnpoihckbnefhakgolnmc) to view JSON in a human readable format.
 
@@ -183,3 +149,39 @@ With those installed, running `npm install` and ''npm test'' will run the tests.
 
 * Mac OS X app: [MongoHub](http://mongohub.todayclose.com/)
 * .NET based app: MongoVUE](http://www.mongovue.com/)
+
+
+## Screenshots
+
+
+Here's a one and a half minute **video** that shows filtering, editing, and switching collections:
+
+[![mongoui rocks!](http://img.youtube.com/vi/l8Rfpow0f9A/0.jpg)](http://www.youtube.com/watch?v=l8Rfpow0f9A)
+
+
+Select a database from the local server (can be remote server):
+
+![](https://raw.githubusercontent.com/azat-co/mongoui/master/docs/database-select.png)
+
+Select a collection from the dropdown menu:
+![](https://raw.githubusercontent.com/azat-co/mongoui/master/docs/collection-select.png)
+
+Collection view with a single element (if there's only one element, it can be edited):
+
+![](https://raw.githubusercontent.com/azat-co/mongoui/master/docs/collection-view.png)
+
+Edit an item (if there's only one element, it can be edited):
+
+![](https://raw.githubusercontent.com/azat-co/mongoui/master/docs/collection-edit.png)
+
+Editing text property (if there's only one element, it can be edited):
+
+![](https://raw.githubusercontent.com/azat-co/mongoui/master/docs/text-edit.png)
+
+Server logs (real-time updates as you type):
+
+![](https://raw.githubusercontent.com/azat-co/mongoui/master/docs/text-edit-server.png)
+
+Filter/find based on property(ies):
+
+![](https://raw.githubusercontent.com/azat-co/mongoui/master/docs/filter.png)

@@ -15,7 +15,7 @@ if (config && config.database) {
   dbPortNumber = 27017;
   dbName = 'mongoui';
 }
-var db = monk(dbHostName + ':' + 
+var db = monk(dbHostName + ':' +
   dbPortNumber + '/' +
   dbName);
 
@@ -48,13 +48,13 @@ store.afterDb("set", "dbName", function(txn, doc, prevDoc, done) {
       //TODO: abstract it
       names.forEach(function(el,i,list){
         // console.log(el.name)
-        el.name = el.name.split('.')[1];  
+        el.name = el.name.split('.')[1];
         if (el.name === 'system' ) { //let's not show system.indexes collections
           delete list[i];
         }
       })
       model.set('collections', names);
-      if (names.length>0 && names[0]) model.set('collectionName', names[0].name)      
+      if (names.length>0 && names[0]) model.set('collectionName', names[0].name)
       // model.subscribe('collections', function() {
       // console.log(model.get('collections'))
       done();
@@ -68,7 +68,7 @@ store.afterDb("set", "itemConverted.*.value",function(txn, doc, prevDoc, done) {
   // console.log('***',txn, doc, prevDoc)
   done();
   if (txn && (txn.length > 2) && txn[3][1]) {
-    
+
     var newValue = txn[3][1];
     var path = doc.path.split('.');
     var id = path[1].substr(1);
@@ -87,7 +87,7 @@ store.afterDb("set", "itemConverted.*.value",function(txn, doc, prevDoc, done) {
        // console.log(e, results);
       // model.set(txn[3][0], newValue);
     })
-  }  
+  }
 });
 
 
@@ -104,10 +104,10 @@ store.afterDb("set", "collectionName", function(txn, doc, prevDoc, done) {
       if (e) console.error(e)
       // db.get(txn[3][1]).find({},{$limit:20}, function (e, items){
       if (items.length === 0) {
-        model.set('collectionBox', {msg:"Collection is empty"});  
+        model.set('collectionBox', {msg:"Collection is empty"});
       } else {
-        model.set('collectionBox', JSON.stringify(items,0,2));  
-      }      
+        model.set('collectionBox', JSON.stringify(items,0,2));
+      }
       done()
     })
   }
@@ -122,8 +122,8 @@ var derbyApp = require('./main');
 
 
 if (config.database.default.name) {
-  model.set('dbName', config.database.default.name);  
-}    
+  model.set('dbName', config.database.default.name);
+}
 
 var localDbs = {};
 
@@ -144,7 +144,7 @@ function(callback) {
       model.subscribe('collectionName', function(){
         callback();
       })
-    });      
+    });
   });
 }]);
 
@@ -156,17 +156,17 @@ derbyApp.get('/', function(page, model, params, next) {
 derbyApp.get('/host/:host_name/dbs/:db_name', function(page, model, params, next){
   model.subscribe('collections', function() {
     // console.log('YO')
-  });  
+  });
   model.subscribe('dbs', function() {
     // console.log('YO')
-  });      
+  });
     model.subscribe('collectionBox', function() {
     // console.log('YO')
-  });  
+  });
   model.set('collectionName', '');
   model.set('dbs', localDbs)
   if (params.db_name!== model.get('dbName') ) {
-    model.set('dbName', params.db_name);    
+    model.set('dbName', params.db_name);
     // console.log("!!!CHANGEDB!!!",params.db_name);
   }
   page.render({dbHostName: dbHostName});
@@ -177,23 +177,23 @@ derbyApp.get('/host/:host_name/dbs/:db_name/collections/:collection_name', funct
   model.set('dbs', localDbs)
   model.subscribe('collections', function() {
     // console.log('YO')
-  });  
+  });
   model.subscribe('dbs', function() {
     // console.log('YO')
-  });      
+  });
     model.subscribe('collectionBox', function() {
     // console.log('YO')
-  });  
+  });
       model.subscribe('dbName', function() {
     // console.log('YO')
-  });  
+  });
   model.subscribe('collectionName', function() {
     // console.log('YO')
-  });      
+  });
 
   if (params.db_name !== model.get('dbName') ) {
     // console.log("!!!CHANGE!!!",params.db_name);
-    model.set('dbName', params.db_name);    
+    model.set('dbName', params.db_name);
   }
   // console.log(typeof params.query)
   if (params.collection_name) {
@@ -213,12 +213,12 @@ derbyApp.get('/host/:host_name/dbs/:db_name/collections/:collection_name', funct
         }
       } catch(e) {
         next(e);
-      }      
+      }
     } else {
       var query = {};
     }
 
-    //TODO cast types properly if 1 -> use number, not string 
+    //TODO cast types properly if 1 -> use number, not string
     // db.get(params.collection_name).find({_access:1}, {
     db.get(params.collection_name).find(query, {
       limit: 20
@@ -226,7 +226,7 @@ derbyApp.get('/host/:host_name/dbs/:db_name/collections/:collection_name', funct
       // skip: 20,
       // sort:{_id: 1}
     }, function(e, items) {
-      if (e) console.error(e)      
+      if (e) console.error(e)
       var queryArr = [];
       for (var k in query) {
         queryArr.push({
@@ -237,14 +237,14 @@ derbyApp.get('/host/:host_name/dbs/:db_name/collections/:collection_name', funct
           'isNumber': typeof query[k]==='number'
         });
       }
-      // console.log(queryArr)        
+      // console.log(queryArr)
       if (items.length === 0) {
-           page.render({dbHostName: dbHostName, queryResultHTML: "No matches", query: queryArr, url: url});  
-        // model.set('collectionBox', {msg:"No matches"});  
+           page.render({dbHostName: dbHostName, queryResultHTML: "No matches", query: queryArr, url: url});
+        // model.set('collectionBox', {msg:"No matches"});
       } else {
-        var html = highlight ( JSON.stringify(items,0,2));        
+        var html = highlight ( JSON.stringify(items,0,2));
         // console.log(html)
-        // model.set('collectionBox',html);  
+        // model.set('collectionBox',html);
         //edit if one match
         if (items.length === 1) {
           model.set('item',items[0]);
@@ -260,10 +260,10 @@ derbyApp.get('/host/:host_name/dbs/:db_name/collections/:collection_name', funct
           // console.log('@@@')
           page.render({dbHostName: dbHostName, queryResultHTML: html});
         }
-      }      
+      }
       // page.render(params);
-      
-    })    
+
+    })
   } else {
     model.set('collectionName', params.collection_name);
     // page.render(params);
@@ -304,8 +304,8 @@ app.get('/api/dbs/:db/collections/:name.json', function(req, res) {
 
 
 
-server.listen(3000, function(){
-  console.log('mongoui is listening on: %s:%s', server.address().address, server.address().port);  
+server.listen(1313, function(){
+  console.log('mongoui is listening on: %s:%s', server.address().address, server.address().port);
 });
 
 
@@ -319,7 +319,7 @@ function editMode(item, collectionName) {
     // Object.keys(object).forEach(function(key){
       if (typeof object[key] === 'object' ) {
         if (object[key] && !object[key]["_bsontype"]) {
-          iterate(object[key],list,level+1);          
+          iterate(object[key],list,level+1);
         }
       } if (typeof object[key] === 'function' ) {
           //do nothing
@@ -331,12 +331,12 @@ function editMode(item, collectionName) {
           level: level*2,
           type: typeof object[key],
           path: [path, key].join('.')
-        });        
+        });
       };
-    }; 
+    };
     // console.log(list);
-    // }); 
-    return list;   
+    // });
+    return list;
   }
   return iterate(item, rowList, 0, collectionName +'._'+item._id);
 }
