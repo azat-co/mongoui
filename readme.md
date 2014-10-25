@@ -2,6 +2,11 @@
 
 MongoUI (mongoui) is a web browser admin interface for MongoDB. Currently a standalone tool (run as an app locally or on your server); middleware later.
 
+Here's a one and a half minute **video** that shows filtering, editing, and switching collections:
+
+[![mongoui rocks!](http://img.youtube.com/vi/l8Rfpow0f9A/0.jpg)](http://www.youtube.com/watch?v=l8Rfpow0f9A)
+
+
 ## Branches
 
 * Master — major releases, main branch
@@ -152,11 +157,6 @@ With those installed, running `npm install` and ''npm test'' will run the tests.
 
 
 ## Screenshots
-
-
-Here's a one and a half minute **video** that shows filtering, editing, and switching collections:
-
-[![mongoui rocks!](http://img.youtube.com/vi/l8Rfpow0f9A/0.jpg)](http://www.youtube.com/watch?v=l8Rfpow0f9A)
 
 
 Select a database from the local server (can be remote server):
