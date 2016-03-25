@@ -46,19 +46,15 @@ unzip master.zip
 cd mongoui-master
 ```
 
-or
-
-```bash
-mkdir node_modules
-npm install mongoui
-cd node_modules/mongoui
-```
+Modules are included but if you're on Windows, run `$ npm rebuild`.
 
 ### Configs
 
 Copy `config_default.json` file as `config.json`:
 
-  $ cp config_default.json config.json
+```
+$ cp config_default.json config.json
+```
 
 Modify as needed (remote databases should work just fine!).
 
