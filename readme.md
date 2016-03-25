@@ -46,8 +46,6 @@ unzip master.zip
 cd mongoui-master
 ```
 
-Modules are included but if you're on Windows, run `$ npm rebuild`.
-
 ### Configs
 
 Copy `config_default.json` file as `config.json`:

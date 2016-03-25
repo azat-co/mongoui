@@ -14,8 +14,9 @@
     "build": "node_modules/webpack/bin/webpack"
   },
   "dependencies": {
-    "express": "4.13.4",
+    "express": "^4.13.4",
     "highlight": "0.2.4",
+    "mongodb": "^2.1.11",
     "mongoskin": "2.0.3",
     "neo-async": "1.8.0",
     "react": "0.14.7",

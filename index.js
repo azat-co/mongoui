@@ -1,6 +1,6 @@
 "use strict"
 
-let async = require('async')
+let log = console.log
 let express = require('express')
 let config = require('./config.json')
 let mongoskin = require('mongoskin')
@@ -15,19 +15,19 @@ if (config && config.database) {
   dbPortNumber = 27017
   dbName = 'mongoui'
 }
-// var db = mongoskin(dbHostName + ':' +
-//   dbPortNumber + '/' +
-//   dbName);
-
-
+var db = mongoskin.db(`mongodb://${dbHostName}:${dbPortNumber}/${dbName}`)
 
 var highlight = require('highlight').Highlight
 var app = express()
+app.use((req, res, next)=>{
+  req.db = db
+  req.admin = db.admin()
+  next()
+})
 
 
-
-app.get('/', function(request, response, next) {
-  response.status(200).send()
+app.get('/', function(req, res, next) {
+  res.status(200).send()
 })
 //
 // derbyApp.get('/host/:host_name/dbs/:db_name', function(page, model, params, next){
@@ -157,11 +157,13 @@ app.get('/', function(request, response, next) {
 //
 // // app.use(express.basicAuth('StorifyDev', 'St0rify!mongoui'));
 //
-// app.get('/api.json', function(req, res) {
-//   db.driver.admin.listDatabases(function(e, dbs) {
-//     res.json(dbs);
-//   });
-// });
+app.get('/api.json', function(req, res) {
+  // log(req.admin)
+  req.admin.listDatabases(function(error, dbs) {
+    // log(dbs)
+    res.json(dbs)
+  })
+})
 // app.get('/api/collections.json', function(req, res) {
 //   db.driver.collectionNames(function(e, names) {
 //     res.json(names);
