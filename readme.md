@@ -15,7 +15,7 @@ Here's a one and a half minute **video** that shows filtering, editing, and swit
 
 ## Why
 
-Tired of typing `db.users.findOne({_id:ObjectId(...)})` just to look up data structure. Even more typing to modify the data. Can't find Node.js implementaton (not true any more, there is [exprss-mongo](https://github.com/andzdroid/mongo-express)).
+Tired of typing `db.users.findOne({_id:ObjectId(...)})` just to look up data structure. Even more typing to modify the data. Can't find Node.js implementation (not true any more, there is [exprss-mongo](https://github.com/andzdroid/mongo-express)).
 
 
 ## How to Use
