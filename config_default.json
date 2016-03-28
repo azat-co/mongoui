@@ -3,7 +3,7 @@
     "default": {
       "host": "localhost",
       "port": 27017,
-      "name": "test",
+      "name": "mongoui",
       "username": "",
       "password": ""
     }

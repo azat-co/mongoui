@@ -30,7 +30,7 @@ app.get('/', function(req, res, next) {
   res.status(200).send()
 })
 
-app.get('/api/databases', function(req, res) {
+app.get('/api/dbs', function(req, res) {
   req.admin.listDatabases(function(error, dbs) {
     res.json(dbs)
   })
@@ -45,18 +45,14 @@ app.get('/api/collections', function(req, res) {
     res.json(collections)
   })
 })
-// app.get('/api/dbs/:db/collections/:name.json', function(req, res) {
-//   // console.log('!',db)
-//   var collection = db.get(req.params.name);
-//   collection.find({}, {
-//     limit: 20
-//   }, function(e, docs) {
-//     // console.log('boo', docs);
-//     res.json(docs);
-//   });
-// });
-//
-//
+app.get('/api/collections/:collectionName', function(req, res) {
+  let collection = req.db.collection(req.params.collectionName, {strict: true})
+  collection.find({}, {limit: req.query.limit || 20}).toArray(function(e, docs) {
+    // console.log('boo', docs)
+    res.json(docs)
+  })
+})
+
 
 if (require.main === module) {
   app.listen(3000, function(){
