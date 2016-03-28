@@ -2,6 +2,8 @@
 
 let log = console.log
 let express = require('express')
+let bodyParser = require('body-parser')
+let compression = require('compression')
 let config = require('./config.json')
 let mongoskin = require('mongoskin')
 
@@ -19,6 +21,10 @@ var db = mongoskin.db(`mongodb://${dbHostName}:${dbPortNumber}/${dbName}`)
 
 var highlight = require('highlight').Highlight
 var app = express()
+
+app.use(bodyParser.json())
+app.use(compression())
+
 app.use((req, res, next)=>{
   req.db = db
   req.admin = db.admin()
@@ -53,6 +59,13 @@ app.get('/api/collections/:collectionName', function(req, res) {
   })
 })
 
+app.put('/api/collections/:collectionName/:id', function(req, res) {
+  let collection = req.db.collection(req.params.collectionName, {strict: true})
+  collection.findById(req.params.id, {$set: req.body}, function(e, results) {
+    // console.log('boo', docs)
+    res.json(results)
+  })
+})
 
 if (require.main === module) {
   app.listen(3000, function(){
