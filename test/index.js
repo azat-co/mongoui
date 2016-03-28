@@ -25,9 +25,9 @@ describe('server', ()=>{
   })
 })
 
-describe('server route /api.json', ()=>{
+describe('server route /api/databases', ()=>{
   it('should respond with list of databases', (done)=>{
-    request({url: `${baseUrl}/api.json`, json: true}, (error, response, body) =>{
+    request({url: `${baseUrl}/api/databases`, json: true}, (error, response, body) =>{
         log(body)
         expect(response.statusCode).to.equal(200)
         expect(body.databases).to.be.instanceof(Array)
