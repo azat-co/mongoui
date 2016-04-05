@@ -1,5 +1,17 @@
 # MongoUI
 
+
+```
+npm run build
+```
+
+```
+npm start
+```
+
+
+---
+
 MongoUI (mongoui) is a web browser admin interface for MongoDB. Currently a standalone tool (run as an app locally or on your server); middleware later.
 
 Here's a one and a half minute **video** that shows filtering, editing, and switching collections:
