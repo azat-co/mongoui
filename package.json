@@ -11,7 +11,8 @@
   "scripts": {
     "start": "node node_modules/nodemon/bin/nodemon.js index.js",
     "test": "mocha test",
-    "build": "node node_modules/webpack/bin/webpack.js"
+    "build": "node node_modules/webpack/bin/webpack.js",
+    "dev": "node_modules/webpack-dev-server/bin/webpack-dev-server.js --content-base public"
   },
   "dependencies": {
     "body-parser": "^1.15.0",
@@ -39,7 +40,8 @@
     "redux-devtools": "3.1.1",
     "request": "^2.69.0",
     "supertest": "^1.2.0",
-    "webpack": "1.12.14"
+    "webpack": "1.12.14",
+    "webpack-dev-server": "^1.14.1"
   },
   "babel": {
     "presets": [

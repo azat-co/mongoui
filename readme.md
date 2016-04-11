@@ -1,9 +1,18 @@
 # MongoUI
 
+Front-end build:
 
 ```
 npm run build
 ```
+
+Front-end development:
+
+```
+npm run dev
+```
+
+Back end start (and development)
 
 ```
 npm start
