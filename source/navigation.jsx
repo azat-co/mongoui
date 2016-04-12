@@ -1,10 +1,10 @@
 var {Navbar, NavItem, NavDropdown, Nav, MenuItem} = require('react-bootstrap')
 let React = require('react')
-const navbarInstance = (
-  <Navbar inverse>
+const navbarInstance = ()=>{
+  return <Navbar inverse>
     <Navbar.Header>
       <Navbar.Brand>
-        <a class="brand" href="/">mongoui <b class="badge badge-success">b1eta</b></a>
+        <a className="brand" href="/">mongoui<b className="badge badge-success">2.0</b></a>
       </Navbar.Brand>
       <Navbar.Toggle />
     </Navbar.Header>
@@ -17,7 +17,7 @@ const navbarInstance = (
           <MenuItem eventKey={3.2}>Another action</MenuItem>
           <MenuItem eventKey={3.3}>Something else here</MenuItem>
           <MenuItem divider />
-          <MenuItem eventKey={3.3}>Separated link</MenuItem>
+          <MenuItem eventKey={3.3}>Sseparated link</MenuItem>
         </NavDropdown>
       </Nav>
       <Nav pullRight>
@@ -26,6 +26,5 @@ const navbarInstance = (
       </Nav>
     </Navbar.Collapse>
   </Navbar>
-);
-
+}
 module.exports = navbarInstance
