@@ -1,7 +1,7 @@
 let React = require('react')
 module.exports = React.createClass({
   render: ()=> {
-    return <ul class="dropdown-menu" role="menu">                  <li><a href="#">Action</a></li>
+    return <ul className1="dropdown-menu" role="menu">                  <li><a href="#">Action</a></li>
                       <li><a href="#">Another action</a></li>
                       <li><a href="#">Something else here</a></li>
                       <li className="divider"></li>
