@@ -1,37 +1,31 @@
+var {Navbar, NavItem, NavDropdown, Nav, MenuItem} = require('react-bootstrap')
 let React = require('react')
-module.exports = React.createClass({
-  render: ()=> {
-    return <ul className1="dropdown-menu" role="menu">                  <li><a href="#">Action</a></li>
-                      <li><a href="#">Another action</a></li>
-                      <li><a href="#">Something else here</a></li>
-                      <li className="divider"></li>
-                      <li><a href="#">Separated link</a></li>
-                      <li className="divider"></li>
-                      <li><a href="#">One more separated link</a></li>
-</ul>
-  }
-})
-//
-// <ul class="nav">
-//   <li class="active"><a href="/">Host: {{dbHostName}}</a></li>
-//   <li class="dropdown">
-//     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Databases: {dbName}&nbsp;<b class="caret"></b>
-//     </a>
-//     <ul class="dropdown-menu" name="dbs" >
-//       {#each dbs.databases}
-//         <li><a href="/host/localhost/dbs/{name}" data-value="{name}"> {name} — {sizeOnDisk}</a></li>
-//       {/each}
-//     </ul>
-//   </li>
-//
-//   <li class="dropdown">
-//     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Collections: {collectionName}&nbsp;<b class="caret"></b>
-//     </a>
-//     <ul class="dropdown-menu" name="dbs">
-//       {#each collections}
-//         <li ><a href="/host/localhost/dbs/{dbName}/collections/{.name}" data-value="{{.name}}"> {.name}</a></li>
-//       {/each}
-//     </ul>
-//   </li>
-//
-// </ul>
+const navbarInstance = (
+  <Navbar inverse>
+    <Navbar.Header>
+      <Navbar.Brand>
+        <a class="brand" href="/">mongoui <b class="badge badge-success">b1eta</b></a>
+      </Navbar.Brand>
+      <Navbar.Toggle />
+    </Navbar.Header>
+    <Navbar.Collapse>
+      <Nav>
+        <NavItem eventKey={1} href="#">Link</NavItem>
+        <NavItem eventKey={2} href="#">Link</NavItem>
+        <NavDropdown eventKey={3} title="Dropdown" id="basic-nav-dropdown">
+          <MenuItem eventKey={3.1}>Action</MenuItem>
+          <MenuItem eventKey={3.2}>Another action</MenuItem>
+          <MenuItem eventKey={3.3}>Something else here</MenuItem>
+          <MenuItem divider />
+          <MenuItem eventKey={3.3}>Separated link</MenuItem>
+        </NavDropdown>
+      </Nav>
+      <Nav pullRight>
+        <NavItem eventKey={1} href="https://github.com/azat-co/mongoui">GitHub</NavItem>
+        <NavItem eventKey={2} href="http://twitter.com/azat_co">Twitter</NavItem>
+      </Nav>
+    </Navbar.Collapse>
+  </Navbar>
+);
+
+module.exports = navbarInstance

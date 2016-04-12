@@ -25,6 +25,7 @@
     "mongoskin": "2.0.3",
     "neo-async": "1.8.0",
     "react": "0.14.7",
+    "react-bootstrap": "^0.28.5",
     "react-dom": "0.14.7",
     "react-redux": "4.4.1",
     "redux": "3.3.1"

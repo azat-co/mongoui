@@ -1,3 +1,4 @@
+var path = require('path')
 var webpack = require('webpack')
 module.exports = {
   entry: [
@@ -10,12 +11,14 @@ module.exports = {
     filename: "bundle.js",
     publicPath: '/js/'
   },
+  devtool: 'eval',
   module: {
     loaders: [
       {
         test: /\.jsx?$/,
         exclude: /(node_modules|bower_components)/,
-        loaders: ['babel', 'react-hot'] // 'babel-loader' is also a legal name to reference
+        loaders: ['babel', 'react-hot'],
+        include: path.join(__dirname, 'source')
       }
     ]
   },
