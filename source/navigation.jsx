@@ -4,7 +4,7 @@ const navbarInstance = ()=>{
   return <Navbar inverse>
     <Navbar.Header>
       <Navbar.Brand>
-        <a className="brand" href="/">mongoui<b className="badge badge-success">2.0</b></a>
+        <a className="brand" href="/">mongoui <b className="badge badge-success">beta</b></a>
       </Navbar.Brand>
       <Navbar.Toggle />
     </Navbar.Header>
