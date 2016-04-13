@@ -1,10 +1,13 @@
 "use strict"
 
+let port = 3001
 let log = console.log
 let express = require('express')
 let bodyParser = require('body-parser')
 let compression = require('compression')
 let expressHandlebars = require('express-handlebars')
+let cors = require('cors')
+
 let config = require('./config.json')
 let mongoskin = require('mongoskin')
 
@@ -22,7 +25,7 @@ var db = mongoskin.db(`mongodb://${dbHostName}:${dbPortNumber}/${dbName}`)
 
 var highlight = require('highlight').Highlight
 var app = express()
-
+app.use(cors({credential: false}))
 app.use(bodyParser.json())
 app.use(express.static('public'))
 app.use(compression())
@@ -72,8 +75,8 @@ app.put('/api/collections/:collectionName/:id', function(req, res) {
 })
 
 if (require.main === module) {
-  app.listen(3000, function(){
-    console.log('mongoui is listening on: 3000');
+  app.listen(port, function(){
+    console.log('mongoui is listening on: %s', port);
   });
 } else {
   module.exports = app

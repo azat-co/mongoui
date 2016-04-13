@@ -16,14 +16,25 @@ module.exports = {
     loaders: [
       {
         test: /\.jsx?$/,
-        exclude: /(node_modules|bower_components)/,
+        exclude: /(node_modules|public)/,
         loaders: [
           'react-hot',
           'babel'
         ]
-      }
-    ]
+      },
+      { test: /\.json$/, loader: 'json-loader'}
+
+    ],
+    noParse: /node_modules\/json-schema\/lib\/validate\.js/
   },
+  node: {
+    fs: 'empty',
+    net: 'empty',
+    tls: 'empty',
+    console: false
+  },
+  amd: { jQuery: true },
+
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin()

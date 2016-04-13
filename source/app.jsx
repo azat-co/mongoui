@@ -5,5 +5,5 @@ let Content = require('./content.jsx')
 
 
 ReactDOM.render(<Navigation/>, document.getElementById('navigation'))
-ReactDOM.render(Content, document.getElementById('content'))
+ReactDOM.render(<Content/>, document.getElementById('content'))
 module.hot.accept()
