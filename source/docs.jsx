@@ -3,6 +3,7 @@ let React = require('react')
 let request = require('request')
 let baseUrl = 'http://localhost:3001'
 let {Link} = require('react-router')
+let Document = require('./document.jsx')
 
 module.exports = React.createClass({
   getInitialState(){
@@ -21,7 +22,7 @@ module.exports = React.createClass({
   render() {
     // console.log(this.state, this.props.params)
     return <div><PageHeader>Docs</PageHeader>{this.state.docs.map((doc)=>{
-      return <p key={doc._id}><Link to={`/dbs/${this.props.params.dbName}/collections/${this.props.params.collectionName}/docs/${doc._id}`}>{doc._id} <Badge><Glyphicon glyph="plus" /></Badge></Link></p>
+      return <Document document={doc}/>
     })}
     <div>{this.props.children}</div>
     </div>
