@@ -29,7 +29,9 @@
     "react-bootstrap": "^0.28.5",
     "react-dom": "0.14.7",
     "react-redux": "4.4.1",
-    "redux": "3.3.1"
+    "react-router": "^2.2.2",
+    "redux": "3.3.1",
+    "require-dir": "^0.3.0"
   },
   "devDependencies": {
     "babel-core": "^6.7.4",

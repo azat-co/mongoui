@@ -31,7 +31,8 @@ module.exports = {
     fs: 'empty',
     net: 'empty',
     tls: 'empty',
-    console: false
+    console: false,
+    'coffee-script': 'mock'
   },
   amd: { jQuery: true },
 

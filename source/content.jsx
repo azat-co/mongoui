@@ -1,7 +1,8 @@
-var {Navbar, NavItem, NavDropdown, Nav, MenuItem} = require('react-bootstrap')
+var {Navbar, NavItem, NavDropdown, Nav, MenuItem, PageHeader, Col} = require('react-bootstrap')
 let React = require('react')
 let request = require('request')
 let baseUrl = 'http://localhost:3001'
+let {Link} = require('react-router')
 
 module.exports = React.createClass({
   getInitialState(){
@@ -14,8 +15,16 @@ module.exports = React.createClass({
     })
   },
   render() {
-    return <div>{this.state.databases.map((database)=>{
-      return <p key={database.name}>{database.name}</p>
-    })}</div>
+    return <div>
+      <Col md={2}>
+        <PageHeader>Databases</PageHeader>
+        {this.state.databases.map((database)=>{
+          return <p key={database.name}><Link to={`/dbs/${database.name}`}>{database.name}</Link></p>
+        })}
+      </Col>
+      <Col md={10}>
+        <div>{this.props.children}</div>
+      </Col>
+    </div>
   }
 })
