@@ -5,13 +5,13 @@ let baseUrl = 'http://localhost:3001'
 let {Link} = require('react-router')
 let Document = require('./document.jsx')
 
-module.exports = React.createClass({
+let Docs = React.createClass({
   getInitialState(){
     console.log('hey')
     return {docs: []}
   },
   componentDidMount() {
-    request({url: `${baseUrl}/api/collections/${this.props.params.collectionName}`,
+    request({url: `${baseUrl}/api/dbs/${this.props.params.dbName}/collections/${this.props.params.collectionName}`,
       json: true,
       withCredentials: false},
       (error, response, body) =>{
@@ -28,3 +28,5 @@ module.exports = React.createClass({
     </div>
   }
 })
+
+module.exports = Docs

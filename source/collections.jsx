@@ -10,7 +10,7 @@ module.exports = React.createClass({
     return {collections: []}
   },
   componentDidMount() {
-    request({url: `${baseUrl}/api/collections`, json: true, withCredentials: false}, (error, response, body) =>{
+    request({url: `${baseUrl}/api/dbs/${this.props.params.dbName}/collections`, json: true, withCredentials: false}, (error, response, body) =>{
       // console.log(body);
       this.setState({collections: body.collections})
     })

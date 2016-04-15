@@ -21,7 +21,6 @@ if (config && config.database) {
   dbPortNumber = 27017
   dbName = 'mongoui'
 }
-var db = mongoskin.db(`mongodb://${dbHostName}:${dbPortNumber}/${dbName}`)
 
 var highlight = require('highlight').Highlight
 var app = express()
@@ -31,28 +30,28 @@ app.use(express.static('public'))
 app.use(compression())
 
 
-
-app.use((req, res, next)=>{
-  req.db = db
-  req.admin = db.admin()
-  next()
-})
-
 // app.get('/', function(req, res, next) {
 //   res.status(200).render('home')
 // })
+app.param('dbName', function(req, res, next, dbName){
+  var db = mongoskin.db(`mongodb://${dbHostName}:${dbPortNumber}/${dbName}`)
+  req.db = db
+  req.admin = db.admin()
+  return next()
+})
 app.param('collectionName', function(req, res, next, collectionName){
-  req.collection = db.collection(collectionName)
+  req.collection = req.db.collection(collectionName)
   return next()
 })
 
 app.get('/api/dbs', function(req, res) {
+  if (!req.admin) req.admin = mongoskin.db(`mongodb://${dbHostName}:${dbPortNumber}/${dbName}`).admin()
   req.admin.listDatabases(function(error, dbs) {
     res.json(dbs)
   })
 })
 
-app.get('/api/collections', function(req, res) {
+app.get('/api/dbs/:dbName/collections', function(req, res) {
   req.db.collections(function(e, names) {
     let collections = names.map((collection)=>{
       log(collection.s.name)
@@ -61,7 +60,7 @@ app.get('/api/collections', function(req, res) {
     res.json({collections: collections})
   })
 })
-app.get('/api/collections/:collectionName', function(req, res) {
+app.get('/api/dbs/:dbName/collections/:collectionName', function(req, res) {
   let collection = req.db.collection(req.params.collectionName, {strict: true})
   collection.find({}, {limit: req.query.limit || 20}).toArray(function(e, docs) {
     // console.log('boo', docs)
@@ -69,7 +68,7 @@ app.get('/api/collections/:collectionName', function(req, res) {
   })
 })
 
-app.put('/api/collections/:collectionName/:id', function(req, res) {
+app.put('/api/dbs/:dbName/collections/:collectionName/:id', function(req, res) {
   let collection = req.db.collection(req.params.collectionName, {strict: true})
   collection.findById(req.params.id, {$set: req.body}, function(e, results) {
     // console.log('boo', docs)
