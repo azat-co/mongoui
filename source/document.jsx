@@ -1,8 +1,9 @@
-var {Navbar, NavItem, NavDropdown, Nav, MenuItem, PageHeader, Glyphicon, Badge, Button, Collapse} = require('react-bootstrap')
+var {Navbar, NavItem, NavDropdown, Nav, MenuItem, PageHeader, Glyphicon, Badge, Button, Collapse, Tooltip} = require('react-bootstrap')
 let React = require('react')
 let request = require('request')
 let baseUrl = 'http://localhost:3001'
 let {Link} = require('react-router')
+let CopyToClipboard = require('react-copy-to-clipboard')
 
 let Document = React.createClass({
   getInitialState(){
@@ -26,7 +27,17 @@ let Document = React.createClass({
     return  <div>
       <p key={document._id}><Button bsStyle="link" onClick={this.toggleExpand}>{document._id} </Button>
         <Button><Badge><Glyphicon glyph="edit" /></Badge></Button>
-        <Button><Badge><Glyphicon glyph="copy" /></Badge></Button>
+        <CopyToClipboard text={JSON.stringify(document, null, 2)} onCopy={()=>{this.setState({copied: true}), setTimeout(()=>{this.setState({copied: false})}, 400)}}>
+          <Button>
+            <Badge>
+              <Glyphicon glyph="copy" />
+              {(this.state.copied)?
+              <Tooltip placement="bottom" className="in">
+                Copied!
+              </Tooltip>:''}
+            </Badge>
+          </Button>
+        </CopyToClipboard>
       </p>
       <Collapse in={this.state.expanded}>
         <div>{Object.keys(this.props.document).map((key)=>{
