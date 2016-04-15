@@ -9,11 +9,19 @@ module.exports = React.createClass({
     console.log('hey')
     return {collections: []}
   },
-  componentDidMount() {
-    request({url: `${baseUrl}/api/dbs/${this.props.params.dbName}/collections`, json: true, withCredentials: false}, (error, response, body) =>{
-      // console.log(body);
+  fetch(dbName){
+    dbName = dbName || this.props.params.dbName
+    request({url: `${baseUrl}/api/dbs/${dbName}/collections`, json: true, withCredentials: false}, (error, response, body) =>{
+      console.log(body);
       this.setState({collections: body.collections})
     })
+  },
+  componentDidMount() {
+    this.fetch()
+  },
+  componentWillReceiveProps(nextProps){
+    console.log('coll', nextProps)
+    if (this.props.params.dbName != nextProps.params.dbName) this.fetch(nextProps.params.dbName)
   },
   render() {
     // console.log(this.state, this.props.params);

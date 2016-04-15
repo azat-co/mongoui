@@ -4,7 +4,7 @@ let request = require('request')
 let baseUrl = 'http://localhost:3001'
 let {Link} = require('react-router')
 
-module.exports = React.createClass({
+let Document = React.createClass({
   getInitialState(){
     return {expanded: false}
   },
@@ -24,12 +24,18 @@ module.exports = React.createClass({
   render() {
     let document = this.props.document
     return  <div>
-      <p key={document._id}><Button bsStyle="link" onClick={this.toggleExpand}>{document._id} <Badge><Glyphicon glyph="plus" /></Badge></Button></p>
+      <p key={document._id}><Button bsStyle="link" onClick={this.toggleExpand}>{document._id} </Button>
+        <Button><Badge><Glyphicon glyph="edit" /></Badge></Button>
+        <Button><Badge><Glyphicon glyph="copy" /></Badge></Button>
+      </p>
       <Collapse in={this.state.expanded}>
         <div>{Object.keys(this.props.document).map((key)=>{
-          return <p key={key}>{key}: {this.props.document[key]}</p>
+          if (typeof this.props.document[key] == 'object') return   <p key={key}>{key}: <pre>{JSON.stringify(this.props.document[key], null, 2)}</pre></p>
+          else return <p key={key}>{key}: {this.props.document[key]}</p>
         })}</div>
       </Collapse>
     </div>
   }
 })
+
+module.exports = Document

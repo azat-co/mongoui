@@ -10,14 +10,24 @@ let Docs = React.createClass({
     console.log('hey')
     return {docs: []}
   },
-  componentDidMount() {
-    request({url: `${baseUrl}/api/dbs/${this.props.params.dbName}/collections/${this.props.params.collectionName}`,
+  fetch(dbName, collectionName) {
+    dbName = dbName || this.props.params.dbName
+    collectionName = collectionName || this.props.params.collectionName
+    request({url: `${baseUrl}/api/dbs/${dbName}/collections/${collectionName}`,
       json: true,
       withCredentials: false},
       (error, response, body) =>{
         console.log(body)
         this.setState({docs: body.docs})
     })
+  },
+  componentDidMount() {
+    this.fetch()
+  },
+  componentWillReceiveProps(nextProps){
+    console.log('content')
+    if (this.props.params.dbName != nextProps.params.dbName ||
+      this.props.params.collectionName != nextProps.params.collectionName) this.fetch(nextProps.params.dbName, nextProps.params.collectionName)
   },
   render() {
     // console.log(this.state, this.props.params)

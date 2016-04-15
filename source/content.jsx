@@ -8,11 +8,18 @@ module.exports = React.createClass({
   getInitialState(){
     return {databases: []}
   },
-  componentDidMount() {
+  fetch(){
     request({url: `${baseUrl}/api/dbs`, json: true, withCredentials: false}, (error, response, body) =>{
       console.log(body);
       this.setState({databases: body.databases})
     })
+  },
+  componentDidMount() {
+    this.fetch()
+  },
+  componentWillReceiveProps(nextProps){
+    console.log('content')
+    this.fetch()
   },
   render() {
     return <div>
