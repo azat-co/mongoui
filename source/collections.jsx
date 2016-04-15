@@ -27,8 +27,10 @@ module.exports = React.createClass({
     // console.log(this.state, this.props.params);
     return <div>
       <Col md={3}>
-      <PageHeader>Collections</PageHeader>{this.state.collections.map((collection)=>{
-      return <p key={collection.name}><Link to={`/dbs/${this.props.params.dbName}/collections/${collection.name}`}>{collection.name}</Link></p>
+      <PageHeader>Collections</PageHeader>{this.state.collections.filter((collection)=>{
+        return collection.name != 'system.indexes'
+      }).map((collection)=>{
+        return <p key={collection.name}><Link to={`/dbs/${this.props.params.dbName}/collections/${collection.name}`}>{collection.name}</Link></p>
     })}</Col>
       <Col md={6}>
         <div>{this.props.children}</div>

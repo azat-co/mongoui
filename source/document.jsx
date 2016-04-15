@@ -30,8 +30,8 @@ let Document = React.createClass({
       </p>
       <Collapse in={this.state.expanded}>
         <div>{Object.keys(this.props.document).map((key)=>{
-          if (typeof this.props.document[key] == 'object') return   <p key={key}>{key}: <pre>{JSON.stringify(this.props.document[key], null, 2)}</pre></p>
-          else return <p key={key}>{key}: {this.props.document[key]}</p>
+          if (typeof this.props.document[key] == 'object') return   <div key={key}>{key}: <pre>{JSON.stringify(this.props.document[key], null, 2)}</pre></div>
+          else return <div key={key}>{key}: {this.props.document[key]}</div>
         })}</div>
       </Collapse>
     </div>

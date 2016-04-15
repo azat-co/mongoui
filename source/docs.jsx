@@ -1,4 +1,4 @@
-var {Navbar, NavItem, NavDropdown, Nav, MenuItem, PageHeader, Glyphicon, Badge} = require('react-bootstrap')
+var {Navbar, NavItem, NavDropdown, Nav, MenuItem, PageHeader, Glyphicon, Badge, Button} = require('react-bootstrap')
 let React = require('react')
 let request = require('request')
 let baseUrl = 'http://localhost:3001'
@@ -31,9 +31,10 @@ let Docs = React.createClass({
   },
   render() {
     // console.log(this.state, this.props.params)
-    return <div><PageHeader>Docs</PageHeader>{this.state.docs.map((doc)=>{
-      return <Document document={doc} key={doc._id}/>
-    })}
+    return <div><PageHeader>Docs <Button ><Badge><Glyphicon glyph="filter" /></Badge></Button></PageHeader>
+      {this.state.docs.map((doc)=>{
+        return <Document document={doc} key={doc._id}/>
+      })}
     <div>{this.props.children}</div>
     </div>
   }

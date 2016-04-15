@@ -9,7 +9,7 @@ const navbarInstance = ()=>{
       <Navbar.Toggle />
     </Navbar.Header>
     <Navbar.Collapse>
-      <Nav>
+      {/*<Nav>
         <NavItem eventKey={1} href="#">Link</NavItem>
         <NavItem eventKey={2} href="#">Link</NavItem>
         <NavDropdown eventKey={3} title="Dropdown" id="basic-nav-dropdown">
@@ -19,7 +19,7 @@ const navbarInstance = ()=>{
           <MenuItem divider />
           <MenuItem eventKey={3.3}>Sseparated link</MenuItem>
         </NavDropdown>
-      </Nav>
+      </Nav>*/}
       <Nav pullRight>
         <NavItem eventKey={1} href="https://github.com/azat-co/mongoui">GitHub</NavItem>
         <NavItem eventKey={2} href="http://twitter.com/azat_co">Twitter</NavItem>
