@@ -22,14 +22,14 @@ module.exports = React.createClass({
     // })
   },
   renderExpanded(){
-    return <div><PageHeader>Docs</PageHeader>{Object.keys(this.props.document).map((key)=>{
-      return <p>{key}: {this.props.document[key]}</p>
+    return <div>{Object.keys(this.props.document).map((key)=>{
+      return <p key={key}>{key}: {this.props.document[key]}</p>
     })}</div>
   },
   render() {
     let document = this.props.document
     return  <div>
-      <p key={document._id}><Button onClick={this.toggleExpand}>{doc._id} <Badge><Glyphicon glyph="plus" /></Badge></Button></p>
+      <p key={document._id}><Button bsStyle="link" onClick={this.toggleExpand}>{document._id} <Badge><Glyphicon glyph="plus" /></Badge></Button></p>
       {(this.state.expanded)? this.renderExpanded() : ''}
     </div>
   }

@@ -22,7 +22,7 @@ module.exports = React.createClass({
   render() {
     // console.log(this.state, this.props.params)
     return <div><PageHeader>Docs</PageHeader>{this.state.docs.map((doc)=>{
-      return <Document document={doc}/>
+      return <Document document={doc} key={doc._id}/>
     })}
     <div>{this.props.children}</div>
     </div>
