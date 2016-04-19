@@ -26,7 +26,7 @@
     "mongoskin": "2.0.3",
     "neo-async": "1.8.0",
     "react": "^15.0.1",
-    "react-bootstrap": "^0.28.5",
+    "react-bootstrap": "0.29",
     "react-copy-to-clipboard": "^4.1.0",
     "react-dom": "^15.0.1",
     "react-redux": "4.4.1",

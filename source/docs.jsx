@@ -33,11 +33,16 @@ let Docs = React.createClass({
   },
   render() {
     // console.log(this.state, this.props.params)
-    return <div><PageHeader>Docs <Filter applyQuery={()=>{console.log('yo');}} {...this.props}/></PageHeader>
-      {this.state.docs.map((doc)=>{
-        return <Document document={doc} key={doc._id}/>
-      })}
-    <div>{this.props.children}</div>
+    return <div>
+      <PageHeader>Docs </PageHeader>
+
+      <Filter applyQuery={()=>{console.log('yo');}} {...this.props}/>
+      <span>[{this.props.params.collectionName}]</span>
+      
+        {this.state.docs.map((doc)=>{
+          return <Document document={doc} key={doc._id}/>
+        })}
+        <div>{this.props.children}</div>
     </div>
   }
 })
