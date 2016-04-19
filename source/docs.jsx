@@ -4,6 +4,8 @@ let request = require('request')
 let baseUrl = 'http://localhost:3001'
 let {Link} = require('react-router')
 let Document = require('./document.jsx')
+let Filter = require('./query.jsx')
+
 
 let Docs = React.createClass({
   getInitialState(){
@@ -31,7 +33,7 @@ let Docs = React.createClass({
   },
   render() {
     // console.log(this.state, this.props.params)
-    return <div><PageHeader>Docs <Button ><Badge><Glyphicon glyph="filter" /></Badge></Button></PageHeader>
+    return <div><PageHeader>Docs <Filter applyQuery={()=>{console.log('yo');}} {...this.props}/></PageHeader>
       {this.state.docs.map((doc)=>{
         return <Document document={doc} key={doc._id}/>
       })}
