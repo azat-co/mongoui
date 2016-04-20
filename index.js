@@ -62,6 +62,7 @@ app.get('/api/dbs/:dbName/collections', function(req, res) {
 })
 app.get('/api/dbs/:dbName/collections/:collectionName', function(req, res) {
   let collection = req.db.collection(req.params.collectionName, {strict: true})
+  console.log(req.body);
   collection.find({}, {limit: req.query.limit || 20}).toArray(function(e, docs) {
     // console.log('boo', docs)
     res.json({docs: docs})
