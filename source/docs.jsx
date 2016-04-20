@@ -1,6 +1,6 @@
 var {Navbar, NavItem, NavDropdown, Nav, MenuItem, PageHeader, Glyphicon, Badge, Button} = require('react-bootstrap')
 let React = require('react')
-let request = require('superagent')
+let request = require('request')
 let baseUrl = 'http://localhost:3001'
 let {Link} = require('react-router')
 let Document = require('./document.jsx')
@@ -16,19 +16,14 @@ let Docs = React.createClass({
     dbName = dbName || this.props.params.dbName
     collectionName = collectionName || this.props.params.collectionName
     query = query || {}
-    let queryStr = JSON.stringify(query)
-    console.log(query);
-    window.request = ()=>{request({
-      url: `${baseUrl}/api/dbs/${dbName}/collections/${collectionName}`,
-      method: 'GET',
-      json: query,
+    request({url: `${baseUrl}/api/dbs/${dbName}/collections/${collectionName}`,
+      json: true,
       qs: query,
       withCredentials: false},
       (error, response, body) =>{
-        console.log(response, body)
+        console.log(body)
         this.setState({docs: body.docs})
-    })}
-    window.request()
+    })
   },
   componentDidMount() {
     this.fetch()
