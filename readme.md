@@ -1,28 +1,8 @@
 # MongoUI
 
-MongoUI (mongoui) is a web (browser) admin interface for MongoDB. Currently a standalone tool (run as an app locally or on your server); desktop app later.
+MongoUI (mongoui) is a web (browser) admin interface for MongoDB. Currently a standalone tool (run as an app locally or on your server); desktop app later. This is a brand new v2 of MongoUI. Old version use DerbyJS, then new version uses Webpack, React, React Router, React Bootstrap and of course Express and Node.
 
-
----
-
-## Usage
-
-Front-end development:
-
-```
-npm run dev-server
-```
-
-Back end start (and Node development):
-
-```
-npm start
-```
-
-
-Open <http://localhost:3000/> in your favorite browser.
-
-You'll see something like this:
+MongoUI v2 looks like this:
 
 [![](https://raw.githubusercontent.com/azat-co/mongoui/master/demo-image.png)](https://raw.githubusercontent.com/azat-co/mongoui/master/demo.mp4)
 
@@ -54,8 +34,6 @@ npm run build
 
 
 
-
-
 ## Branches
 
 * Master — major releases, main branch
@@ -66,21 +44,25 @@ npm run build
 
 Tired of typing `db.users.findOne({_id:ObjectId(...)})` just to look up data structure. Even more typing to modify the data. Can't find Node.js implementation (not true any more, there is [exprss-mongo](https://github.com/andzdroid/mongo-express)).
 
+---
 
-## How to Use
+## Installation
 
-### Installation
+### Download MongoUI
+
 
 SSH:
 
 ```bash
 git clone git@github.com:azat-co/mongoui
+npm i
 ```
 
 or HTTPS
 
 ```bash
 git clone https://github.com/azat-co/mongoui.git
+
 ```
 
 or CURL
@@ -96,6 +78,46 @@ wget https://github.com/azat-co/mongoui/archive/master.zip
 unzip master.zip
 cd mongoui-master
 ```
+
+### Install Dependencies
+
+```
+npm i
+```
+
+
+---
+
+## Usage
+
+
+### Build and Run MongoUI in Regular Mode
+
+```
+npm run build && npm start
+```
+
+Then, open <http://localhost:3001> in your favorite browser.
+
+
+### Build and Run MongoUI in Development (Hot-Reload) Mode
+
+Front-end development in one terminal:
+
+```
+npm run dev-server
+```
+
+Back end development in another terminal:
+
+```
+npm start
+```
+
+
+Open <http://localhost:3000/> in your favorite browser.
+
+Note: there are two ports, 3001 and 3000. In dev mode you need to go to 3000, in regular mode, navigate to 3001. This is because in dev mode, we are using webpack dev server on 3000 and the API (index.js) is alway on 3001.
 
 ### Configs
 
