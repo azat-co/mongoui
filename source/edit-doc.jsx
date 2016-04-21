@@ -50,7 +50,7 @@ const EditDoc = React.createClass({
     // let tooltip = <Tooltip>wow.</Tooltip>
 
     return (
-      <div>
+      <div style={{display: 'inline'}}>
         <Button onClick={this.open} title="Edit documents" bsSize="small">
           <Badge>
             <Glyphicon glyph="edit" />

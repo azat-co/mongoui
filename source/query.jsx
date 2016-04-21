@@ -35,11 +35,20 @@ const Query = React.createClass({
   render() {
     // let popover = <Popover title="popover">very popover. such engagement</Popover>
     // let tooltip = <Tooltip>wow.</Tooltip>
-
+    let isQueryApplied = (JSON.stringify(this.state.query) != '{}')
+    let popover = <Popover id="query" title="Query Applied">{JSON.stringify(this.state.query, null, 2)}</Popover>
+    let button = (
+      <Button onClick={this.open} title="Query documents" bsSize="small" bsStyle={(isQueryApplied)?'info':'default'}>
+        <Badge>
+          <Glyphicon glyph="filter" />
+        </Badge>
+      </Button>
+    )
     return (
-      <div>
-        <Button onClick={this.open} title="Query documents" bsSize="small"><Badge><Glyphicon glyph="filter" /></Badge></Button>
-        {(JSON.stringify(this.state.query) != '{}') ? JSON.stringify(this.state.query, null, 2):''}
+      <div style={{display: 'inline'}}>
+      {(isQueryApplied)? <OverlayTrigger trigger={['hover', 'focus']} placement="bottom" overlay={popover}>
+        {button}
+        </OverlayTrigger>: button}
         <Modal show={this.state.showModal} onHide={this.close}>
           <Modal.Header closeButton>
             <Modal.Title>Query Collection</Modal.Title>

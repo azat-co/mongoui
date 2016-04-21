@@ -31,7 +31,7 @@ let Doc = React.createClass({
         <CopyToClipboard text={JSON.stringify(doc, null, 2)} onCopy={()=>{
           this.setState({copied: true}), setTimeout(()=>{this.setState({copied: false})}, 400)}
         }>
-          <Button>
+          <Button  bsSize="small">
             <Badge>
               <Glyphicon glyph="copy" />
               {(this.state.copied)?
