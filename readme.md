@@ -1,6 +1,129 @@
 # MongoUI
 
-MongoUI (mongoui) is a web browser admin interface for MongoDB. Currently a standalone tool (run as an app locally or on your server); middleware later.
+MongoUI (mongoui) is a web (browser) admin interface for MongoDB. Currently a standalone tool (run as an app locally or on your server); desktop app later. This is a brand new v2 of MongoUI. Old version use DerbyJS, then new version uses Webpack, React, React Router, React Bootstrap and of course Express and Node.
+
+MongoUI v2 looks like this:
+
+[![](https://raw.githubusercontent.com/azat-co/mongoui/master/demo-image.png)](https://raw.githubusercontent.com/azat-co/mongoui/master/demo.mp4)
+
+
+Here's a short **video** that shows filtering, editing, and switching collections:
+
+<https://github.com/azat-co/mongoui/blob/master/demo.mp4>
+
+
+
+---
+
+
+## Why
+
+Tired of typing `db.users.findOne({_id:ObjectId(...)})` just to look up data structure. Even more typing to modify the data. Can't find Node.js implementation (not true any more, there is [exprss-mongo](https://github.com/andzdroid/mongo-express)).
+
+---
+
+## Installation
+
+### Download MongoUI
+
+
+SSH:
+
+```bash
+git clone git@github.com:azat-co/mongoui
+npm i
+```
+
+or HTTPS
+
+```bash
+git clone https://github.com/azat-co/mongoui.git
+
+```
+
+or CURL
+
+```
+curl -O https://github.com/azat-co/mongoui/archive/master.zip
+```
+
+or WGET
+
+```
+wget https://github.com/azat-co/mongoui/archive/master.zip
+unzip master.zip
+cd mongoui-master
+```
+
+### Install Dependencies
+
+```
+npm i
+```
+
+
+---
+
+## Usage
+
+
+### Build and Run MongoUI in Regular Mode
+
+```
+npm run build && npm start
+```
+
+Then, open <http://localhost:3001> in your favorite browser.
+
+
+### Build and Run MongoUI in Development (Hot-Reload) Mode
+
+Front-end development in one terminal:
+
+```
+npm run dev-server
+```
+
+Back end development in another terminal:
+
+```
+npm start
+```
+
+
+Open <http://localhost:3000/> in your favorite browser.
+
+Note: there are two ports, 3001 and 3000. In dev mode you need to go to 3000, in regular mode, navigate to 3001. This is because in dev mode, we are using webpack dev server on 3000 and the API (index.js) is alway on 3001.
+
+---
+
+## Additional Tasks
+
+
+You'll need MongoDB running for MongoUI to work:
+
+```
+mongod
+```
+
+
+Front-end build:
+
+```
+npm run build
+```
+
+
+### Configs
+
+Copy `config_default.json` file as `config.json`:
+
+```
+$ cp config_default.json config.json
+```
+
+Modify as needed (remote databases should work just fine!).
+
 
 ## Branches
 
@@ -8,95 +131,23 @@ MongoUI (mongoui) is a web browser admin interface for MongoDB. Currently a stan
 * Develop — current development branch (make your pull requests here)
 
 
-## Why
-
-Tired of typing `db.users.findOne({_id:ObjectId(...)})` just to look up data structure. Even more typing to modify the data. Can't find Node.js implementaton (not true any more, there is [exprss-mongo](https://github.com/andzdroid/mongo-express)).
-
-
-## How to Use
-
-### Installation
-
-`git clone git@github.com:azat-co/mongoui`
-
-or
-
-`npm install mongoui`
-
-### Running the app
-
-Assuming that MongoDB is running, to start the server run:
-
-  $ node .
-
-or:
-
-  $ node index.js
-
-### Configs
-
-Copy `config_default.json` file as `config.json`:
-
-	$ cp config_default.json config.json
-
-Modify as needed (remote databases should work just fine!).
-  
-### Using
-
-Open <http://localhost:3000/> in your favorite browser. If you use Chrome, there is a nice extension for viewing raw json: Chrome extension.
-
-Optional: Download and install [JSONView Chrome extension](https://chrome.google.com/webstore/detail/jsonview/chklaanhfefbnpoihckbnefhakgolnmc) to view JSON in a human readable format.
 
 ## Contributors
 
 Via `git shortlog -s -n`:
 
-    48  Azat Mardanov
+    61  Azat Mardanov
     14  cultofmetatron
+     1  Jan Carlo Viray
+
 
 
 ## TODO
 
 The list is in the GitHub Issues.
 
-## Contributing
+How to contribute in the CONTRIBUTING.md
 
-
-Pull requests are always welcome as long as an accompanying test case is
-associated. 
-
-This project is configured to use [git
-flow](https://github.com/nvie/gitflow/) and the following conventions
-are used:
-
-* ``develop`` - represents current active development and can possibly be
-  unstable. 
-
-* ``master`` - pristine copy of repository, represents the currently
-  stable release found in the npm index.
-
-* ``feature/**`` - represents a new feature being worked on
-
-If you wish to contribute, the only requirement is to: 
-
-- branch a new feature branch from develop (if you're working on an
-  issue, prefix it with the issue number)
-- make the changes, with accompanying test cases
-- issue a pull request against develop branch
-
-Although I use git flow and prefix feature branches with "feature/" I
-don't require this for pull requests... all I care is that the feature
-branch name makes sense. 
-
-Pulls requests against master or pull requests branched from master will
-be rejected.
-
-#### Examples
-
-Examples of good branch names:
-
-* 12-amd-support
-* feature/12-amd-support
 
 
 ### Running Tests
@@ -108,8 +159,13 @@ In order to run the tests which are in `test` folder, you will need:
 
 With those installed, running `npm install` and ''npm test'' will run the tests.
 
-   
+
 ## Non-node.js alternatives
 
 * Mac OS X app: [MongoHub](http://mongohub.todayclose.com/)
 * .NET based app: MongoVUE](http://www.mongovue.com/)
+
+
+## License
+
+License is in LICENSE.md
