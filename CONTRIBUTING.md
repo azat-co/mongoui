@@ -28,3 +28,11 @@ branch name makes sense.
 
 Pulls requests against master or pull requests branched from master will
 be rejected.
+
+
+#### Examples
+
+Examples of good branch names:
+
+* 12-amd-support
+* feature/12-amd-support
