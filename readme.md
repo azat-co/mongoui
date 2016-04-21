@@ -1,21 +1,34 @@
 # MongoUI
 
-Front-end build:
 
-```
-npm run build
-```
+## Usage
 
 Front-end development:
 
 ```
-npm run dev
+npm run dev-server
 ```
 
-Back end start (and development)
+Back end start (and Node development):
 
 ```
 npm start
+```
+
+
+MongoDB:
+
+```
+mongod
+```
+
+
+## Additional Tasks
+
+Front-end build:
+
+```
+npm run build
 ```
 
 

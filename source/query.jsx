@@ -27,7 +27,7 @@ const Query = React.createClass({
       enforceString = true
     } else {
       try {
-        num = parseInt(val, 10)
+        num = parseFloat(val)
       } catch(error) {
       }
     }
