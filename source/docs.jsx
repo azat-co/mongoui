@@ -3,7 +3,7 @@ let React = require('react')
 let request = require('request')
 let baseUrl = 'http://localhost:3001'
 let {Link} = require('react-router')
-let Document = require('./document.jsx')
+let Doc = require('./doc.jsx')
 let Query = require('./query.jsx')
 
 
@@ -49,8 +49,7 @@ let Docs = React.createClass({
     // })
     // this.fetch(query)
   },
-  applyEditDocument(doc, index, callback){
-    console.log(doc);
+  applyEditDoc(doc, index, callback){
     request({
       method: 'PATCH',
       url: `${baseUrl}/api/dbs/${this.props.params.dbName}/collections/${this.props.params.collectionName}/${doc._id}`,
@@ -59,7 +58,6 @@ let Docs = React.createClass({
       (error, response, body) =>{
         // console.log(body)
         if (body.ok = 1) {
-
           let docs = this.state.docs
           docs[index] = doc
           this.setState({docs: docs})
@@ -77,7 +75,7 @@ let Docs = React.createClass({
       <span>[{this.props.params.collectionName}]</span>
 
         {this.state.docs.map((doc, index)=>{
-          return <Document document={doc} key={doc._id} index={index} applyEditDocument={this.applyEditDocument}/>
+          return <Doc doc={doc} key={doc._id} index={index} applyEditDoc={this.applyEditDoc}/>
         })}
         <div>{this.props.children}</div>
     </div>

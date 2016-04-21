@@ -4,9 +4,9 @@ let request = require('request')
 let baseUrl = 'http://localhost:3001'
 let {Link} = require('react-router')
 let CopyToClipboard = require('react-copy-to-clipboard')
-let EditDocument = require('./edit-document.jsx')
+let EditDoc = require('./edit-doc.jsx')
 
-let Document = React.createClass({
+let Doc = React.createClass({
   getInitialState(){
     return {expanded: false}
   },
@@ -24,11 +24,11 @@ let Document = React.createClass({
   },
 
   render() {
-    let document = this.props.document
+    let doc = this.props.doc
     return  <div>
-      <div key={document._id}><Button bsStyle="link" onClick={this.toggleExpand}>{document._id} </Button>
-        <EditDocument document={document} applyEditDocument={this.props.applyEditDocument} index={this.props.index}/>
-        <CopyToClipboard text={JSON.stringify(document, null, 2)} onCopy={()=>{
+      <div key={doc._id}><Button bsStyle="link" onClick={this.toggleExpand}>{doc._id} </Button>
+        <EditDoc doc={doc} applyEditDoc={this.props.applyEditDoc} index={this.props.index}/>
+        <CopyToClipboard text={JSON.stringify(doc, null, 2)} onCopy={()=>{
           this.setState({copied: true}), setTimeout(()=>{this.setState({copied: false})}, 400)}
         }>
           <Button>
@@ -43,13 +43,13 @@ let Document = React.createClass({
         </CopyToClipboard>
       </div>
       <Collapse in={this.state.expanded}>
-        <div>{Object.keys(this.props.document).map((key)=>{
-          if (typeof this.props.document[key] == 'object') return   <div key={key}>{key}: <pre>{JSON.stringify(this.props.document[key], null, 2)}</pre></div>
-          else return <div key={key}>{key}: {this.props.document[key]}</div>
+        <div>{Object.keys(this.props.doc).map((key)=>{
+          if (typeof this.props.doc[key] == 'object') return   <div key={key}>{key}: <pre>{JSON.stringify(this.props.doc[key], null, 2)}</pre></div>
+          else return <div key={key}>{key}: {this.props.doc[key]}</div>
         })}</div>
       </Collapse>
     </div>
   }
 })
 
-module.exports = Document
+module.exports = Doc

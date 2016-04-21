@@ -3,31 +3,31 @@ let ReactDOM = require('react-dom')
 let {Form, FormGroup, FormControl, ControlLabel, Glyphicon, Badge, Button, Popover, Tooltip, Modal, OverlayTrigger} = require('react-bootstrap')
 let fD = ReactDOM.findDOMNode
 
-const EditDocument = React.createClass({
+const EditDoc = React.createClass({
   getInitialState() {
     return {
       showModal: false,
-      documentStr: JSON.stringify(this.props.document, null, 2),
+      docStr: JSON.stringify(this.props.doc, null, 2),
       errorMessage: '',
       operationMessage: ''
     }
   },
   propTypes: {
-    applyEditDocument: React.PropTypes.func.isRequired,
-    document: React.PropTypes.object.isRequired
+    applyEditDoc: React.PropTypes.func.isRequired,
+    doc: React.PropTypes.object.isRequired
   },
-  applyEditDocument() {
+  applyEditDoc() {
     let noParsingError = false
     let doc = {}
     try {
-      doc = JSON.parse(this.state.documentStr)
+      doc = JSON.parse(this.state.docStr)
       noParsingError = true
     } catch (error) {
       this.setState({errorMessage: 'Error parsing JSON, please check your syntax.' +error})
     } finally {
     }
     if (noParsingError) {
-      this.props.applyEditDocument(doc, this.props.index, (operationMessage)=>{
+      this.props.applyEditDoc(doc, this.props.index, (operationMessage)=>{
         this.setState({operationMessage: operationMessage})
         setTimeout(()=>{
           this.setState({operationMessage: ''})
@@ -37,13 +37,13 @@ const EditDocument = React.createClass({
     }
   },
   cancel(){
-    this.setState({documentStr: JSON.stringify(this.props.document, null, 2), showModal: false})
+    this.setState({docStr: JSON.stringify(this.props.doc, null, 2), showModal: false})
   },
   open() {
     this.setState({ showModal: true })
   },
   handleChange(event){
-    this.setState({documentStr: event.target.value, errorMessage: ''})
+    this.setState({docStr: event.target.value, errorMessage: ''})
   },
   render() {
     // let popover = <Popover title="popover">very popover. such engagement</Popover>
@@ -57,21 +57,21 @@ const EditDocument = React.createClass({
           </Badge>
         </Button>
         {(this.state.operationMessage)?
-        <Tooltip placement="bottom" className="in" id="operationMessageforEditDocument">
+        <Tooltip placement="bottom" className="in" id="operationMessageforEditDoc">
           {this.state.operationMessage}
         </Tooltip>:''}
 
         <Modal show={this.state.showModal} onHide={this.close}>
           <Modal.Header closeButton>
-            <Modal.Title>Edit Doc with ID {this.props.document._id}</Modal.Title>
+            <Modal.Title>Edit Doc with ID {this.props.doc._id}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <p>Type valid JSON to edit the document.</p>
             <p>{(this.state.errorMessage)? this.state.errorMessage : ''}</p>
             <hr />
             <pre>
-              <textarea ref="documentInput"
-                value={this.state.documentStr}
+              <textarea
+                value={this.state.docStr}
                 cols="50"
                 rows="20"
                 onChange={this.handleChange}/>
@@ -79,7 +79,7 @@ const EditDocument = React.createClass({
           </Modal.Body>
           <Modal.Footer>
             <Button onClick={this.cancel}>Cancel</Button>
-            <Button onClick={this.applyEditDocument} bsStyle="primary">Apply</Button>
+            <Button onClick={this.applyEditDoc} bsStyle="primary">Apply</Button>
           </Modal.Footer>
         </Modal>
       </div>
@@ -87,4 +87,4 @@ const EditDocument = React.createClass({
   }
 })
 
-module.exports = EditDocument
+module.exports = EditDoc
