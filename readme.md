@@ -29,6 +29,8 @@ You'll see something like this:
 
 Here's a short **video** that shows filtering, editing, and switching collections:
 
+<https://github.com/azat-co/mongoui/blob/master/demo.mp4>
+
 ## Additional Tasks
 
 
