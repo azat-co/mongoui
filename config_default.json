@@ -3,7 +3,7 @@
     "default": {
       "host": "localhost",
       "port": 27017,
-      "name": "storify_localhost",
+      "name": "mongoui",
       "username": "",
       "password": ""
     }
