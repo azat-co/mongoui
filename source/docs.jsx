@@ -49,6 +49,25 @@ let Docs = React.createClass({
     // })
     // this.fetch(query)
   },
+  applyEditDocument(doc, index, callback){
+    console.log(doc);
+    request({
+      method: 'PATCH',
+      url: `${baseUrl}/api/dbs/${this.props.params.dbName}/collections/${this.props.params.collectionName}/${doc._id}`,
+      json: doc,
+      withCredentials: false},
+      (error, response, body) =>{
+        // console.log(body)
+        if (body.ok = 1) {
+
+          let docs = this.state.docs
+          docs[index] = doc
+          this.setState({docs: docs})
+          return callback('Document updated')
+        }
+        callback('Error updating')
+    })
+  },
   render() {
     // console.log(this.state, this.props.params)
     return <div>
@@ -57,8 +76,8 @@ let Docs = React.createClass({
       <Query applyQuery={this.applyQuery} {...this.props}/>
       <span>[{this.props.params.collectionName}]</span>
 
-        {this.state.docs.map((doc)=>{
-          return <Document document={doc} key={doc._id}/>
+        {this.state.docs.map((doc, index)=>{
+          return <Document document={doc} key={doc._id} index={index} applyEditDocument={this.applyEditDocument}/>
         })}
         <div>{this.props.children}</div>
     </div>

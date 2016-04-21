@@ -69,10 +69,12 @@ app.get('/api/dbs/:dbName/collections/:collectionName', function(req, res) {
   })
 })
 
-app.put('/api/dbs/:dbName/collections/:collectionName/:id', function(req, res) {
+app.patch('/api/dbs/:dbName/collections/:collectionName/:id', function(req, res) {
   let collection = req.db.collection(req.params.collectionName, {strict: true})
-  collection.findById(req.params.id, {$set: req.body}, function(e, results) {
-    // console.log('boo', docs)
+  if (req.body._id && req.body._id != req.params.id) return res.status(400).json({error: 'ID in the body is not matching ID in the URL'})
+  delete req.body._id
+  collection.updateById(req.params.id, {$set: req.body}, function(e, results) {
+    console.log('boo', e, results)
     res.json(results)
   })
 })

@@ -4,6 +4,7 @@ let request = require('request')
 let baseUrl = 'http://localhost:3001'
 let {Link} = require('react-router')
 let CopyToClipboard = require('react-copy-to-clipboard')
+let EditDocument = require('./edit-document.jsx')
 
 let Document = React.createClass({
   getInitialState(){
@@ -25,9 +26,11 @@ let Document = React.createClass({
   render() {
     let document = this.props.document
     return  <div>
-      <p key={document._id}><Button bsStyle="link" onClick={this.toggleExpand}>{document._id} </Button>
-        <Button><Badge><Glyphicon glyph="edit" /></Badge></Button>
-        <CopyToClipboard text={JSON.stringify(document, null, 2)} onCopy={()=>{this.setState({copied: true}), setTimeout(()=>{this.setState({copied: false})}, 400)}}>
+      <div key={document._id}><Button bsStyle="link" onClick={this.toggleExpand}>{document._id} </Button>
+        <EditDocument document={document} applyEditDocument={this.props.applyEditDocument} index={this.props.index}/>
+        <CopyToClipboard text={JSON.stringify(document, null, 2)} onCopy={()=>{
+          this.setState({copied: true}), setTimeout(()=>{this.setState({copied: false})}, 400)}
+        }>
           <Button>
             <Badge>
               <Glyphicon glyph="copy" />
@@ -38,7 +41,7 @@ let Document = React.createClass({
             </Badge>
           </Button>
         </CopyToClipboard>
-      </p>
+      </div>
       <Collapse in={this.state.expanded}>
         <div>{Object.keys(this.props.document).map((key)=>{
           if (typeof this.props.document[key] == 'object') return   <div key={key}>{key}: <pre>{JSON.stringify(this.props.document[key], null, 2)}</pre></div>
