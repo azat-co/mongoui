@@ -1,5 +1,9 @@
 # MongoUI
 
+MongoUI (mongoui) is a web (browser) admin interface for MongoDB. Currently a standalone tool (run as an app locally or on your server); desktop app later.
+
+
+---
 
 ## Usage
 
@@ -23,6 +27,7 @@ You'll see something like this:
 [![](https://raw.githubusercontent.com/azat-co/mongoui/master/demo-image.png)](https://raw.githubusercontent.com/azat-co/mongoui/master/demo.mp4)
 
 
+Here's a short **video** that shows filtering, editing, and switching collections:
 
 ## Additional Tasks
 
@@ -45,11 +50,8 @@ npm run build
 
 ---
 
-MongoUI (mongoui) is a web browser admin interface for MongoDB. Currently a standalone tool (run as an app locally or on your server); middleware later.
 
-Here's a one and a half minute **video** that shows filtering, editing, and switching collections:
 
-[![mongoui rocks!](http://img.youtube.com/vi/l8Rfpow0f9A/0.jpg)](http://www.youtube.com/watch?v=l8Rfpow0f9A)
 
 
 ## Branches
