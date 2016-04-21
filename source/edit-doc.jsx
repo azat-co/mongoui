@@ -61,7 +61,7 @@ const EditDoc = React.createClass({
           {this.state.operationMessage}
         </Tooltip>:''}
 
-        <Modal show={this.state.showModal} onHide={this.close}>
+        <Modal show={this.state.showModal} onHide={this.cancel}>
           <Modal.Header closeButton>
             <Modal.Title>Edit Doc with ID {this.props.doc._id}</Modal.Title>
           </Modal.Header>

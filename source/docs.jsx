@@ -21,7 +21,7 @@ let Docs = React.createClass({
     query = query || this.props.location.query || {}
     request({url: `${baseUrl}/api/dbs/${dbName}/collections/${collectionName}`,
       json: true,
-      qs: query,
+      qs: {query: JSON.stringify(query)},
       withCredentials: false},
       (error, response, body) =>{
         console.log(body)
@@ -38,7 +38,10 @@ let Docs = React.createClass({
   },
   applyQuery(query){
     console.log(query);
-    this.fetch(null, null, query)
+    this.setState({query: query}, ()=>{
+      this.fetch(null, null, query)
+    })
+
 
     // let dbName =  this.props.params.dbName
     // let collectionName =this.props.params.collectionName
@@ -61,6 +64,7 @@ let Docs = React.createClass({
           let docs = this.state.docs
           docs[index] = doc
           this.setState({docs: docs})
+          // apply query or not?
           return callback('Document updated')
         }
         callback('Error updating')

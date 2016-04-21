@@ -6,6 +6,7 @@ let express = require('express')
 let bodyParser = require('body-parser')
 let compression = require('compression')
 let expressHandlebars = require('express-handlebars')
+let errorHandler = require('errorhandler')
 let cors = require('cors')
 
 let config = require('./config.json')
@@ -24,6 +25,7 @@ if (config && config.database) {
 
 var highlight = require('highlight').Highlight
 var app = express()
+app.use(errorHandler())
 app.use(cors({credential: false}))
 app.use(bodyParser.json())
 app.use(express.static('public'))
@@ -51,8 +53,9 @@ app.get('/api/dbs', function(req, res) {
   })
 })
 
-app.get('/api/dbs/:dbName/collections', function(req, res) {
+app.get('/api/dbs/:dbName/collections', function(req, res, next) {
   req.db.collections(function(e, names) {
+    if (!names) next(new Error('No collections'))
     let collections = names.map((collection)=>{
       log(collection.s.name)
       return {name: collection.s.name}
@@ -60,10 +63,16 @@ app.get('/api/dbs/:dbName/collections', function(req, res) {
     res.json({collections: collections})
   })
 })
-app.get('/api/dbs/:dbName/collections/:collectionName', function(req, res) {
+app.get('/api/dbs/:dbName/collections/:collectionName', function(req, res, next) {
   let collection = req.db.collection(req.params.collectionName, {strict: true})
-  console.log(req.query);
-  collection.find(req.query || {}, {limit: req.query.limit || 20}).toArray(function(e, docs) {
+  let query = {}
+  try {
+    query = JSON.parse(req.query.query)
+  } catch (error) {
+    return next(new Error('Invalind query, cannot parse it'))
+  }
+
+  collection.find(query || {}, {limit: req.query.limit || 20}).toArray(function(e, docs) {
     // console.log('boo', docs)
     res.json({docs: docs})
   })
