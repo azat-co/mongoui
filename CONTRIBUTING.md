@@ -36,3 +36,9 @@ Examples of good branch names:
 
 * 12-amd-support
 * feature/12-amd-support
+
+
+## Branches
+
+* Master — major releases, main branch
+* Develop — current development branch (make your pull requests here)

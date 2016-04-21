@@ -11,33 +11,9 @@ Here's a short **video** that shows filtering, editing, and switching collection
 
 <https://github.com/azat-co/mongoui/blob/master/demo.mp4>
 
-## Additional Tasks
-
-
-
-You'll need MongoDB running for MongoUI to work:
-
-```
-mongod
-```
-
-
-
-Front-end build:
-
-```
-npm run build
-```
 
 
 ---
-
-
-
-## Branches
-
-* Master — major releases, main branch
-* Develop — current development branch (make your pull requests here)
 
 
 ## Why
@@ -119,6 +95,25 @@ Open <http://localhost:3000/> in your favorite browser.
 
 Note: there are two ports, 3001 and 3000. In dev mode you need to go to 3000, in regular mode, navigate to 3001. This is because in dev mode, we are using webpack dev server on 3000 and the API (index.js) is alway on 3001.
 
+---
+
+## Additional Tasks
+
+
+You'll need MongoDB running for MongoUI to work:
+
+```
+mongod
+```
+
+
+Front-end build:
+
+```
+npm run build
+```
+
+
 ### Configs
 
 Copy `config_default.json` file as `config.json`:
@@ -129,6 +124,11 @@ $ cp config_default.json config.json
 
 Modify as needed (remote databases should work just fine!).
 
+
+## Branches
+
+* Master — major releases, main branch
+* Develop — current development branch (make your pull requests here)
 
 
 
