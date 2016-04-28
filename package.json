@@ -4,6 +4,7 @@
   "engines": {
     "node": ">= v4.4.4"
   },
+  "bin": "npm run build && npm run start",
   "repository": {
     "type": "git",
     "url": "http://github.com/azat-co/mongoui.git"
@@ -57,5 +58,6 @@
       "react",
       "es2015"
     ]
-  }
+  },
+  "license": "SEE IN LICENSE.md"
 }
