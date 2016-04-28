@@ -13,16 +13,13 @@ let Doc = React.createClass({
   toggleExpand(){
     this.setState({expanded: !this.state.expanded})
   },
-  componentDidMount() {
-    // request({url: `${baseUrl}/api/collections/${this.props.params.collectionName}`,
-    //   json: true,
-    //   withCredentials: false},
-    //   (error, response, body) =>{
-    //     console.log(body)
-    //     this.setState({docs: body.docs})
-    // })
+  showValue(value) {
+    if (typeof value == 'boolean')
+      return value.toString()
+    else if (typeof value == 'string')
+      return `"${value.toString()}"`
+    return value
   },
-
   render() {
     let doc = this.props.doc
     return  <div>
@@ -45,7 +42,7 @@ let Doc = React.createClass({
       <Collapse in={this.state.expanded}>
         <div>{Object.keys(this.props.doc).map((key)=>{
           if (typeof this.props.doc[key] == 'object') return   <div key={key}>{key}: <pre>{JSON.stringify(this.props.doc[key], null, 2)}</pre></div>
-          else return <div key={key}>{key}: {this.props.doc[key]}</div>
+          else return <div key={key}>{key}: {this.showValue(this.props.doc[key])}</div>
         })}</div>
       </Collapse>
     </div>
