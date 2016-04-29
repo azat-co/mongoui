@@ -21,6 +21,8 @@ const Query = React.createClass({
     let query = this.state.query
     let num = null
     let val = this.state.valueInput.trim()
+    let keyInput = this.state.keyInput.trim()
+    if (val == '' || keyInput == '') return false
     let enforceString = false
     if (val[0] == '"' && val[val.length-1]=='"') {
       val = val.substr(1, val.length -2)
@@ -31,9 +33,10 @@ const Query = React.createClass({
       } catch(error) {
       }
     }
-    if (!enforceString && num) query[this.state.keyInput] = num
-    else if (val.toLowerCase() === 'true' || val.toLowerCase() === 'false') query[this.state.keyInput] = (val === 'true') ? true : false
-    else query[this.state.keyInput] = val
+    if (!enforceString && num) query[keyInput] = num
+    else if (val.toLowerCase() === 'true' || val.toLowerCase() === 'false') query[keyInput] = (val === 'true') ? true : false
+    else query[keyInput] = val
+
     this.setState({query: query, keyInput: '', valueInput: ''})
     // query[fD(this.refs.keyInput).value] = fD(this.refs.valueInput).value
     // this.setState({query: query}, ()=>{
@@ -49,7 +52,8 @@ const Query = React.createClass({
     delete query[key]
     this.setState({query: query, keyInput: '', valueInput: ''})
   },
-  apply() {
+  apply(event) {
+    // event.preventDefault()
     this.props.applyQuery(this.state.query)
     this.setState({ showModal: false })
   },
@@ -58,6 +62,11 @@ const Query = React.createClass({
   },
   open() {
     this.setState({ showModal: true })
+  },
+  clear(){
+    this.setState({query: {}}, ()=>{
+      this.apply()
+    })
   },
   render() {
     // let popover = <Popover title="popover">very popover. such engagement</Popover>
@@ -71,11 +80,20 @@ const Query = React.createClass({
         </Badge>
       </Button>
     )
+    let buttonClear = (
+      <Button onClick={this.clear} title="Clear and Run Query" bsSize="small" bsStyle={(isQueryApplied) ? 'danger':'default'}>
+        <Badge>
+          <Glyphicon glyph="remove-circle" />
+        </Badge>
+      </Button>
+    )
     return (
       <div style={{display: 'inline'}}>
       {(isQueryApplied)? <OverlayTrigger trigger={['hover', 'focus']} placement="bottom" overlay={popover}>
         {button}
+
         </OverlayTrigger>: button}
+        {(isQueryApplied) ? buttonClear : ''}
         <Modal show={this.state.showModal} onHide={this.apply}>
           <Modal.Header closeButton>
             <Modal.Title>Query Collection</Modal.Title>
@@ -103,15 +121,14 @@ const Query = React.createClass({
               </FormGroup>
               {' '}
 
+              <br/>
+              <Button type="submit" onClick={this.addCondition}>
+                Add/Update Condition
+              </Button>
+              <Button  bsStyle="danger" onClick={this.removeCondition}>
+                Remove Condition by the key name
+              </Button>
             </Form>
-            <br/>
-            <Button type="submit" onClick={this.addCondition}>
-              Add/Update Condition
-            </Button>
-            <Button  bsStyle="danger" onClick={this.removeCondition}>
-              Remove Condition by the key name
-            </Button>
-
 
 
             <hr/>
@@ -124,8 +141,8 @@ const Query = React.createClass({
 
           </Modal.Body>
           <Modal.Footer>
-            <Button onClick={this.cancel}>Cancel</Button>
-            <Button onClick={this.apply} bsStyle="primary">Close & Apply</Button>
+            <Button onClick={this.cancel}>Close</Button>
+            <Button onClick={this.apply} bsStyle="primary">Close & Run Query</Button>
           </Modal.Footer>
         </Modal>
       </div>
