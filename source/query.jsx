@@ -1,6 +1,6 @@
 let React = require('react')
 let ReactDOM = require('react-dom')
-let {Form, FormGroup, FormControl, ControlLabel, Glyphicon, Badge, Button, Popover, Tooltip, Modal, OverlayTrigger} = require('react-bootstrap')
+let {Row, Form, FormGroup, FormControl, ControlLabel, Glyphicon, Badge, Button, Popover, Tooltip, Modal, OverlayTrigger} = require('react-bootstrap')
 let fD = ReactDOM.findDOMNode
 var Highlight = require('react-highlight');
 
@@ -106,6 +106,7 @@ const Query = React.createClass({
 
             <hr />
             <Form inline onSubmit={this.addCondition}>
+            <Row>
               <FormGroup controlId="formInlineName">
                 <ControlLabel>Key:</ControlLabel>
                 {' '}
@@ -121,13 +122,14 @@ const Query = React.createClass({
               </FormGroup>
               {' '}
 
-              <br/>
-              <Button type="submit" onClick={this.addCondition}>
-                Add/Update Condition
+
+              <Button type="submit" onClick={this.addCondition} title="Add/Update Condition" bsSize="small" bsStyle="success">
+                <Glyphicon glyph="plus" />
               </Button>
-              <Button  bsStyle="danger" onClick={this.removeCondition}>
-                Remove Condition by the key name
+              <Button  bsStyle="danger" onClick={this.removeCondition} title="Remove Condition by the key name" bsSize="small">
+                <Glyphicon glyph="remove" />
               </Button>
+              </Row>
             </Form>
 
 
