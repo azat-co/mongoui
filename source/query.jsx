@@ -2,6 +2,7 @@ let React = require('react')
 let ReactDOM = require('react-dom')
 let {Form, FormGroup, FormControl, ControlLabel, Glyphicon, Badge, Button, Popover, Tooltip, Modal, OverlayTrigger} = require('react-bootstrap')
 let fD = ReactDOM.findDOMNode
+var Highlight = require('react-highlight');
 
 const Query = React.createClass({
   getInitialState() {
@@ -21,7 +22,6 @@ const Query = React.createClass({
     let num = null
     let val = this.state.valueInput.trim()
     let enforceString = false
-    // debugger
     if (val[0] == '"' && val[val.length-1]=='"') {
       val = val.substr(1, val.length -2)
       enforceString = true
@@ -32,6 +32,7 @@ const Query = React.createClass({
       }
     }
     if (!enforceString && num) query[this.state.keyInput] = num
+    else if (val.toLowerCase() === 'true' || val.toLowerCase() === 'false') query[this.state.keyInput] = (val === 'true') ? true : false
     else query[this.state.keyInput] = val
     this.setState({query: query, keyInput: '', valueInput: ''})
     // query[fD(this.refs.keyInput).value] = fD(this.refs.valueInput).value
@@ -115,7 +116,10 @@ const Query = React.createClass({
 
             <hr/>
             <h4> Already applied conditions in the query</h4>
-            <pre>{JSON.stringify(this.state.query, null, 2)}</pre>
+
+          <Highlight className='json'>
+            {JSON.stringify(this.state.query, null, 2)}
+          </Highlight>
 
 
           </Modal.Body>
