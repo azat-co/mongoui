@@ -14,7 +14,11 @@ let Doc = React.createClass({
     this.setState({expanded: !this.state.expanded})
   },
   showValue(value) {
-    if (typeof value == 'boolean')
+    if (value == null)
+     return 'null'
+    else if (value == undefined)
+      return 'undefined'
+    else if (typeof value == 'boolean')
       return value.toString()
     else if (typeof value == 'string')
       return `"${value.toString()}"`
@@ -32,14 +36,13 @@ let Doc = React.createClass({
     if (Array.isArray(doc)) return <div>{doc.map((item, index, list)=>{
       let last = (index==list.length-1) ? ']' : ','
       let first = (index == 0) ? '[' : ''
-
       if (typeof item == 'object') return <div key={index}><div>{first}{this.renderObject(item)}{last}</div></div>
       else return <div key={index} >{first}{this.showValue(item)} {last}</div>
 
     })}</div>
-    return <div>{Object.keys(doc).map((key)=>{
-
-      if (typeof doc[key] == 'object') return <div key={key}>{key}: <div style={{marginLeft: 20}}>{this.renderObject(doc[key])}</div></div>
+    else return <div>{Object.keys(doc).map((key)=>{
+      //doc[key] === Object(doc[key])
+      if (typeof doc[key] == 'object' && doc[key] != null) return <div key={key}>{key}: <div style={{marginLeft: 20}}>{this.renderObject(doc[key])}</div></div>
       else return <div key={key}>{key}: {this.showValue(doc[key])}</div>
     })}</div>
     // return <div key={key}>{key}: <pre>{JSON.stringify(obj[key], null, 2)}</pre></div>
