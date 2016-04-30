@@ -24,8 +24,15 @@ Tired of typing `db.users.findOne({_id:ObjectId(...)})` just to look up data str
 
 ## Installation
 
-### Download MongoUI
 
+```
+npm i -g mongoui
+mongoui
+```
+
+## Dev Installation
+
+### Download MongoUI
 
 SSH:
 
