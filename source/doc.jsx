@@ -27,6 +27,7 @@ let Doc = React.createClass({
     if(node.children){ node.toggled = toggled; }
     this.setState({ cursor: node });
   },
+
   render() {
     let doc = this.props.doc
     let data = {
@@ -53,10 +54,11 @@ let Doc = React.createClass({
       </div>
 
       <Collapse in={this.state.expanded}>
-        {<div>{Object.keys(this.props.doc).map((key)=>{
+
+        {/*{<div>{Object.keys(this.props.doc).map((key)=>{
           if (typeof this.props.doc[key] == 'object') return   <div key={key}>{key}: <pre>{JSON.stringify(this.props.doc[key], null, 2)}</pre></div>
           else return <div key={key}>{key}: {this.showValue(this.props.doc[key])}</div>
-        })}</div>}
+        })}</div>}*/}
       </Collapse>
     </div>
   }
