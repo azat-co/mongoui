@@ -1,3 +1,4 @@
+require('../public/css/highlight/sunburst.css')
 let React = require('react')
 let ReactDOM = require('react-dom')
 let {Row, Form, FormGroup, FormControl, ControlLabel, Glyphicon, Badge, Button, Popover, Tooltip, Modal, OverlayTrigger} = require('react-bootstrap')
