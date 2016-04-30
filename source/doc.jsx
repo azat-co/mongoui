@@ -26,8 +26,13 @@ let Doc = React.createClass({
     if(node.children){ node.toggled = toggled; }
     this.setState({ cursor: node });
   },
-  renderObject(obj, key){
-    return <div key={key}>{key}: <pre>{JSON.stringify(obj[key], null, 2)}</pre></div>
+  renderObject(doc){
+    console.log(doc);
+    return <div>{Object.keys(doc).map((key)=>{
+      if (typeof doc[key] == 'object') return <div key={key}>{key}: <div style={{marginLeft: 20}}>{this.renderObject(doc[key])}</div></div>
+      else return <div key={key}>{key}: {this.showValue(doc[key])}</div>
+    })}</div>
+    // return <div key={key}>{key}: <pre>{JSON.stringify(obj[key], null, 2)}</pre></div>
   },
   render() {
     let doc = this.props.doc
@@ -55,10 +60,7 @@ let Doc = React.createClass({
       </div>
 
       <Collapse in={this.state.expanded}>
-          {<div>{Object.keys(doc).map((key)=>{
-            if (typeof doc[key] == 'object') return this.renderObject(doc, key)
-            else return <div key={key}>{key}: {this.showValue(doc[key])}</div>
-          })}</div>}
+          {this.renderObject(doc)}
       </Collapse>
     </div>
   }

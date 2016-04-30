@@ -76,10 +76,15 @@ let Docs = React.createClass({
 
 
       <span>[{this.props.params.collectionName}]</span>
-        {this.state.docs.map((doc, index)=>{
-          return <Doc doc={doc} key={doc._id} index={index} applyEditDoc={this.applyEditDoc}/>
-        })}
-        <div>{this.props.children}</div>
+      <Button title="Add Document" bsSize="small" bsStyle={'default'}>
+        <Badge>
+          <Glyphicon glyph="plus" />
+        </Badge>
+      </Button>
+      {this.state.docs.map((doc, index)=>{
+        return <Doc doc={doc} key={doc._id} index={index} applyEditDoc={this.applyEditDoc}/>
+      })}
+      <div>{this.props.children}</div>
     </div>
   }
 })
