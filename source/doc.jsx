@@ -27,7 +27,11 @@ let Doc = React.createClass({
     this.setState({ cursor: node });
   },
   renderObject(doc){
-    console.log(doc);
+    // console.log(doc);
+    if (Array.isArray(doc)) return <div>[{doc.map((item, key)=>{
+      if (typeof doc[key] == 'object') return <div key={key}>{key}: <div style={{marginLeft: 20}}>{this.renderObject(doc[key])}</div></div>
+      else return <div key={key}>{this.showValue(doc[key])}</div>
+    })}]</div>
     return <div>{Object.keys(doc).map((key)=>{
       if (typeof doc[key] == 'object') return <div key={key}>{key}: <div style={{marginLeft: 20}}>{this.renderObject(doc[key])}</div></div>
       else return <div key={key}>{key}: {this.showValue(doc[key])}</div>

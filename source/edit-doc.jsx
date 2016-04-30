@@ -33,7 +33,7 @@ const EditDoc = React.createClass({
           this.setState({operationMessage: ''})
         }, 400)
       })
-      this.setState({ showModal: false })
+      this.setState({ showModal: false, docStr: JSON.stringify(doc, null, 2) })
     }
   },
   cancel(){
