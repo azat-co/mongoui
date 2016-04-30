@@ -28,12 +28,16 @@ let Doc = React.createClass({
   },
   renderObject(doc){
     // console.log(doc);
-    if (Array.isArray(doc)) return <div>[{doc.map((item, key)=>{
-      if (typeof doc[key] == 'object') return <div key={key}>{key}: <div style={{marginLeft: 20}}>{this.renderObject(doc[key])}</div></div>
-      else return <div key={key}>{this.showValue(doc[key])}</div>
-    })}]</div>
+    let margin = {marginLeft: 20}
+    if (Array.isArray(doc)) return <span>[ {doc.map((item, index, list)=>{
+      let comma = (index<list.length-1) ? ',' : ''
+      if (typeof item == 'object') return <div key={index}><div style={margin}>{this.renderObject(item)}</div></div>
+      else if (index == 0) return <span key={index}>{this.showValue(item)} {comma}</span>
+      else return <div key={index} style={margin}>{this.showValue(item)} {comma}</div>
+    })}]</span>
     return <div>{Object.keys(doc).map((key)=>{
-      if (typeof doc[key] == 'object') return <div key={key}>{key}: <div style={{marginLeft: 20}}>{this.renderObject(doc[key])}</div></div>
+      if (Array.isArray(doc[key]))  return <div key={key}>{key}: <span>{this.renderObject(doc[key])}</span></div>
+      else if (typeof doc[key] == 'object') return <div key={key}>{key}: <div style={{marginLeft: 20}}>{this.renderObject(doc[key])}</div></div>
       else return <div key={key}>{key}: {this.showValue(doc[key])}</div>
     })}</div>
     // return <div key={key}>{key}: <pre>{JSON.stringify(obj[key], null, 2)}</pre></div>
