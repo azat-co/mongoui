@@ -6,7 +6,6 @@ let {Link} = require('react-router')
 let CopyToClipboard = require('react-copy-to-clipboard')
 let EditDoc = require('./edit-doc.jsx')
 
-
 let Doc = React.createClass({
   getInitialState(){
     return {expanded: false}
@@ -27,7 +26,9 @@ let Doc = React.createClass({
     if(node.children){ node.toggled = toggled; }
     this.setState({ cursor: node });
   },
-
+  renderObject(obj, key){
+    return <div key={key}>{key}: <pre>{JSON.stringify(obj[key], null, 2)}</pre></div>
+  },
   render() {
     let doc = this.props.doc
     let data = {
@@ -54,11 +55,10 @@ let Doc = React.createClass({
       </div>
 
       <Collapse in={this.state.expanded}>
-
-        {/*{<div>{Object.keys(this.props.doc).map((key)=>{
-          if (typeof this.props.doc[key] == 'object') return   <div key={key}>{key}: <pre>{JSON.stringify(this.props.doc[key], null, 2)}</pre></div>
-          else return <div key={key}>{key}: {this.showValue(this.props.doc[key])}</div>
-        })}</div>}*/}
+          {<div>{Object.keys(doc).map((key)=>{
+            if (typeof doc[key] == 'object') return this.renderObject(doc, key)
+            else return <div key={key}>{key}: {this.showValue(doc[key])}</div>
+          })}</div>}
       </Collapse>
     </div>
   }
