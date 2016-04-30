@@ -22,8 +22,8 @@ module.exports = {
           'babel'
         ]
       },
-      { test: /\.json$/, loader: 'json-loader'}
-
+      { test: /\.json$/, loader: 'json-loader'},
+      { test: /\.css$/, loader: "style-loader!css-loader" }
     ],
     noParse: /node_modules\/json-schema\/lib\/validate\.js/
   },

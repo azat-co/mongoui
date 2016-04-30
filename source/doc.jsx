@@ -6,6 +6,7 @@ let {Link} = require('react-router')
 let CopyToClipboard = require('react-copy-to-clipboard')
 let EditDoc = require('./edit-doc.jsx')
 
+
 let Doc = React.createClass({
   getInitialState(){
     return {expanded: false}
@@ -20,8 +21,19 @@ let Doc = React.createClass({
       return `"${value.toString()}"`
     return value
   },
+  toggle(node, toggle){
+    if(this.state.cursor){this.state.cursor.active = false;}
+    node.active = true;
+    if(node.children){ node.toggled = toggled; }
+    this.setState({ cursor: node });
+  },
   render() {
     let doc = this.props.doc
+    let data = {
+      name: doc._id,
+      toggled: false,
+      children: [doc]
+    }
     return  <div>
       <div key={doc._id}><Button bsStyle="link" onClick={this.toggleExpand}>{doc._id} </Button>
         <EditDoc doc={doc} applyEditDoc={this.props.applyEditDoc} index={this.props.index}/>
@@ -39,11 +51,12 @@ let Doc = React.createClass({
           </Button>
         </CopyToClipboard>
       </div>
+
       <Collapse in={this.state.expanded}>
-        <div>{Object.keys(this.props.doc).map((key)=>{
+        {<div>{Object.keys(this.props.doc).map((key)=>{
           if (typeof this.props.doc[key] == 'object') return   <div key={key}>{key}: <pre>{JSON.stringify(this.props.doc[key], null, 2)}</pre></div>
           else return <div key={key}>{key}: {this.showValue(this.props.doc[key])}</div>
-        })}</div>
+        })}</div>}
       </Collapse>
     </div>
   }
