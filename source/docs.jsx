@@ -50,14 +50,14 @@ let Docs = React.createClass({
       withCredentials: false},
       (error, response, body) =>{
         console.log(body)
-        if (body.ok = 1) {
+        // if (body.ok = 1) {
           // let docs = this.state.docs
           // docs[index] = doc
           // this.setState({docs: docs})
           // apply query or not?
           return callback('Document updated')
-        }
-        callback('Error updating')
+        // }
+        // callback('Error updating')
     })
   },
   applyEditDoc(doc, index, callback){
