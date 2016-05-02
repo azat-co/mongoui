@@ -42,7 +42,7 @@ let Docs = React.createClass({
       this.fetch(null, null, query)
     })
   },
-  addDoc(doc, callback){
+  addDoc(doc, ops, callback){
     request({
       method: 'POST',
       url: `${baseUrl}/api/dbs/${this.props.params.dbName}/collections/${this.props.params.collectionName}/`,
@@ -50,14 +50,19 @@ let Docs = React.createClass({
       withCredentials: false},
       (error, response, body) =>{
         console.log(body)
-        // if (body.ok = 1) {
+        if (body.insertedCount >= 1) {
+          if (ops && ops.show)
+            this.setState({query: {_id: {'$in': body.insertedIds}}}, ()=>{
+              this.applyQuery(this.state.query)
+            })
+
           // let docs = this.state.docs
           // docs[index] = doc
           // this.setState({docs: docs})
           // apply query or not?
-          return callback('Document updated')
-        // }
-        // callback('Error updating')
+          return callback('Document%s added', (body.insertedCount==1)? '': 's')
+        }
+        callback('Error adding')
     })
   },
   applyEditDoc(doc, index, callback){
@@ -80,7 +85,7 @@ let Docs = React.createClass({
   },
   render() {
     return <div>
-      <PageHeader>Docs <Query applyQuery={this.applyQuery} {...this.props}/></PageHeader>
+      <PageHeader>Docs <Query applyQuery={this.applyQuery} {...this.props} query={this.state.query}/></PageHeader>
       <span>[{this.props.params.collectionName}]</span>
       <AddDoc {...this.props} addDoc={this.addDoc}/>
       {this.state.docs.map((doc, index)=>{

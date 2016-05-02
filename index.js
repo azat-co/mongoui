@@ -11,6 +11,7 @@ let cors = require('cors')
 
 let config = require('./config.json')
 let mongoskin = require('mongoskin')
+let OId = require('mongoskin').ObjectId
 
 let dbHostName, dbPortNumber, dbName
 if (config && config.database) {
@@ -64,26 +65,36 @@ app.get('/api/dbs/:dbName/collections', function(req, res, next) {
   })
 })
 app.get('/api/dbs/:dbName/collections/:collectionName', function(req, res, next) {
-  let collection = req.db.collection(req.params.collectionName, {strict: true})
   let query = {}
   try {
     query = JSON.parse(req.query.query)
   } catch (error) {
     return next(new Error('Invalind query, cannot parse it'))
   }
-
-  collection.find(query || {}, {limit: req.query.limit || 20}).toArray(function(e, docs) {
-    // console.log('boo', docs)
+  if (query._id) {
+    if (query._id['$in'] && Array.isArray(query._id.$in)) {
+      query._id.$in = query._id.$in.map((id)=>{
+        return OId(id)
+      })
+    } else query._id = OId(query._id)
+  }
+  req.collection.find(query || {}, {limit: req.query.limit || 20}).toArray(function(e, docs) {
+    console.log('boo', docs, query)
     res.json({docs: docs})
   })
 })
-
+app.post('/api/dbs/:dbName/collections/:collectionName', function(req, res) {
+  delete req.body._id
+  req.collection.insert(req.body, function(e, results) {
+    // console.log('boo', e, results)
+    res.json(results)
+  })
+})
 app.patch('/api/dbs/:dbName/collections/:collectionName/:id', function(req, res) {
-  let collection = req.db.collection(req.params.collectionName, {strict: true})
   if (req.body._id && req.body._id != req.params.id) return res.status(400).json({error: 'ID in the body is not matching ID in the URL'})
   delete req.body._id
-  collection.updateById(req.params.id, {$set: req.body}, function(e, results) {
-    console.log('boo', e, results)
+  req.collection.updateById(req.params.id, {$set: req.body}, function(e, results) {
+    // console.log('boo', e, results)
     res.json(results)
   })
 })

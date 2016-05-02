@@ -34,13 +34,19 @@ const EditDoc = React.createClass({
       }, 400)
     }
   },
-  add() {
+  add(event, ops =1) {
     this.validate({}, (doc)=>{
-      this.props.addDoc(doc, (operationMessage)=>{
+      this.props.addDoc(doc, ops, (operationMessage)=>{
         this.setState({operationMessage: operationMessage})
+        setTimeout(()=>{
+          this.setState({operationMessage: ''})
+        }, 400)
       })
       this.setState({ showModal: false, docStr: '' })
     })
+  },
+  addNShow(){
+    this.add({}, {show: true})
   },
   cancel(){
     this.setState({docStr: JSON.stringify(this.props.doc, null, 2), showModal: false})
@@ -72,6 +78,7 @@ const EditDoc = React.createClass({
           </Modal.Header>
           <Modal.Body>
             <p>Type valid JSON to add a document to {this.props.collectionName}.</p>
+            <p>You can insert multiple documents by providing an array of objects.</p>
             <p>{(this.state.errorMessage)? this.state.errorMessage : ''}</p>
             <hr />
             <textarea
@@ -90,6 +97,7 @@ const EditDoc = React.createClass({
                 </Tooltip>:''}
             </Button>
             <Button onClick={this.add} bsStyle="primary">Validate & Add</Button>
+            <Button onClick={this.addNShow} bsStyle="primary">Validate, Add & Show</Button>
           </Modal.Footer>
         </Modal>
       </div>
