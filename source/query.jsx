@@ -3,7 +3,7 @@ let React = require('react')
 let ReactDOM = require('react-dom')
 let {Row, Form, FormGroup, FormControl, ControlLabel, Glyphicon, Badge, Button, Popover, Tooltip, Modal, OverlayTrigger} = require('react-bootstrap')
 let fD = ReactDOM.findDOMNode
-var Highlight = require('react-highlight');
+var Highlight = require('react-highlight')
 
 const Query = React.createClass({
   getInitialState() {

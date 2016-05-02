@@ -5,6 +5,7 @@ let baseUrl = 'http://localhost:3001'
 let {Link} = require('react-router')
 let Doc = require('./doc.jsx')
 let Query = require('./query.jsx')
+let AddDoc = require('./add-doc.jsx')
 
 let Docs = React.createClass({
   getInitialState(){
@@ -40,16 +41,24 @@ let Docs = React.createClass({
     this.setState({query: query}, ()=>{
       this.fetch(null, null, query)
     })
-
-
-    // let dbName =  this.props.params.dbName
-    // let collectionName =this.props.params.collectionName
-    // this.context.router.replace({
-    //   pathname: `/dbs/${dbName}/collections/${collectionName}`,
-    //   query: query,
-    //   docs: this.state.docs
-    // })
-    // this.fetch(query)
+  },
+  addDoc(doc, callback){
+    request({
+      method: 'POST',
+      url: `${baseUrl}/api/dbs/${this.props.params.dbName}/collections/${this.props.params.collectionName}/`,
+      json: doc,
+      withCredentials: false},
+      (error, response, body) =>{
+        console.log(body)
+        if (body.ok = 1) {
+          // let docs = this.state.docs
+          // docs[index] = doc
+          // this.setState({docs: docs})
+          // apply query or not?
+          return callback('Document updated')
+        }
+        callback('Error updating')
+    })
   },
   applyEditDoc(doc, index, callback){
     request({
@@ -70,17 +79,10 @@ let Docs = React.createClass({
     })
   },
   render() {
-    // console.log(this.state, this.props.params)
     return <div>
       <PageHeader>Docs <Query applyQuery={this.applyQuery} {...this.props}/></PageHeader>
-
-
       <span>[{this.props.params.collectionName}]</span>
-      <Button title="Add Document" bsSize="small" bsStyle={'default'}>
-        <Badge>
-          <Glyphicon glyph="plus" />
-        </Badge>
-      </Button>
+      <AddDoc {...this.props} addDoc={this.addDoc}/>
       {this.state.docs.map((doc, index)=>{
         return <Doc doc={doc} key={doc._id} index={index} applyEditDoc={this.applyEditDoc}/>
       })}
