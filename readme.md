@@ -123,14 +123,21 @@ npm run build
 
 ### Configs
 
-Copy `config_default.json` file as `config.json`:
+Configurations are in the `config.json` file. Modify as needed (remote databases should work just fine!).
 
+```js
+{
+  "database": {
+    "default": {
+      "host": "localhost",
+      "port": 27017,
+      "name": "mongoui",
+      "username": "",
+      "password": ""
+    }
+  }
+}
 ```
-$ cp config_default.json config.json
-```
-
-Modify as needed (remote databases should work just fine!).
-
 
 ## Branches
 
@@ -143,9 +150,13 @@ Modify as needed (remote databases should work just fine!).
 
 Via `git shortlog -s -n`:
 
-    61  Azat Mardanov
-    14  cultofmetatron
-     1  Jan Carlo Viray
+```
+65  Azat Mardanov
+64  azat-co
+16  Azat Mardan
+14  cultofmetatron
+ 1  Jan Carlo Viray
+```
 
 
 
