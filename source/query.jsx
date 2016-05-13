@@ -19,7 +19,7 @@ const Query = React.createClass({
     }
   },
   componentWillReceiveProps(nextProps){
-    console.log('@@@', nextProps);
+    // console.log('@@@', nextProps);
     if (nextProps.query && !equal(this.state.query, nextProps.query))
       this.setState({query: nextProps.query})
   },
@@ -84,7 +84,19 @@ const Query = React.createClass({
     })
   },
   toggleEdit() {
+    console.log('toggleEdit')
     this.setState({ showEdit: !this.state.showEdit})
+    document.addEventListener('click', this.handleClick, false);
+  },
+
+  handleClick: function (e) {
+    var component = ReactDOM.findDOMNode(this.refs.edit)
+    if (this.state.showEdit && component != e.target) {
+      // console.log('handleClick', this, this.state.showEdit)
+      this.setState({showEdit: false})
+      document.removeEventListener('click', this.handleClick, false);
+      return;
+    }
   },
   render() {
     // let popover = <Popover title="popover">very popover. such engagement</Popover>
@@ -155,18 +167,15 @@ const Query = React.createClass({
             <h4> Already applied conditions in the query</h4>
 
           {(this.state.showEdit) ?
-          <pre>
-            <code>
             <textarea
               value={this.state.queryStr}
               cols="50"
               rows="20"
               onChange={this.handleChange}
-              onBlur={this.toggleEdit}/>
-              </code>
-          </pre>: <Highlight className='json edit' onClick={this.toggleEdit}>
+             ref="edit"/>
+: <div className="edit" onClick={this.toggleEdit}><Highlight className='json' >
             {JSON.stringify(this.state.query, null, 2)}
-          </Highlight>}
+          </Highlight></div>}
 
           </Modal.Body>
           <Modal.Footer>

@@ -33,6 +33,7 @@
     "react-copy-to-clipboard": "^4.1.0",
     "react-dom": "^15.0.1",
     "react-highlight": "^0.8.0",
+    "react-onclickoutside": "^5.1.0",
     "react-redux": "4.4.1",
     "react-router": "^2.2.2",
     "redux": "3.3.1",
