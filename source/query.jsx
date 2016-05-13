@@ -1,4 +1,6 @@
 require('../public/css/highlight/sunburst.css')
+require('../public/css/query.css')
+
 let React = require('react')
 let ReactDOM = require('react-dom')
 let {Row, Form, FormGroup, FormControl, ControlLabel, Glyphicon, Badge, Button, Popover, Tooltip, Modal, OverlayTrigger} = require('react-bootstrap')
@@ -8,7 +10,13 @@ let Highlight = require('react-highlight')
 
 const Query = React.createClass({
   getInitialState() {
-    return { showModal: false, query: {}, keyInput: '', valueInput: '' }
+    return {
+      showModal: false,
+      query: {},
+      keyInput: '',
+      valueInput: '',
+      showEdit: false
+    }
   },
   componentWillReceiveProps(nextProps){
     console.log('@@@', nextProps);
@@ -74,6 +82,9 @@ const Query = React.createClass({
     this.setState({query: {}}, ()=>{
       this.apply()
     })
+  },
+  toggleEdit() {
+    this.setState({ showEdit: !this.state.showEdit})
   },
   render() {
     // let popover = <Popover title="popover">very popover. such engagement</Popover>
@@ -143,10 +154,19 @@ const Query = React.createClass({
             <hr/>
             <h4> Already applied conditions in the query</h4>
 
-          <Highlight className='json'>
+          {(this.state.showEdit) ?
+          <pre>
+            <code>
+            <textarea
+              value={this.state.queryStr}
+              cols="50"
+              rows="20"
+              onChange={this.handleChange}
+              onBlur={this.toggleEdit}/>
+              </code>
+          </pre>: <Highlight className='json edit' onClick={this.toggleEdit}>
             {JSON.stringify(this.state.query, null, 2)}
-          </Highlight>
-
+          </Highlight>}
 
           </Modal.Body>
           <Modal.Footer>

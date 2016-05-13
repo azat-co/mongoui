@@ -55,7 +55,7 @@
     "request": "^2.69.0",
     "style-loader": "^0.13.1",
     "supertest": "^1.2.0",
-    "webpack": "1.12.14",
+    "webpack": "^1.13.0",
     "webpack-dev-server": "^1.14.1"
   },
   "babel": {

@@ -32,10 +32,17 @@ app.use(bodyParser.json())
 app.use(express.static('public'))
 app.use(compression())
 
+app.get('/', function(req, res, next) {
+  res.status(200).render('Welcome to the MongoUI API. Please read the documentation on how to use the endpoints.')
+})
 
-// app.get('/', function(req, res, next) {
-//   res.status(200).render('home')
-// })
+app.get('/api/dbs', function(req, res) {
+  if (!req.admin) req.admin = mongoskin.db(`mongodb://${dbHostName}:${dbPortNumber}/${dbName}`).admin()
+  req.admin.listDatabases(function(error, dbs) {
+    res.json(dbs)
+  })
+})
+
 app.param('dbName', function(req, res, next, dbName){
   var db = mongoskin.db(`mongodb://${dbHostName}:${dbPortNumber}/${dbName}`)
   req.db = db
@@ -47,12 +54,6 @@ app.param('collectionName', function(req, res, next, collectionName){
   return next()
 })
 
-app.get('/api/dbs', function(req, res) {
-  if (!req.admin) req.admin = mongoskin.db(`mongodb://${dbHostName}:${dbPortNumber}/${dbName}`).admin()
-  req.admin.listDatabases(function(error, dbs) {
-    res.json(dbs)
-  })
-})
 
 app.get('/api/dbs/:dbName/collections', function(req, res, next) {
   req.db.collections(function(e, names) {
@@ -64,6 +65,7 @@ app.get('/api/dbs/:dbName/collections', function(req, res, next) {
     res.json({collections: collections})
   })
 })
+
 app.get('/api/dbs/:dbName/collections/:collectionName', function(req, res, next) {
   let query = {}
   try {
@@ -83,6 +85,7 @@ app.get('/api/dbs/:dbName/collections/:collectionName', function(req, res, next)
     res.json({docs: docs})
   })
 })
+
 app.post('/api/dbs/:dbName/collections/:collectionName', function(req, res) {
   delete req.body._id
   req.collection.insert(req.body, function(e, results) {
@@ -90,6 +93,7 @@ app.post('/api/dbs/:dbName/collections/:collectionName', function(req, res) {
     res.json(results)
   })
 })
+
 app.patch('/api/dbs/:dbName/collections/:collectionName/:id', function(req, res) {
   if (req.body._id && req.body._id != req.params.id) return res.status(400).json({error: 'ID in the body is not matching ID in the URL'})
   delete req.body._id
@@ -98,6 +102,7 @@ app.patch('/api/dbs/:dbName/collections/:collectionName/:id', function(req, res)
     res.json(results)
   })
 })
+
 
 if (require.main === module) {
   app.listen(port, function(){

@@ -18,7 +18,9 @@ Here's a short **video** that shows filtering, editing, and switching collection
 
 ## Why
 
-Tired of typing `db.users.findOne({_id:ObjectId(...)})` just to look up data structure. Even more typing to modify the data. Can't find Node.js implementation (not true any more, there is [exprss-mongo](https://github.com/andzdroid/mongo-express)).
+Tired of typing `db.users.findOne({_id:ObjectId(...)})` just to look up data structure. Even more typing to modify the data. Not happy with the user experience of other MongoDB admin tools?
+
+Meet MongoUI! Alternative to [exprss-mongo](https://github.com/andzdroid/mongo-express) and [Robomongo](https://robomongo.org).
 
 ---
 
