@@ -85,7 +85,7 @@ const Query = React.createClass({
   },
   toggleEdit() {
     console.log('toggleEdit')
-    this.setState({ showEdit: !this.state.showEdit})
+    this.setState({ showEdit: !this.state.showEdit, queryStr: JSON.stringify(this.state.query, null, 2)})
     document.addEventListener('click', this.handleClick, false);
   },
 
@@ -93,10 +93,13 @@ const Query = React.createClass({
     var component = ReactDOM.findDOMNode(this.refs.edit)
     if (this.state.showEdit && component != e.target) {
       // console.log('handleClick', this, this.state.showEdit)
-      this.setState({showEdit: false})
+      this.setState({showEdit: false, query: JSON.parse(this.state.queryStr)})
       document.removeEventListener('click', this.handleClick, false);
       return;
     }
+  },
+  handleEditChange(event){
+    this.setState({queryStr: event.target.value})
   },
   render() {
     // let popover = <Popover title="popover">very popover. such engagement</Popover>
@@ -171,7 +174,7 @@ const Query = React.createClass({
               value={this.state.queryStr}
               cols="50"
               rows="20"
-              onChange={this.handleChange}
+              onChange={this.handleEditChange}
              ref="edit"/>
 : <div className="edit" onClick={this.toggleEdit}><Highlight className='json' >
             {JSON.stringify(this.state.query, null, 2)}
