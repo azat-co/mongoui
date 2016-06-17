@@ -19,7 +19,6 @@ const Query = React.createClass({
     }
   },
   componentWillReceiveProps(nextProps){
-    // console.log('@@@', nextProps);
     if (nextProps.query && !equal(this.state.query, nextProps.query))
       this.setState({query: nextProps.query})
   },
@@ -51,26 +50,22 @@ const Query = React.createClass({
     if (!enforceString && num) query[keyInput] = num
     else if (val.toLowerCase() === 'true' || val.toLowerCase() === 'false') query[keyInput] = (val === 'true') ? true : false
     else query[keyInput] = val
-
     this.setState({query: query, keyInput: '', valueInput: ''})
-    // query[fD(this.refs.keyInput).value] = fD(this.refs.valueInput).value
-    // this.setState({query: query}, ()=>{
-      // fD(this.refs.keyInput).value=''
-      // fD(this.refs.valueInput).value = ''
-    // })
   },
   removeCondition() {
     let query = this.state.query
-    // let key = fD(this.refs.keyInput).value
     let key = this.state.keyInput.trim()
     if (!key) return false
     delete query[key]
     this.setState({query: query, keyInput: '', valueInput: ''})
   },
   apply(event) {
-    // event.preventDefault()
-    this.props.applyQuery(this.state.query)
-    this.setState({ showModal: false })
+    if(this.state.showEdit) {
+      this.handleClick(event)
+    } else {
+      this.props.applyQuery(this.state.query)
+      this.setState({ showModal: false })
+    }
   },
   cancel(){
     this.setState({ showModal: false })
@@ -100,10 +95,19 @@ const Query = React.createClass({
       }
       catch(error) {
         console.error(error)
+
       }
     } finally {
       console.log(queryObj)
       return queryObj
+    }
+  },
+  clearErrorMessage() {
+    this.setState({errorMessage: ''})
+  },
+  handleModalClick() {
+    if (this.state.showEdit) {
+      this.handleClick()
     }
   },
   handleClick: function (e) {
@@ -112,13 +116,17 @@ const Query = React.createClass({
       // console.log('handleClick', this, this.state.showEdit)
       let query =  this.convertToJSON(this.state.queryStr)
       if (query) {
-        this.props.applyQuery(query)
-        this.setState({showEdit: false, query: query})
+
+        this.setState({showEdit: false, query: query}, ()=>{
+          this.props.applyQuery(query)
+        })
+        document.removeEventListener('click', this.handleClick, false);
+        return;
       } else {
-        this.setState({errorMessage: 'Please check your object literal/JSON format'})
+        this.setState({errorMessage: 'Please check your object literal/JSON format'}, ()=>{
+          setTimeout(this.clearErrorMessage, 4000)
+        })
       }
-      // document.removeEventListener('click', this.handleClick, false)
-      // return;
     }
   },
   handleEditChange(event){
@@ -150,7 +158,7 @@ const Query = React.createClass({
 
         </OverlayTrigger>: button}
         {(isQueryApplied) ? buttonClear : ''}
-        <Modal show={this.state.showModal} onHide={this.apply}>
+        <Modal show={this.state.showModal} onHide={this.apply} onClick={this.handleModalClick}>
           <Modal.Header closeButton>
             <Modal.Title>Query Collection</Modal.Title>
           </Modal.Header>
@@ -193,13 +201,13 @@ const Query = React.createClass({
             </Alert>
             :''}
             <hr/>
-            <h4> Already applied conditions in the query</h4>
-
+            <h4>Already applied conditions in the query</h4>
+            <p>Click to edit as JS object literal or JSON</p>
           {(this.state.showEdit) ?
             <textarea
               value={this.state.queryStr}
               cols="50"
-              rows="20"
+              rows="15"
               onChange={this.handleEditChange}
              ref="edit"/>
 : <div className="edit" onClick={this.toggleEdit}><Highlight className='json' >
@@ -209,7 +217,7 @@ const Query = React.createClass({
           </Modal.Body>
           <Modal.Footer>
             <Button onClick={this.cancel}>Close</Button>
-            <Button onClick={this.apply} bsStyle="primary">Close & Run Query</Button>
+            <Button onClick={this.apply} bsStyle="primary">{(!this.state.showEdit)?'Close & Run Query': 'Parse query'}</Button>
           </Modal.Footer>
         </Modal>
       </div>
