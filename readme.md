@@ -23,7 +23,7 @@ Tired of typing `db.users.findOne({_id:ObjectId(...)})` just to look up data str
 
 Meet MongoUI! Alternative to [exprss-mongo](https://github.com/andzdroid/mongo-express) and [Robomongo](https://robomongo.org).
 
-![](https://raw.githubusercontent.com/azat-co/mongoui/master/demo-image.png)](https://raw.githubusercontent.com/azat-co/mongoui/master/mongoui-screenshot.png)
+![](https://raw.githubusercontent.com/azat-co/mongoui/master/mongoui-screenshot.png)
 
 ---
 
