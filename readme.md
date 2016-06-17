@@ -13,6 +13,7 @@ Here's a short **video** that shows filtering, editing, and switching collection
 
 
 
+
 ---
 
 
@@ -21,6 +22,8 @@ Here's a short **video** that shows filtering, editing, and switching collection
 Tired of typing `db.users.findOne({_id:ObjectId(...)})` just to look up data structure. Even more typing to modify the data. Not happy with the user experience of other MongoDB admin tools?
 
 Meet MongoUI! Alternative to [exprss-mongo](https://github.com/andzdroid/mongo-express) and [Robomongo](https://robomongo.org).
+
+![](https://raw.githubusercontent.com/azat-co/mongoui/master/demo-image.png)](https://raw.githubusercontent.com/azat-co/mongoui/master/mongoui-screenshot.png)
 
 ---
 
