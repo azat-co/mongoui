@@ -138,17 +138,13 @@ const Query = React.createClass({
     let isQueryApplied = (JSON.stringify(this.state.query) != '{}')
     let popover = <Popover id="query" title="Query Applied">{JSON.stringify(this.state.query, null, 2)}</Popover>
     let button = (
-      <Button onClick={this.open} title="Query documents" bsSize="small" bsStyle={(isQueryApplied)?'info':'default'}>
-        <Badge>
+      <Button onClick={this.open} title="Query documents" bsSize="xsmall" bsStyle={(isQueryApplied)?'info':'default'}>
           <Glyphicon glyph="filter" />
-        </Badge>
       </Button>
     )
     let buttonClear = (
-      <Button onClick={this.clear} title="Clear and Run Query" bsSize="small" bsStyle={(isQueryApplied) ? 'danger':'default'}>
-        <Badge>
+      <Button onClick={this.clear} title="Clear and Run Query" bsSize="xsmall" bsStyle={(isQueryApplied) ? 'danger':'default'}>
           <Glyphicon glyph="remove-circle" />
-        </Badge>
       </Button>
     )
     return (

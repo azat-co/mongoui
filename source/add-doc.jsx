@@ -63,10 +63,8 @@ const EditDoc = React.createClass({
 
     return (
       <div style={{display: 'inline'}}>
-        <Button title="Add Document" onClick={this.open} bsSize="small" bsStyle={'default'}>
-          <Badge>
+        <Button title="Add Document" onClick={this.open} bsSize="xsmall" bsStyle={'default'}>
             <Glyphicon glyph="plus" />
-          </Badge>
           {(this.state.operationMessage)?
           <Tooltip placement="bottom" className="in" id="operationMessageForAddDoc">
             {this.state.operationMessage}

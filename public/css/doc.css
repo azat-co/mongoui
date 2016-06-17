@@ -1,0 +1,11 @@
+.doc {
+  font-family: monospace;
+
+}
+.doc .collapsing, .doc .collapse.in {
+  margin-left: 40px;
+}
+.doc-btns .btn{
+  margin-left: 5px;
+  margin-right: 5px;
+}

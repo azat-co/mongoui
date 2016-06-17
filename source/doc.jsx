@@ -6,6 +6,8 @@ let {Link} = require('react-router')
 let CopyToClipboard = require('react-copy-to-clipboard')
 let EditDoc = require('./edit-doc.jsx')
 
+require('../public/css/doc.css')
+
 let Doc = React.createClass({
   getInitialState(){
     return {expanded: false}
@@ -54,22 +56,23 @@ let Doc = React.createClass({
       toggled: false,
       children: [doc]
     }
-    return  <div>
-      <div key={doc._id}><Button bsStyle="link" onClick={this.toggleExpand}>{doc._id} </Button>
-        <EditDoc doc={doc} applyEditDoc={this.props.applyEditDoc} index={this.props.index}/>
-        <CopyToClipboard text={JSON.stringify(doc, null, 2)} onCopy={()=>{
-          this.setState({copied: true}), setTimeout(()=>{this.setState({copied: false})}, 400)}
-        }>
-          <Button  bsSize="small">
-            <Badge>
-              <Glyphicon glyph="copy" />
-              {(this.state.copied)?
-              <Tooltip placement="bottom" className="in">
-                Copied!
-              </Tooltip>:''}
-            </Badge>
-          </Button>
-        </CopyToClipboard>
+    return  <div className="doc">
+      <div key={doc._id}>
+        <Button bsStyle="link" onClick={this.toggleExpand} title={(this.state.expanded)? 'Collapse' : 'Expand'}>{doc._id} </Button>
+        <span className="doc-btns">
+          <EditDoc doc={doc} applyEditDoc={this.props.applyEditDoc} index={this.props.index}/>
+          <CopyToClipboard text={JSON.stringify(doc, null, 2)} onCopy={()=>{
+            this.setState({copied: true}), setTimeout(()=>{this.setState({copied: false})}, 400)}
+          }>
+            <Button bsSize="xsmall" title="Copy document to clipboard">
+                <Glyphicon glyph="copy" />
+                {(this.state.copied)?
+                <Tooltip placement="bottom" className="in">
+                  Copied!
+                </Tooltip>:''}
+            </Button>
+          </CopyToClipboard>
+        </span>
       </div>
 
       <Collapse in={this.state.expanded}>

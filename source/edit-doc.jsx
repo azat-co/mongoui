@@ -35,7 +35,7 @@ const EditDoc = React.createClass({
       })
       this.setState({ showModal: false, docStr: JSON.stringify(doc, null, 2) })
     }
-  },  
+  },
   cancel(){
     this.setState({docStr: JSON.stringify(this.props.doc, null, 2), showModal: false})
   },
@@ -51,10 +51,8 @@ const EditDoc = React.createClass({
 
     return (
       <div style={{display: 'inline'}}>
-        <Button onClick={this.open} title="Edit documents" bsSize="small">
-          <Badge>
+        <Button onClick={this.open} title="Edit document" bsSize="xsmall">
             <Glyphicon glyph="edit" />
-          </Badge>
         </Button>
         {(this.state.operationMessage)?
         <Tooltip placement="bottom" className="in" id="operationMessageforEditDoc">
