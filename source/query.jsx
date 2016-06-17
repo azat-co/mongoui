@@ -3,7 +3,7 @@ require('../public/css/query.css')
 
 let React = require('react')
 let ReactDOM = require('react-dom')
-let {Row, Form, FormGroup, FormControl, ControlLabel, Glyphicon, Badge, Button, Popover, Tooltip, Modal, OverlayTrigger} = require('react-bootstrap')
+let {Alert, Row, Form, FormGroup, FormControl, ControlLabel, Glyphicon, Badge, Button, Popover, Tooltip, Modal, OverlayTrigger} = require('react-bootstrap')
 let fD = ReactDOM.findDOMNode
 let equal = require('deep-equal')
 let Highlight = require('react-highlight')
@@ -88,14 +88,37 @@ const Query = React.createClass({
     this.setState({ showEdit: !this.state.showEdit, queryStr: JSON.stringify(this.state.query, null, 2)})
     document.addEventListener('click', this.handleClick, false);
   },
-
+  convertToJSON(queryStr) {
+    let queryObj
+    try {
+      queryObj = JSON.parse(queryStr)
+    } catch(error) {
+      try {
+        eval('queryObj = ' + queryStr)
+        console.log(queryObj)
+        return queryObj
+      }
+      catch(error) {
+        console.error(error)
+      }
+    } finally {
+      console.log(queryObj)
+      return queryObj
+    }
+  },
   handleClick: function (e) {
     var component = ReactDOM.findDOMNode(this.refs.edit)
     if (this.state.showEdit && component != e.target) {
       // console.log('handleClick', this, this.state.showEdit)
-      this.setState({showEdit: false, query: JSON.parse(this.state.queryStr)})
-      document.removeEventListener('click', this.handleClick, false);
-      return;
+      let query =  this.convertToJSON(this.state.queryStr)
+      if (query) {
+        this.props.applyQuery(query)
+        this.setState({showEdit: false, query: query})
+      } else {
+        this.setState({errorMessage: 'Please check your object literal/JSON format'})
+      }
+      // document.removeEventListener('click', this.handleClick, false)
+      // return;
     }
   },
   handleEditChange(event){
@@ -165,7 +188,10 @@ const Query = React.createClass({
               </Row>
             </Form>
 
-
+            {(this.state.errorMessage)?<Alert bsStyle="danger">
+            <p>{this.state.errorMessage}</p>
+            </Alert>
+            :''}
             <hr/>
             <h4> Already applied conditions in the query</h4>
 
