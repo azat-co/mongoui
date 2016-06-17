@@ -85,9 +85,13 @@ let Docs = React.createClass({
   },
   render() {
     return <div>
-      <PageHeader>Docs <Query applyQuery={this.applyQuery} {...this.props} query={this.state.query}/></PageHeader>
-      <span>[{this.props.params.collectionName}]</span>
-      <AddDoc {...this.props} addDoc={this.addDoc}/>
+      <PageHeader>Docs: <small>{this.props.params.collectionName}</small>
+        <span className="docs-btns">
+          <AddDoc {...this.props} addDoc={this.addDoc}/><Query applyQuery={this.applyQuery} {...this.props} query={this.state.query}/>
+        </span>
+      </PageHeader>
+      {/*<span>[{this.props.params.collectionName}]</span>*/}
+
       {this.state.docs.map((doc, index)=>{
         return <Doc doc={doc} key={doc._id} index={index} applyEditDoc={this.applyEditDoc}/>
       })}
