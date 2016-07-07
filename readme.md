@@ -1,6 +1,8 @@
-# MongoUI
+# MongoUI: MongoUI (mongoui) is a web (browser) admin interface for MongoDB.
 
-MongoUI (mongoui) is a web (browser) admin interface for MongoDB. Currently a standalone tool (run as an app locally or on your server); desktop app later. This is a brand new v2 of MongoUI. Old version use DerbyJS, then new version uses Webpack, React, React Router, React Bootstrap and of course Express and Node.
+MongoUI is an open-source web and desktop app which allows to administer local and remote MongoDB instances via GUI. No need to type commands in a terminal anymore. Convenient interface will allow to create, update, remove and filter/search documents. You can switch between collections or even databases with just a single click.
+
+Currently a standalone tool (run as an app locally or on your server); desktop app later. This is a brand new v2 of MongoUI. Old version use DerbyJS, then new version uses Webpack, React, React Router, React Bootstrap and of course Express and Node.
 
 MongoUI v2 looks like this:
 
