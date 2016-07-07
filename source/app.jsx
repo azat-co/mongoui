@@ -9,7 +9,7 @@ let { Router, Route, Link, browserHistory, hashHistory } = require('react-router
 ReactDOM.render(<Navigation/>, document.getElementById('navigation'))
 ReactDOM.render(<Router history={hashHistory}>
     <Route path="/" component={Content}>
-      <Route path="/dbs/:dbName" component={Collections}>
+      <Route path="/dbs/:dbName" component={Collections} >
         <Route path="/dbs/:dbName/collections/:collectionName" component={Docs}>
         </Route>
       </Route>

@@ -27,6 +27,9 @@ if (config && config.database) {
 var highlight = require('highlight').Highlight
 var app = express()
 app.use(errorHandler())
+// app.use((error, request, response, next)=>{
+  // if (error) response.status(500).json({message: error})
+// })
 app.use(cors({credential: false}))
 app.use(bodyParser.json())
 app.use(express.static('public'))
@@ -36,9 +39,10 @@ app.get('/', function(req, res, next) {
   res.status(200).render('Welcome to the MongoUI API. Please read the documentation on how to use the endpoints.')
 })
 
-app.get('/api/dbs', function(req, res) {
+app.get('/api/dbs', function(req, res, next) {
   if (!req.admin) req.admin = mongoskin.db(`mongodb://${dbHostName}:${dbPortNumber}/${dbName}`).admin()
   req.admin.listDatabases(function(error, dbs) {
+    if (error) return next(error)
     res.json(dbs)
   })
 })
