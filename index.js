@@ -9,7 +9,8 @@ let expressHandlebars = require('express-handlebars')
 let errorHandler = require('errorhandler')
 let cors = require('cors')
 
-let config = require('./config.json')
+// let config = require('./config.json')
+let config = require('./config_default.json')
 let mongoskin = require('mongoskin')
 
 let dbHostName, dbPortNumber, dbName
@@ -68,18 +69,17 @@ app.get('/api/dbs/:dbName/collections/:collectionName', function(req, res, next)
   let query = {}
   try {
     query = JSON.parse(req.query.query)
-    // By default regExp class objects are stringified into an empty {} so they cannot be converted back 
+    // By default regExp class objects are stringified into an empty {} , so they cannot be converted back 
     // if using 'qs' in request module. It is also important to keep regExp as strings for display on browser.
     // So, detect regex-like strings here on server and convert to regExp here.
     for (var prop in query){
       if (query[prop][0] == "/"){
-        console.log("found a ReGex")
         var splitRegex = query[prop].split("/")
         var makeRegex = new RegExp( splitRegex[1], splitRegex[2])
-        console.log(makeRegex)
         query[prop] = makeRegex
       }
     }
+    //
   } catch (error) {
     return next(new Error('Invalid query, cannot parse it'))
   }
