@@ -25,7 +25,10 @@ module.exports = {
       { test: /\.json$/, loader: 'json-loader'},
       { test: /\.css$/, loader: "style-loader!css-loader" }
     ],
-    noParse: /node_modules\/json-schema\/lib\/validate\.js/
+    noParse: [
+      /node_modules\/json-schema\/lib\/validate\.js/,
+      /node_modules\\json-schema\\lib\\validate\.js/
+    ]
   },
   node: {
     fs: 'empty',
