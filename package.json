@@ -13,7 +13,7 @@
     "start": "node node_modules/nodemon/bin/nodemon.js index.js",
     "test": "mocha test",
     "build": "node node_modules/webpack/bin/webpack.js",
-    "dev": "node_modules/webpack-dev-server/bin/webpack-dev-server.js --content-base public --hot",
+    "dev": "node node_modules/webpack-dev-server/bin/webpack-dev-server.js --content-base public --hot",
     "dev-server": "node dev-server.js"
   },
   "dependencies": {
