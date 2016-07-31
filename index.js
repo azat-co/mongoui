@@ -24,7 +24,6 @@ if (config && config.database) {
   dbName = 'mongoui'
 }
 
-var highlight = require('highlight').Highlight
 var app = express()
 app.use(errorHandler())
 app.use(cors({credential: false}))

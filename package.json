@@ -24,7 +24,6 @@
     "errorhandler": "^1.4.3",
     "express": "^4.13.4",
     "express-handlebars": "^3.0.0",
-    "highlight": "0.2.4",
     "mongodb": "^2.1.11",
     "mongoskin": "2.0.3",
     "neo-async": "1.8.0",
