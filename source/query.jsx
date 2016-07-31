@@ -3,8 +3,7 @@ require('../public/css/query.css')
 
 let React = require('react')
 let ReactDOM = require('react-dom')
-let {Alert, Row, Form, FormGroup, FormControl, ControlLabel, Glyphicon, Badge, Button, Popover, Tooltip, Modal, OverlayTrigger} = require('react-bootstrap')
-let fD = ReactDOM.findDOMNode
+let {Alert, Row, Form, FormGroup, FormControl, ControlLabel, Glyphicon, Button, Popover, Modal, OverlayTrigger} = require('react-bootstrap')
 let equal = require('deep-equal')
 let Highlight = require('react-highlight')
 

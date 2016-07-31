@@ -1,7 +1,6 @@
 let React = require('react')
 let ReactDOM = require('react-dom')
-let {Form, FormGroup, FormControl, ControlLabel, Glyphicon, Badge, Button, Popover, Tooltip, Modal, OverlayTrigger} = require('react-bootstrap')
-let fD = ReactDOM.findDOMNode
+let {Glyphicon, Button, Tooltip, Modal} = require('react-bootstrap')
 
 const EditDoc = React.createClass({
   getInitialState() {
