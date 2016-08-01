@@ -70,10 +70,12 @@ app.get('/api/dbs/:dbName/collections/:collectionName', function(req, res, next)
   try {
     query = JSON.parse(req.query.query)
     // By default regExp class objects are stringified into an empty {} , so they cannot be converted back 
-    // if using 'qs' in request module. It is also important to keep regExp as strings for display on browser.
-    // So, detect regex-like strings here on server and convert to regExp here.
+    // if using 'qs' in request module client to server communications. {} causes client-side display issues too. 
     for (var prop in query){
-      if (query[prop][0] == "/"){
+      if ((query[prop][0] == "R" && query[prop][1] == "/") //arbitrary letter 'R' used by this app
+        && (query[prop].length > 3)   //avoids a few corner cases
+        && ((query[prop][(query[prop].length - 1) ] == "/" ) || (query[prop][(query[prop].length - 2)] == "/") || (query[prop][query[prop].length - 3 ] == "/" )|| (query[prop][query[prop].length - 4 ] == "/"  ))
+        ){
         var splitRegex = query[prop].split("/")
         var makeRegex = new RegExp( splitRegex[1], splitRegex[2])
         query[prop] = makeRegex

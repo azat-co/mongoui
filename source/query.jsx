@@ -80,11 +80,10 @@ const Query = React.createClass({
             <Modal.Title>Query Collection</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <h4>Simple query</h4>
             <p>To query by a key-value pair, enter them in a form below and click "Add"</p>
             <p>Use the same form and existing key/property to update an existing condition.</p>
             <p>Numbers will be automatically parsed as numbers. Put double quotes to enforce string type.</p>
-
+            <p>Use an 'R' prefix to filter using many regular expressions. (i.e.: <code> R/^ma/i </code> for "mary" and "Mark", but not "Thomas")</p>
             <hr />
             <Form inline onSubmit={this.addCondition}>
               <FormGroup controlId="formInlineName">
