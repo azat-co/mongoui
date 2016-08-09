@@ -10,6 +10,7 @@ let errorHandler = require('errorhandler')
 let cors = require('cors')
 
 let config = require('./config.json')
+let mongoDb = require('mongodb')
 let mongoskin = require('mongoskin')
 let OId = require('mongoskin').ObjectId
 
@@ -90,6 +91,14 @@ app.post('/api/dbs/:dbName/collections/:collectionName', function(req, res) {
   delete req.body._id
   req.collection.insert(req.body, function(e, results) {
     // console.log('boo', e, results)
+    res.json(results)
+  })
+})
+
+app.delete('/api/dbs/:dbName/collections/:collectionName/:id', function(req, res) {
+  if (req.body._id && req.body._id != req.params.id) return res.status(400).json({error: 'ID in the body is not matching ID in the URL'})
+  delete req.body._id
+  req.collection.remove({ _id: mongoDb.ObjectId(req.params.id)}, function(e, results) {
     res.json(results)
   })
 })

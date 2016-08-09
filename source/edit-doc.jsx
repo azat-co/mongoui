@@ -36,6 +36,26 @@ const EditDoc = React.createClass({
       this.setState({ showModal: false, docStr: JSON.stringify(doc, null, 2) })
     }
   },
+  deleteDoc() {
+    let noParsingError = false
+    let doc = {}
+    try {
+      doc = JSON.parse(this.state.docStr)
+      noParsingError = true
+    } catch (error) {
+      this.setState({errorMessage: 'Delete Failed - something went wrong.' +error})
+    } finally {
+    }
+    if (noParsingError) {
+      this.props.deleteDoc(doc, this.props.index, (operationMessage)=>{
+        this.setState({operationMessage: operationMessage})
+        setTimeout(()=>{
+          this.setState({operationMessage: ''})
+        }, 400)
+      })
+      this.setState({ showModal: false, docStr: JSON.stringify(doc, null, 2) })
+    }
+  },
   cancel(){
     this.setState({docStr: JSON.stringify(this.props.doc, null, 2), showModal: false})
   },
@@ -76,6 +96,7 @@ const EditDoc = React.createClass({
             </pre>
           </Modal.Body>
           <Modal.Footer>
+            <Button onClick={this.deleteDoc} bsStyle="danger pull-left">Delete Document</Button>
             <Button onClick={this.cancel}>Cancel</Button>
             <Button onClick={this.applyEditDoc} bsStyle="primary">Apply</Button>
           </Modal.Footer>
