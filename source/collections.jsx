@@ -1,8 +1,7 @@
-var {Label, Navbar, NavItem, NavDropdown, Nav, MenuItem, PageHeader, Col} = require('react-bootstrap')
+var {Label, PageHeader, Col} = require('react-bootstrap')
 let React = require('react')
 let request = require('request')
 let baseUrl = 'http://localhost:3001'
-let {Link} = require('react-router')
 
 module.exports = React.createClass({
   getInitialState(){

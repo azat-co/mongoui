@@ -1,8 +1,5 @@
-var {Navbar, NavItem, NavDropdown, Nav, MenuItem, PageHeader, Glyphicon, Badge, Button, Collapse, Tooltip} = require('react-bootstrap')
+var { Glyphicon, Button, Collapse, Tooltip } = require('react-bootstrap')
 let React = require('react')
-let request = require('request')
-let baseUrl = 'http://localhost:3001'
-let {Link} = require('react-router')
 let CopyToClipboard = require('react-copy-to-clipboard')
 let EditDoc = require('./edit-doc.jsx')
 

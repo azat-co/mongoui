@@ -1,8 +1,7 @@
-var {Navbar, NavItem, NavDropdown, Nav, MenuItem, PageHeader, Glyphicon, Badge, Button} = require('react-bootstrap')
+var { PageHeader } = require('react-bootstrap')
 let React = require('react')
 let request = require('request')
 let baseUrl = 'http://localhost:3001'
-let {Link} = require('react-router')
 let Doc = require('./doc.jsx')
 let Query = require('./query.jsx')
 let AddDoc = require('./add-doc.jsx')
