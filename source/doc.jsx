@@ -57,7 +57,7 @@ let Doc = React.createClass({
       <div key={doc._id}>
         <Button bsStyle="link" onClick={this.toggleExpand} title={(this.state.expanded)? 'Collapse' : 'Expand'}>{doc._id} </Button>
         <span className="doc-btns">
-          <EditDoc doc={doc} applyEditDoc={this.props.applyEditDoc} index={this.props.index}/>
+          <EditDoc doc={doc} applyEditDoc={this.props.applyEditDoc} deleteDoc={this.props.deleteDoc} index={this.props.index}/>
           <CopyToClipboard text={JSON.stringify(doc, null, 2)} onCopy={()=>{
             this.setState({copied: true}), setTimeout(()=>{this.setState({copied: false})}, 400)}
           }>
