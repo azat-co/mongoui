@@ -95,7 +95,7 @@ const EditDoc = React.createClass({
             </pre>
           </Modal.Body>
           <Modal.Footer>
-            <Button onClick={this.deleteDoc} bsStyle="danger pull-left">Delete Document</Button>
+            <Button onClick={this.deleteDoc} className="pull-left" bsStyle="danger">Delete Document</Button>
             <Button onClick={this.cancel}>Cancel</Button>
             <Button onClick={this.applyEditDoc} bsStyle="primary">Apply</Button>
           </Modal.Footer>
