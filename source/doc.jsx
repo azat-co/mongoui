@@ -1,8 +1,5 @@
-var {Navbar, NavItem, NavDropdown, Nav, MenuItem, PageHeader, Glyphicon, Badge, Button, Collapse, Tooltip} = require('react-bootstrap')
+var { Glyphicon, Button, Collapse, Tooltip } = require('react-bootstrap')
 let React = require('react')
-let request = require('request')
-let baseUrl = 'http://localhost:3001'
-let {Link} = require('react-router')
 let CopyToClipboard = require('react-copy-to-clipboard')
 let EditDoc = require('./edit-doc.jsx')
 
@@ -75,7 +72,7 @@ let Doc = React.createClass({
         {this.renderQueryKeys(keyValues, doc)}
         </Button>
         <span className="doc-btns">
-          <EditDoc doc={doc} applyEditDoc={this.props.applyEditDoc} index={this.props.index}/>
+          <EditDoc doc={doc} applyEditDoc={this.props.applyEditDoc} deleteDoc={this.props.deleteDoc} index={this.props.index}/>
           <CopyToClipboard text={JSON.stringify(doc, null, 2)} onCopy={()=>{
             this.setState({copied: true}), setTimeout(()=>{this.setState({copied: false})}, 400)}
           }>
