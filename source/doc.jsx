@@ -49,6 +49,17 @@ let Doc = React.createClass({
     })}</div>
     // return <div key={key}>{key}: <pre>{JSON.stringify(obj[key], null, 2)}</pre></div>
   },
+  renderQueryKeys(queryKeys, doc){
+    return queryKeys.map((key)=>{
+      if ((typeof doc[key] === 'string')&&(doc[key].length > 10)){
+        var truncatedValue = doc[key].slice(0, 10)
+        return <div key={key}><small>{key}: {truncatedValue}(...)</small></div>
+      }else{
+        return <div key={key}><small>{key} : {this.showValue(doc[key])}</small></div>  
+      }  
+
+    })
+  },
   render() {
     let doc = this.props.doc
     let data = {
@@ -56,9 +67,13 @@ let Doc = React.createClass({
       toggled: false,
       children: [doc]
     }
+    let keyValues = this.props.queryKeys //Object.keys(doc)
     return  <div className="doc">
       <div key={doc._id}>
-        <Button bsStyle="link" onClick={this.toggleExpand} title={(this.state.expanded)? 'Collapse' : 'Expand'}>{doc._id} </Button>
+        <Button bsStyle="link" onClick={this.toggleExpand} title={(this.state.expanded)? 'Collapse' : 'Expand'}>
+          <div>{doc._id}</div>
+        {this.renderQueryKeys(keyValues, doc)}
+        </Button>
         <span className="doc-btns">
           <EditDoc doc={doc} applyEditDoc={this.props.applyEditDoc} index={this.props.index}/>
           <CopyToClipboard text={JSON.stringify(doc, null, 2)} onCopy={()=>{
