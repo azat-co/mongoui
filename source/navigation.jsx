@@ -1,4 +1,4 @@
-var {Navbar, NavItem, NavDropdown, Nav, MenuItem} = require('react-bootstrap')
+var { Navbar, NavItem, Nav } = require('react-bootstrap')
 let React = require('react')
 const navbarInstance = ()=>{
   return <Navbar inverse>

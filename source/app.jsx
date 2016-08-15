@@ -4,7 +4,7 @@ let Navigation = require('./navigation.jsx')
 let Content = require('./content.jsx')
 let Collections = require('./collections.jsx')
 let Docs = require('./docs.jsx')
-let { Router, Route, Link, browserHistory, hashHistory } = require('react-router')
+let { Router, Route, hashHistory } = require('react-router')
 
 ReactDOM.render(<Navigation/>, document.getElementById('navigation'))
 ReactDOM.render(<Router history={hashHistory}>

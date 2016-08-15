@@ -1,0 +1,14 @@
+{
+  "dependencies": {
+    "react-highlight": {
+      "version": "0.8.0",
+      "from": "react-highlight@0.8.0",
+      "dependencies": {
+        "highlight.js": {
+          "version": "8.4.0",
+          "from": "highlight-js@9.5.0"
+        }
+      }
+    }
+  }
+}
