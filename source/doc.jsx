@@ -48,8 +48,8 @@ let Doc = React.createClass({
   },
   renderQueryKeys(queryKeys, doc){
     return queryKeys.map((key)=>{
-      if ((typeof doc[key] === 'string')&&(doc[key].length > 10)){
-        var truncatedValue = doc[key].slice(0, 10)
+      if ((typeof doc[key] === 'string')&&(doc[key].length > 30)){
+        var truncatedValue = doc[key].slice(0, 30)
         return <div key={key}><small>{key}: {truncatedValue}(...)</small></div>
       }else{
         return <div key={key}><small>{key} : {this.showValue(doc[key])}</small></div>  
