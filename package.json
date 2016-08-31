@@ -10,9 +10,10 @@
     "url": "http://github.com/azat-co/mongoui.git"
   },
   "scripts": {
-    "start": "node node_modules/nodemon/bin/nodemon.js index.js",
+    "start": "npm run clean && npm run build && node node_modules/nodemon/bin/nodemon.js index.js",
     "test": "mocha test",
-    "build": "node node_modules/webpack/bin/webpack.js",
+    "clean": "rm -f ./public/js/bundle.js",
+    "build": "node node_modules/webpack/bin/webpack.js --config webpack.start.config.js",
     "dev": "node node_modules/webpack-dev-server/bin/webpack-dev-server.js --content-base public --hot",
     "dev-server": "node dev-server.js"
   },
