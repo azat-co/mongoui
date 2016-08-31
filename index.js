@@ -2,12 +2,15 @@
 
 let port = 3001
 let log = console.log
-let express = require('express')
-let bodyParser = require('body-parser')
-let compression = require('compression')
-let expressHandlebars = require('express-handlebars')
-let errorHandler = require('errorhandler')
-let cors = require('cors')
+const express = require('express')
+const bodyParser = require('body-parser')
+const compression = require('compression')
+const expressHandlebars = require('express-handlebars')
+const errorHandler = require('errorhandler')
+const cors = require('cors')
+
+const favicon = require('serve-favicon')
+const path = require('path')
 
 let config = require('./config.json')
 let mongoDb = require('mongodb')
@@ -26,6 +29,7 @@ if (config && config.database) {
 }
 
 var app = express()
+app.use(favicon(path.join(__dirname, 'public', 'img', 'favicons', 'favicon.ico')))
 app.use(errorHandler())
 app.use(cors({credential: false}))
 app.use(bodyParser.json())
