@@ -2,9 +2,9 @@
   "name": "mongoui",
   "version": "3.1.4",
   "engines": {
-    "node": ">= v4.4.4"
+    "node": ">= v7.x"
   },
-  "bin": "./bin/mongoui.sh",
+  "bin": "./index.js",
   "repository": {
     "type": "git",
     "url": "http://github.com/azat-co/mongoui.git"
