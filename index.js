@@ -34,12 +34,9 @@ app.use(favicon(path.join(__dirname, 'public', 'img', 'favicons', 'favicon.ico')
 app.use(errorHandler())
 app.use(cors({credential: false}))
 app.use(bodyParser.json())
-app.use(express.static('public'))
-app.use(compression())
+app.use(express.static(path.join(__dirname,'public')))
 
-app.get('/', function(req, res, next) {
-  res.status(200).render('Welcome to the MongoUI API. Please read the documentation on how to use the endpoints.')
-})
+app.use(compression())
 
 app.get('/api/dbs', function(req, res) {
   if (!req.admin) req.admin = mongoskin.db(`mongodb://${dbHostName}:${dbPortNumber}/${dbName}`).admin()
