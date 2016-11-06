@@ -17,7 +17,8 @@
     "build": "node node_modules/webpack/bin/webpack.js --config webpack.start.config.js",
     "dev": "npm run clean && node node_modules/webpack-dev-server/bin/webpack-dev-server.js --content-base public --hot",
     "dev-server": "node dev-server.js",
-    "api-server": "node node_modules/nodemon/bin/nodemon.js index.js"
+    "api-server": "node node_modules/nodemon/bin/nodemon.js index.js",
+    "postinstall": "npm run build"
   },
   "dependencies": {
     "body-parser": "^1.15.0",
