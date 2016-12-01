@@ -3,7 +3,8 @@ let log = console.log
 let mocha = require('mocha')
 let expect = require('chai').expect
 let request = require('request')
-let baseUrl = 'http://localhost:3001'
+const {apiUrl, apiPort} = require('../package.json').mongoui
+let baseUrl = `${apiUrl}:${apiPort}`
 
 before((done)=>{
   let app = require('../index.js')

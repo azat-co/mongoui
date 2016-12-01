@@ -68,5 +68,9 @@
       "es2015"
     ]
   },
+  "mongoui": {
+    "apiPort": 3001,
+    "apiUrl": "http://localhost"
+  },
   "license": "SEE IN LICENSE.md"
 }

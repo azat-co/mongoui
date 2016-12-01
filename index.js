@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 "use strict"
 
-let port = 3001
+let port = require('./package.json').mongoui.apiPort 
 let log = console.log
 const express = require('express')
 const bodyParser = require('body-parser')
