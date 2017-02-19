@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 "use strict"
 
-let port = require('./package.json').mongoui.apiPort 
 let log = console.log
 const express = require('express')
 const bodyParser = require('body-parser')
@@ -13,21 +12,19 @@ const cors = require('cors')
 const favicon = require('serve-favicon')
 const path = require('path')
 
-let config = require('./config.json')
 let mongoDb = require('mongodb')
 let mongoskin = require('mongoskin')
 let OId = require('mongoskin').ObjectId
 
-let dbHostName, dbPortNumber, dbName
-if (config && config.database) {
-  dbHostName = config.database.default.host
-  dbPortNumber = config.database.default.port
-  dbName = config.database.default.name
-} else {
-  dbHostName = 'localhost'
-  dbPortNumber = 27017
-  dbName = 'mongoui'
-}
+let config = require("./config");
+
+const port = config.api.port;
+
+let dbHostName, dbPortNumber, dbName;
+
+dbHostName = config.database.host
+dbPortNumber = config.database.port
+dbName = config.database.name
 
 var app = express()
 app.use(favicon(path.join(__dirname, 'public', 'img', 'favicons', 'favicon.ico')))
@@ -127,7 +124,7 @@ app.patch('/api/dbs/:dbName/collections/:collectionName/:id', function(req, res)
 
 if (require.main === module) {
   app.listen(port, function(){
-    console.log('mongoui is listening on: %s', port);
+    console.log('mongoui is listening on: %s', config.api.port);
   });
 } else {
   module.exports = app

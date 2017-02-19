@@ -3,12 +3,13 @@ let log = console.log
 let mocha = require('mocha')
 let expect = require('chai').expect
 let request = require('request')
-const {apiUrl, apiPort} = require('../package.json').mongoui
-let baseUrl = `${apiUrl}:${apiPort}`
+const config = require("../config").public;
+
+let baseUrl = `${config.api.protocol}://${config.api.host}:${config.api.port}`
 
 before((done)=>{
   let app = require('../index.js')
-  app.listen(3000, ()=>{
+  app.listen(config.api.port, ()=>{
     done()
   })
 })
