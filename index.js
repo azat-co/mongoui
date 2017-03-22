@@ -1,13 +1,17 @@
+#!/usr/bin/env node
 "use strict"
 
-let port = 3001
+let port = require('./package.json').mongoui.apiPort 
 let log = console.log
-let express = require('express')
-let bodyParser = require('body-parser')
-let compression = require('compression')
-let expressHandlebars = require('express-handlebars')
-let errorHandler = require('errorhandler')
-let cors = require('cors')
+const express = require('express')
+const bodyParser = require('body-parser')
+const compression = require('compression')
+const expressHandlebars = require('express-handlebars')
+const errorHandler = require('errorhandler')
+const cors = require('cors')
+
+const favicon = require('serve-favicon')
+const path = require('path')
 
 let config = require('./config.json')
 let mongoDb = require('mongodb')
@@ -26,15 +30,13 @@ if (config && config.database) {
 }
 
 var app = express()
+app.use(favicon(path.join(__dirname, 'public', 'img', 'favicons', 'favicon.ico')))
 app.use(errorHandler())
 app.use(cors({credential: false}))
 app.use(bodyParser.json())
-app.use(express.static('public'))
-app.use(compression())
+app.use(express.static(path.join(__dirname,'public')))
 
-app.get('/', function(req, res, next) {
-  res.status(200).render('Welcome to the MongoUI API. Please read the documentation on how to use the endpoints.')
-})
+app.use(compression())
 
 app.get('/api/dbs', function(req, res) {
   if (!req.admin) req.admin = mongoskin.db(`mongodb://${dbHostName}:${dbPortNumber}/${dbName}`).admin()
