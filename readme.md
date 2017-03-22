@@ -84,10 +84,10 @@ npm i
 ### Build and Run MongoUI in Regular Mode
 
 ```
-npm run build && npm start
+npm start
 ```
 
-Then, open <http://localhost:3001> in your favorite browser.
+Then, open <http://localhost:3001> in your favorite browser. Enjoy!
 
 
 ### Build and Run MongoUI in Development (Hot-Reload) Mode
@@ -95,13 +95,7 @@ Then, open <http://localhost:3001> in your favorite browser.
 Front-end development in one terminal:
 
 ```
-npm run dev-server
-```
-
-Back end development in another terminal:
-
-```
-npm start
+npm run start-dev
 ```
 
 

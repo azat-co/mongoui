@@ -3,8 +3,12 @@ let React = require('react')
 const navbarInstance = ()=>{
   return <Navbar inverse>
     <Navbar.Header>
-      <Navbar.Brand>
-        <a className="brand" href="/">mongoui <b className="badge badge-success">beta</b></a>
+      <Navbar.Brand >
+        <a className="brand" href="/" style={{paddingTop: 6.5, marginLeft: -73}}>
+          <img src="img/mongoui-linux.png" alt-text="mongoui" style={{width: 50, display: 'inline'}}/>
+          mongoui&nbsp;
+          <b className="badge badge-success">beta</b>
+        </a>
       </Navbar.Brand>
       <Navbar.Toggle />
     </Navbar.Header>
