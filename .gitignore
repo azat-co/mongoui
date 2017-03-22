@@ -1,5 +1,3 @@
 npm-debug.log
-config.json
-public/gen
-node_modules
 public/js
+node_modules

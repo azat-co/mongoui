@@ -1,7 +1,8 @@
 var { PageHeader } = require('react-bootstrap')
 let React = require('react')
 let request = require('request')
-let baseUrl = 'http://localhost:3001'
+const {apiUrl, apiPort} = require('../package.json').mongoui
+let baseUrl = `${apiUrl}:${apiPort}`
 let Doc = require('./doc.jsx')
 let Query = require('./query.jsx')
 let AddDoc = require('./add-doc.jsx')

@@ -15,4 +15,5 @@ ReactDOM.render(<Router history={hashHistory}>
       </Route>
     </Route>
   </Router>, document.getElementById('content'))
-module.hot.accept()
+
+if (module.hot) module.hot.accept()

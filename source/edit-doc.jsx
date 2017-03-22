@@ -37,23 +37,16 @@ const EditDoc = React.createClass({
   },
   deleteDoc() {
     let noParsingError = false
-    let doc = {}
-    try {
-      doc = JSON.parse(this.state.docStr)
-      noParsingError = true
-    } catch (error) {
-      this.setState({errorMessage: 'Delete Failed - something went wrong.' +error})
-    } finally {
-    }
-    if (noParsingError) {
-      this.props.deleteDoc(doc, this.props.index, (operationMessage)=>{
-        this.setState({operationMessage: operationMessage})
-        setTimeout(()=>{
-          this.setState({operationMessage: ''})
-        }, 400)
-      })
-      this.setState({ showModal: false, docStr: JSON.stringify(doc, null, 2) })
-    }
+    let doc = {_id: this.props.doc._id}
+    // We don't need to parse doc when deleting (it causes errors with binary fields), just use its ID
+    this.props.deleteDoc(doc, this.props.index, (operationMessage)=>{
+      this.setState({operationMessage: operationMessage})
+      setTimeout(()=>{
+        this.setState({operationMessage: ''})
+      }, 400)
+    })
+    this.setState({ showModal: false, docStr: JSON.stringify(doc, null, 2) })
+
   },
   cancel(){
     this.setState({docStr: JSON.stringify(this.props.doc, null, 2), showModal: false})
