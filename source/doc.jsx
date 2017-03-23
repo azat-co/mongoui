@@ -48,13 +48,9 @@ let Doc = React.createClass({
   },
   renderQueryKeys(queryKeys, doc){
     return queryKeys.map((key)=>{
-      if ((typeof doc[key] === 'string')&&(doc[key].length > 30)){
-        var truncatedValue = doc[key].slice(0, 30)
-        return <div key={key}><small>{key}: {truncatedValue}(...)</small></div>
-      }else{
-        return <div key={key}><small>{key} : {this.showValue(doc[key])}</small></div>  
-      }  
-
+      let displayValue = this.showValue(doc[key])
+      if ((typeof doc[key] === 'string')&&(doc[key].length > 22)){displayValue = doc[key].slice(0, 22) + "..."}
+      return <div key={key} className="query-key-btn"><small>{key}: {displayValue}</small></div>  
     })
   },
   render() {
@@ -64,12 +60,13 @@ let Doc = React.createClass({
       toggled: false,
       children: [doc]
     }
-    let keyValues = this.props.queryKeys //Object.keys(doc)
+    let keyValues = this.props.queryKeys
+    console.log("these are the key values", keyValues)
     return  <div className="doc">
       <div key={doc._id}>
         <Button bsStyle="link" onClick={this.toggleExpand} title={(this.state.expanded)? 'Collapse' : 'Expand'}>
           <div>{doc._id}</div>
-        {this.renderQueryKeys(keyValues, doc)}
+          {this.renderQueryKeys(keyValues, doc)}
         </Button>
         <span className="doc-btns">
           <EditDoc doc={doc} applyEditDoc={this.props.applyEditDoc} deleteDoc={this.props.deleteDoc} index={this.props.index}/>

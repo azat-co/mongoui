@@ -1,3 +1,8 @@
 .edit {
   cursor: text;
 }
+
+.query-key-btn{
+  width: 250px;
+  overflow: hidden;
+}
