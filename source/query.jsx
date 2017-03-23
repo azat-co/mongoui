@@ -148,7 +148,7 @@ const Query = React.createClass({
     )
     return (
       <div style={{display: 'inline'}}>
-      {(isQueryApplied)? <OverlayTrigger trigger={['hover', 'focus']} placement="top" defaultOverlayShown={true} overlay={popover}>
+      {(isQueryApplied)? <OverlayTrigger trigger={['hover', 'focus']} placement="top" overlay={popover}>
         {button}
 
         </OverlayTrigger>: button}
