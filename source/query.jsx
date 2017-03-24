@@ -35,6 +35,22 @@ const Query = React.createClass({
     let num = null
     let val = this.state.valueInput.trim()
     let keyInput = this.state.keyInput.trim()
+    // validate regular expressions - they will need to be constructed again from JSON string at index.js
+    try{
+      if ((val[0] == "R" && val[1] == "/") //arbitrary letter 'R' used by this app
+        && (val.length > 3)   //avoids a few corner cases
+        && ((val[(val.length - 1) ] == "/" ) || (val[(val.length - 2)] == "/") || (val[val.length - 3 ] == "/" )|| (val[val.length - 4 ] == "/"  ))
+      ){
+        var splitRegex = val.split("/")
+        var makeRegex = new RegExp( splitRegex[1], splitRegex[2])
+      }
+    }catch(error){
+      this.setState({errorMessage: 'Your RegExp Syntax could not be parsed'}, ()=>{
+          setTimeout(this.clearErrorMessage, 4000)
+      })  
+      return false
+    }
+    ///
     if (val == '' || keyInput == '') return false
     let enforceString = false
     if (val[0] == '"' && val[val.length-1]=='"') {

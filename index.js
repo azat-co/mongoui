@@ -84,7 +84,9 @@ app.get('/api/dbs/:dbName/collections/:collectionName', function(req, res, next)
       }
     }
   } catch (error) {
-    return next(new Error('Invalid query, cannot parse it'))
+    console.log("Invalid query, cannot parse it.")
+    query = {} // fail more gracefully.
+    // return next(new Error('Invalid query, cannot parse it'))
   }
   if (query._id) {
     if (query._id['$in'] && Array.isArray(query._id.$in)) {
