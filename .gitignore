@@ -1,3 +1,4 @@
 npm-debug.log
-public/js
+public/gen
+public/js/bundle.js
 node_modules
