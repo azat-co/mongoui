@@ -108,7 +108,7 @@ let Docs = React.createClass({
     let queryInfo = (
       <div >
         <h5><small>{docsQuantity} matches for query applied:</small></h5>
-        <div className="doc"><small>{JSON.stringify(this.state.query, null, 2)}</small></div>
+        <div><small>{JSON.stringify(this.state.query, null, 2)}</small></div>
       </div>
     )
     return <div>
