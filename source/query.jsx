@@ -182,7 +182,7 @@ const Query = React.createClass({
               {' '}
 
 
-              <Button type="submit" onClick={this.addCondition} title="Add/Update Condition" bsSize="small" bsStyle="success">
+              <Button onClick={this.addCondition} title="Add/Update Condition" bsSize="small" bsStyle="success">
                 <Glyphicon glyph="plus" />
               </Button>
               <Button  bsStyle="danger" onClick={this.removeCondition} title="Remove Condition by the key name" bsSize="small">
