@@ -5,7 +5,7 @@ const navbarInstance = ()=>{
     <Navbar.Header>
       <Navbar.Brand >
         <a className="brand" href="/" style={{paddingTop: 6.5, marginLeft: -73}}>
-          <img src="img/mongoui-linux.png" alt-text="mongoui" style={{width: 50, display: 'inline'}}/>
+          <img src="img/mongoui-linux.png" alt="mongoui" style={{width: 50, display: 'inline'}}/>
           mongoui&nbsp;
           <b className="badge badge-success">beta</b>
         </a>
