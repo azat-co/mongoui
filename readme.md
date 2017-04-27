@@ -4,12 +4,12 @@ MongoUI is an open-source web and desktop app which allows to administer local a
 
 Currently a standalone tool (run as an app locally or on your server); desktop app later. This is a brand new v2 of MongoUI. Old version use DerbyJS, then new version uses Webpack, React, React Router, React Bootstrap and of course Express and Node.
 
-MongoUI v2 looks like this:
+MongoUI v2 looks like this ([gif](https://raw.githubusercontent.com/azat-co/mongoui/master/mongoui.gif)):
 
-[![](https://raw.githubusercontent.com/azat-co/mongoui/master/demo-image.png)](https://raw.githubusercontent.com/azat-co/mongoui/master/demo.mp4)
+[![](MongoUI in action)](https://raw.githubusercontent.com/azat-co/mongoui/master/mongoui.gif)
 
 
-Here's a short **video** that shows filtering, editing, and switching collections:
+Here's another short **video** that shows filtering, editing, and switching collections:
 
 <https://github.com/azat-co/mongoui/blob/master/demo.mp4>
 
