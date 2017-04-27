@@ -6,7 +6,7 @@ Currently a standalone tool (run as an app locally or on your server); desktop a
 
 MongoUI v2 looks like this ([gif](https://raw.githubusercontent.com/azat-co/mongoui/master/mongoui.gif)):
 
-[![](MongoUI in action)](https://raw.githubusercontent.com/azat-co/mongoui/master/mongoui.gif)
+![](https://raw.githubusercontent.com/azat-co/mongoui/master/mongoui.gif)
 
 
 Here's another short **video** that shows filtering, editing, and switching collections:
