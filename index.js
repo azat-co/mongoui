@@ -16,11 +16,11 @@ let mongoDb = require('mongodb')
 let mongoskin = require('mongoskin')
 let OId = require('mongoskin').ObjectId
 
-let config = require("./config");
+let config = require('./config')
 
-const port = config.api.port;
+const port = config.api.port
 
-let dbHostName, dbPortNumber, dbName;
+let dbHostName, dbPortNumber, dbName
 
 dbHostName = config.database.host
 dbPortNumber = config.database.port
@@ -81,7 +81,7 @@ app.get('/api/dbs/:dbName/collections/:collectionName', function(req, res, next)
       }
     }
   } catch (error) {
-    console.log("Invalid query, cannot parse it.")
+    console.log('Invalid query, cannot parse it.')
     query = {} // fail more gracefully.
     // return next(new Error('Invalid query, cannot parse it'))
   }
