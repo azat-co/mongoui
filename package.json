@@ -23,11 +23,13 @@
   "dependencies": {
     "body-parser": "^1.15.0",
     "compression": "^1.6.1",
+    "convict": "^2.0.0",
     "cors": "^2.7.1",
     "deep-equal": "^1.0.1",
     "errorhandler": "^1.4.3",
     "express": "^4.13.4",
     "express-handlebars": "^3.0.0",
+    "getconfig": "^3.0.0",
     "mongodb": "^2.1.11",
     "mongoskin": "2.0.3",
     "neo-async": "1.8.0",
@@ -51,6 +53,7 @@
     "concurrently": "^2.2.0",
     "css-loader": "^0.23.1",
     "expect": "1.16.0",
+    "extended-define-webpack-plugin": "^0.1.2",
     "json-loader": "^0.5.4",
     "mocha": "2.4.5",
     "nodemon": "^1.9.1",
@@ -67,10 +70,6 @@
       "react",
       "es2015"
     ]
-  },
-  "mongoui": {
-    "apiPort": 3001,
-    "apiUrl": "http://localhost"
   },
   "license": "SEE IN LICENSE.md"
 }
