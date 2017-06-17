@@ -99,7 +99,7 @@ let Docs = React.createClass({
            this.setState({docs: docs});
            return callback('Document Deleted');
          }
-         callback('Error Deleting updating')
+         callback('Error Deleting Document')
      })
    },
   render() {
