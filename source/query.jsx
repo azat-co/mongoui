@@ -92,6 +92,11 @@ const Query = React.createClass({
     this.setState({query: {}}, ()=>{
       this.apply()
     })
+  },  
+  clearAllModal(){
+    this.setState({queryStr:""})
+    if (this.state.showEdit) { this.toggleEdit() }
+    this.setState({query:{}})
   },
   toggleEdit() {
     console.log('toggleEdit')
@@ -227,8 +232,9 @@ const Query = React.createClass({
 
           </Modal.Body>
           <Modal.Footer>
+            <Button onClick={this.clearAllModal} bsStyle="danger" className="pull-left">Clear All</Button>
             <Button onClick={this.cancel}>Close</Button>
-            <Button onClick={this.apply} bsStyle="primary">{(!this.state.showEdit)?'Close & Run Query': 'Parse query'}</Button>
+            <Button onClick={this.apply} bsStyle="primary">{(!this.state.showEdit)?'Close & Run Query': 'Parse Query'}</Button>
           </Modal.Footer>
         </Modal>
       </div>
