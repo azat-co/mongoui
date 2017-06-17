@@ -126,8 +126,12 @@ app.patch('/api/dbs/:dbName/collections/:collectionName/:id', function(req, res)
 
 if (require.main === module) {
   app.listen(port, function(){
-    console.log('mongoui API is listening on: %s', config.api.port);
-  });
+    if (process.env.NODE_ENV && process.env.NODE_ENV=='production') {
+      console.log('Mongoui web app is listening on: %s', config.api.port)
+    } else {
+      console.log('Mongoui API is listening on: %s', config.api.port)
+    }
+  })
 } else {
   module.exports = app
 }
