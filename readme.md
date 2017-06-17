@@ -151,11 +151,14 @@ Configurations are in the `config.json` file. Modify as needed (remote databases
 Via `git shortlog -s -n`:
 
 ```
-65  Azat Mardanov
-64  azat-co
-16  Azat Mardan
-14  cultofmetatron
- 1  Jan Carlo Viray
+    83  azat-co
+    67  Azat Mardan
+    65  Azat Mardanov
+    26  Tom2277
+    14  cultofmetatron
+    12  Will Hart
+     1  Sam Tobia
+     1  Jan Carlo Viray
 ```
 
 
