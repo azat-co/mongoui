@@ -36,17 +36,12 @@ const EditDoc = React.createClass({
     }
   },
   deleteDoc() {
-    let noParsingError = false
     let doc = {_id: this.props.doc._id}
-    // We don't need to parse doc when deleting (it causes errors with binary fields), just use its ID
     this.props.deleteDoc(doc, this.props.index, (operationMessage)=>{
-      this.setState({operationMessage: operationMessage})
-      setTimeout(()=>{
-        this.setState({operationMessage: ''})
-      }, 400)
+      // can't setState of a doc that no-longer exists. Message might be used in another way though.
+      console.log(operationMessage) //todo: insert modal 'Deleted' message elsewhere in DOM
     })
-    this.setState({ showModal: false, docStr: JSON.stringify(doc, null, 2) })
-
+    this.setState({ showModal: false})
   },
   cancel(){
     this.setState({docStr: JSON.stringify(this.props.doc, null, 2), showModal: false})
