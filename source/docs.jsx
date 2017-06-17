@@ -103,12 +103,21 @@ let Docs = React.createClass({
      })
    },
   render() {
+    let isQueryApplied = (JSON.stringify(this.state.query) != '{}')
+    let docsQuantity = this.state.docs.length || 0
+    let queryInfo = (
+      <div >
+        <h5><small>{docsQuantity} matches for query applied:</small></h5>
+        <div><small>{JSON.stringify(this.state.query, null, 2)}</small></div>
+      </div>
+    )
     return <div>
       <PageHeader>Docs: <small>{this.props.params.collectionName}</small>
         <span className="docs-btns">
           <AddDoc {...this.props} addDoc={this.addDoc}/><Query applyQuery={this.applyQuery} {...this.props} query={this.state.query}/>
         </span>
       </PageHeader>
+      { (isQueryApplied) ? queryInfo : "" }
       {/*<span>[{this.props.params.collectionName}]</span>*/}
 
       {this.state.docs.map((doc, index)=>{
