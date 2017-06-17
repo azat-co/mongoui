@@ -9,10 +9,9 @@ MongoUI v2 looks like this ([gif](https://raw.githubusercontent.com/azat-co/mong
 ![](https://raw.githubusercontent.com/azat-co/mongoui/master/mongoui.gif)
 
 
-Here's another short **video** that shows filtering, editing, and switching collections:
+Here's another short [**video**](https://vimeo.com/222012000) that shows filtering, editing, and switching collections:
 
-<https://github.com/azat-co/mongoui/blob/master/demo.mp4>
-
+[![](demo-image.png)](https://vimeo.com/222012000)
 
 
 
