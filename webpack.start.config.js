@@ -1,5 +1,9 @@
 var path = require('path')
 var webpack = require('webpack')
+var config = require('./config');
+
+var ExtendedDefinePlugin = require('extended-define-webpack-plugin');
+
 module.exports = {
   entry: [
     './source/app.jsx'
@@ -35,6 +39,14 @@ module.exports = {
     console: false,
     'coffee-script': 'mock'
   },
-  amd: { jQuery: true }
+  amd: { jQuery: true },
+  plugins: [
+    new ExtendedDefinePlugin({
+      "PUB_API_WINDOW": config.public.api.use_window_defaults,
+      "PUB_API_PROTO": config.public.api.protocol,
+      "PUB_API_HOST": config.public.api.host,
+      "PUB_API_PORT": config.public.api.port
+    }),
+  ]
 
 }

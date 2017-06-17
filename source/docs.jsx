@@ -1,11 +1,11 @@
 var { PageHeader } = require('react-bootstrap')
 let React = require('react')
 let request = require('request')
-const {apiUrl, apiPort} = require('../package.json').mongoui
-let baseUrl = `${apiUrl}:${apiPort}`
 let Doc = require('./doc.jsx')
 let Query = require('./query.jsx')
 let AddDoc = require('./add-doc.jsx')
+
+const API_URL = require("./base-url").API_URL;
 
 require('../public/css/docs.css')
 
@@ -21,7 +21,7 @@ let Docs = React.createClass({
     dbName = dbName || this.props.params.dbName
     collectionName = collectionName || this.props.params.collectionName
     query = query || this.props.location.query || {}
-    request({url: `${baseUrl}/api/dbs/${dbName}/collections/${collectionName}`,
+    request({url: `${API_URL}/api/dbs/${dbName}/collections/${collectionName}`,
       json: true,
       qs: {query: JSON.stringify(query)},
       withCredentials: false},
@@ -47,7 +47,7 @@ let Docs = React.createClass({
   addDoc(doc, ops, callback){
     request({
       method: 'POST',
-      url: `${baseUrl}/api/dbs/${this.props.params.dbName}/collections/${this.props.params.collectionName}/`,
+      url: `${API_URL}/api/dbs/${this.props.params.dbName}/collections/${this.props.params.collectionName}/`,
       json: doc,
       withCredentials: false},
       (error, response, body) =>{
@@ -70,7 +70,7 @@ let Docs = React.createClass({
   applyEditDoc(doc, index, callback){
     request({
       method: 'PATCH',
-      url: `${baseUrl}/api/dbs/${this.props.params.dbName}/collections/${this.props.params.collectionName}/${doc._id}`,
+      url: `${API_URL}/api/dbs/${this.props.params.dbName}/collections/${this.props.params.collectionName}/${doc._id}`,
       json: doc,
       withCredentials: false},
       (error, response, body) =>{
@@ -89,7 +89,7 @@ let Docs = React.createClass({
      console.log("got to deleteDoc within docs.jsx")
      request({
        method: 'DELETE',
-       url: `${baseUrl}/api/dbs/${this.props.params.dbName}/collections/${this.props.params.collectionName}/${doc._id}`,
+       url: `${API_URL}/api/dbs/${this.props.params.dbName}/collections/${this.props.params.collectionName}/${doc._id}`,
        json: doc,
        withCredentials: false},
        (error, response, body) =>{

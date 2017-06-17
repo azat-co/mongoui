@@ -1,15 +1,16 @@
 var webpack = require('webpack')
 var WebpackDevServer = require('webpack-dev-server')
-var config = require('./webpack.config')
+var webpackconfig = require('./webpack.config')
+var config = require("./config");
 
-new WebpackDevServer(webpack(config), {
-  publicPath: config.output.publicPath,
+new WebpackDevServer(webpack(webpackconfig), {
+  publicPath: webpackconfig.output.publicPath,
   hot: true,
   historyApiFallback: true,
   contentBase: 'public',
   inline: true,
   stats: { colors: true }
-}).listen(3000, 'localhost', function (err, result) {
+}).listen(config.dev.port, config.dev.host, function (err, result) {
   if (err) {
     return console.log(err)
   }

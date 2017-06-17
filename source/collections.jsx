@@ -1,7 +1,7 @@
 var {Label, PageHeader, Col} = require('react-bootstrap')
 let React = require('react')
 let request = require('request')
-let baseUrl = 'http://localhost:3001'
+const API_URL = require("./base-url").API_URL;
 
 module.exports = React.createClass({
   getInitialState(){
@@ -10,7 +10,7 @@ module.exports = React.createClass({
   },
   fetch(dbName){
     dbName = dbName || this.props.params.dbName
-    request({url: `${baseUrl}/api/dbs/${dbName}/collections`, json: true, withCredentials: false}, (error, response, body) =>{
+    request({url: `${API_URL}/api/dbs/${dbName}/collections`, json: true, withCredentials: false}, (error, response, body) =>{
       console.log(body);
       this.setState({collections: body.collections})
     })
