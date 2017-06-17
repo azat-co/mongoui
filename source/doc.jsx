@@ -30,21 +30,24 @@ let Doc = React.createClass({
     this.setState({ cursor: node });
   },
   renderObject(doc){
-    // console.log(doc);
     let margin = {marginLeft: 20}
     if (Array.isArray(doc)) return <div>{doc.map((item, index, list)=>{
       let last = (index==list.length-1) ? ']' : ','
       let first = (index == 0) ? '[' : ''
       if (typeof item == 'object') return <div key={index}><div>{first}{this.renderObject(item)}{last}</div></div>
       else return <div key={index} >{first}{this.showValue(item)} {last}</div>
-
     })}</div>
     else return <div>{Object.keys(doc).map((key)=>{
-      //doc[key] === Object(doc[key])
       if (typeof doc[key] == 'object' && doc[key] != null) return <div key={key}>{key}: <div style={{marginLeft: 20}}>{this.renderObject(doc[key])}</div></div>
       else return <div key={key}>{key}: {this.showValue(doc[key])}</div>
     })}</div>
-    // return <div key={key}>{key}: <pre>{JSON.stringify(obj[key], null, 2)}</pre></div>
+  },
+  renderMatchingQueryFields(queryKeys, doc){
+    return queryKeys.map((key)=>{
+      let displayValue = this.showValue(doc[key])
+      if ((typeof doc[key] === 'string')&&(doc[key].length > 22)){displayValue = doc[key].slice(0, 22) + "..."}
+      return <div key={key} className="query-key-btn"><small>{key}: {displayValue}</small></div>  
+    })
   },
   render() {
     let doc = this.props.doc
@@ -53,9 +56,13 @@ let Doc = React.createClass({
       toggled: false,
       children: [doc]
     }
+    let keyValues = this.props.queryKeys
     return  <div className="doc">
       <div key={doc._id}>
-        <Button bsStyle="link" onClick={this.toggleExpand} title={(this.state.expanded)? 'Collapse' : 'Expand'}>{doc._id} </Button>
+        <Button bsStyle="link" onClick={this.toggleExpand} title={(this.state.expanded)? 'Collapse' : 'Expand'}>
+          <div>{doc._id}</div>
+          {this.renderMatchingQueryFields(keyValues, doc)}
+        </Button>
         <span className="doc-btns">
           <EditDoc doc={doc} applyEditDoc={this.props.applyEditDoc} deleteDoc={this.props.deleteDoc} index={this.props.index}/>
           <CopyToClipboard text={JSON.stringify(doc, null, 2)} onCopy={()=>{

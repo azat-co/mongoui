@@ -112,7 +112,8 @@ let Docs = React.createClass({
       {/*<span>[{this.props.params.collectionName}]</span>*/}
 
       {this.state.docs.map((doc, index)=>{
-        return <Doc doc={doc} key={doc._id} index={index} applyEditDoc={this.applyEditDoc} deleteDoc={this.deleteDoc}/>
+
+        return <Doc doc={doc} key={doc._id} queryKeys= {Object.keys(this.state.query)}   index={index} applyEditDoc={this.applyEditDoc} deleteDoc={this.deleteDoc}/>
       })}
       <div>{this.props.children}</div>
     </div>
