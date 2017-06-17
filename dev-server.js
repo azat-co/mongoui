@@ -14,6 +14,5 @@ new WebpackDevServer(webpack(webpackconfig), {
   if (err) {
     return console.log(err)
   }
-
-  console.log('Listening at http://localhost:3000/')
+  console.log(`Dev server for MongoUI web app is listening at http://${config.dev.host}:${config.dev.port}/`)
 })
