@@ -30,7 +30,6 @@
     "express": "^4.13.4",
     "express-handlebars": "^3.0.0",
     "getconfig": "^3.0.0",
-    "globalog": "1.0.1",
     "mongodb": "^2.1.11",
     "mongoskin": "2.0.3",
     "neo-async": "1.8.0",
