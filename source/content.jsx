@@ -9,7 +9,7 @@ module.exports = React.createClass({
   },
   fetch(){
     request({url: `${API_URL}/api/dbs`, json: true, withCredentials: false}, (error, response, body) =>{
-      if (!body || !body.database) {
+      if (!body || !body.databases) {
         return console.error(new Error('No databases'))
       }
       console.log(body)      
