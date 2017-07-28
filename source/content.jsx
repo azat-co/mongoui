@@ -1,7 +1,7 @@
 var {Label, PageHeader, Col} = require('react-bootstrap')
 let React = require('react')
 let request = require('request')
-const API_URL = require("./base-url").API_URL;
+const API_URL = require("./base-url").API_URL
 
 module.exports = React.createClass({
   getInitialState(){
@@ -9,7 +9,10 @@ module.exports = React.createClass({
   },
   fetch(){
     request({url: `${API_URL}/api/dbs`, json: true, withCredentials: false}, (error, response, body) =>{
-      console.log(body);
+      if (!body || !body.database) {
+        return console.error(new Error('No databases'))
+      }
+      console.log(body)      
       this.setState({databases: body.databases})
     })
   },
@@ -24,6 +27,10 @@ module.exports = React.createClass({
     return <div>
       <Col md={2}>
         <PageHeader>Databases</PageHeader>
+        {(this.state.databases.length==0)? <div>      Connecting to the database...<br/>
+      If nothing happens, check that your database is running and accessible.<br/>
+      For example, with the command "mongod" the database will run on localhost:27017.<br/>
+      See more instructions at <a href="https://github.com/azat-co/mongoui" target="_blank">https://github.com/azat-co/mongoui</a></div>: ''}
         {this.state.databases.map((database)=>{
           return <p key={database.name}>
           {/*<Link to={`/dbs/${database.name}`}>{database.name}</Link>*/}

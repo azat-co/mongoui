@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 "use strict"
 
+const opn = require('opn')
+
 let log = console.log
 const express = require('express')
 const bodyParser = require('body-parser')
@@ -129,7 +131,9 @@ if (require.main === module) {
     if (process.env.NODE_ENV && process.env.NODE_ENV=='dev') {
       console.log('Mongoui API is listening on: %s', config.api.port)
     } else {
-      console.log('Mongoui web app is listening on: %s', config.api.port)
+      console.log('Mongoui web app is listening on: %s', config.api.port)    
+      // Opens the url in the default browser 
+      opn(`http://localhost:${config.api.port}`)
     }
   })
 } else {

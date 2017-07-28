@@ -10,7 +10,7 @@
     "url": "http://github.com/azat-co/mongoui.git"
   },
   "scripts": {
-    "start": "NODE_ENV=production npm run clean && npm run build && node_modules/.bin/concurrently 'node node_modules/.bin/nodemon index.js' 'node_modules/.bin/opn http://localhost:3001'",
+    "start": "NODE_ENV=production npm run clean && npm run build && node_modules/.bin/concurrently 'node node_modules/.bin/nodemon index.js'",
     "start-dev": "NODE_ENV=dev node_modules/.bin/concurrently 'npm run dev' 'npm run api-server' 'npm run dev-server' 'node_modules/.bin/opn http://localhost:3000'",
     "test": "mocha test",
     "clean": "rm -f ./public/js/bundle.js",
